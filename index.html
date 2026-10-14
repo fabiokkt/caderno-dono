@@ -4,118 +4,138 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Caderno de Dono(a)</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Caderno de Dono(a) · Minha empresa não anda sem mim · Protocolos da Prática">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Caderno">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141316" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800&display=swap">
 <style>
-:root{padding-bottom:env(safe-area-inset-bottom,0px)}
-[hidden]{display:none!important}
 /* Layout: uma coluna estreita, como uma página do caderno no celular; papel pontilhado, tinta azul no que a pessoa escreve. */
 :root {
-  --paper: #FAF8F4;
-  --dot: #DDD6C8;
-  --card: #FFFFFF;
-  --line: #E2DCD0;
-  --ink: #1D1C1A;
-  --ink2: #4A453D;
-  --muted: #776F64;
-  --accent: #7A1F33;
-  --accent-soft: #F6E9EB;
-  --pen: #2F3A8F;
-  --pen-soft: #ECEEF8;
-  --ok: #2E6B4F;
-  --warn: #8A5A00;
-  --warn-soft: #FBF1DC;
+  --paper: #FAF8F4; --dot: #DDD6C8; --card: #FFFFFF; --line: #E2DCD0; --ink: #1D1C1A; --ink2: #4A453D; --muted: #776F64;
+  --accent: #7A1F33; --accent-soft: #F6E9EB; --pen: #2F3A8F; --pen-soft: #ECEEF8; --ok: #2E6B4F; --warn: #8A5A00; --warn-soft: #FBF1DC;
+  --red: #B3261E;
   --f-display: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #141316; --dot: #2A2730; --card: #1D1B20; --line: #36323C; --ink: #F2EFEA; --ink2: #D2CCC3; --muted: #A0988D;
-    --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14;
+    --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #141316; --dot: #2A2730; --card: #1D1B20; --line: #36323C; --ink: #F2EFEA; --ink2: #D2CCC3; --muted: #A0988D;
-  --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14;
+  --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80;
   color-scheme: dark;
 }
+[hidden] { display: none !important; }
 * { box-sizing: border-box; }
+html, body { margin: 0; }
 body {
-  margin: 0; background-color: var(--paper); color: var(--ink); font: 400 16px/1.5 var(--f-body);
-  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 22px 22px;
-  -webkit-text-size-adjust: 100%;
+  background-color: var(--paper); color: var(--ink); font: 400 16px/1.5 var(--f-body);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 22px 22px; -webkit-text-size-adjust: 100%;
 }
-.wrap { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px; }
+.wrap { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 56px; }
 
 /* topo */
-.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); }
-.top .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.marca { display: flex; align-items: center; gap: 8px; font: 700 15px/1 var(--f-display); letter-spacing: -.01em; color: var(--ink); min-width: 0; }
+.top { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line);
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: calc(10px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); }
+.top .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.marca { display: flex; align-items: center; gap: 8px; font: 700 15px/1 var(--f-display); letter-spacing: -.01em; min-width: 0; }
 .marca svg { width: 11px; height: 19px; flex: none; }
+.marca span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dir-top { display: flex; align-items: center; gap: 10px; }
 .salvo { font: 500 12px/1 var(--f-body); color: var(--muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
 .salvo i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); display: inline-block; }
 .salvo.erro i { background: var(--warn); }
-.trilha { display: flex; gap: 4px; margin-top: 10px; }
+.bt-pag { font: 600 13px/1 var(--f-body); color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 999px; padding: 0 12px; min-height: 34px; cursor: pointer; }
+.trilha { display: flex; gap: 3px; margin-top: 10px; }
 .trilha button { flex: 1; height: 5px; border: 0; border-radius: 3px; background: var(--line); padding: 0; cursor: pointer; }
 .trilha button.feito { background: var(--accent); opacity: .45; }
 .trilha button.agora { background: var(--accent); }
-.aviso { margin-top: 10px; background: var(--warn-soft); color: var(--warn); border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.4; }
+.aviso { background: var(--warn-soft); color: var(--warn); border-radius: 12px; padding: 12px 14px; font-size: 15px; line-height: 1.45; }
+.top .aviso { margin-top: 10px; font-size: 14px; }
+
+/* índice */
+.indice { position: fixed; inset: 0; z-index: 20; background: var(--paper); overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.indice .in { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
+.indice .cab { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.indice h2 { font: 800 26px/1.1 var(--f-display); letter-spacing: -.02em; margin: 0; }
+.indice .grp { font: 600 11.5px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 14px 0 2px; }
+.indice .it { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; text-align: left; background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 12px; padding: 0 14px; min-height: 50px; font: 500 16px/1.25 var(--f-body); color: var(--ink); cursor: pointer; }
+.indice .it.agora { border-color: var(--accent); }
+.indice .it small { color: var(--muted); font-size: 13px; white-space: nowrap; }
 
 /* páginas */
 .pg { padding-top: 22px; display: flex; flex-direction: column; gap: 16px; }
 .eb { font: 600 12px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 h1 { font: 800 clamp(30px, 8.6vw, 40px)/1.02 var(--f-display); letter-spacing: -.03em; margin: 4px 0 0; text-wrap: balance; }
-h2 { font: 700 20px/1.2 var(--f-display); letter-spacing: -.015em; margin: 0; }
-.lead { font-size: 17px; line-height: 1.5; color: var(--ink2); margin: 0; max-width: 34em; }
+.lead { font-size: 17px; line-height: 1.5; color: var(--ink2); margin: 0; }
 .nota { font-size: 14px; line-height: 1.45; color: var(--muted); margin: 0; }
 .capa h1 { font-size: clamp(46px, 14vw, 64px); line-height: .94; letter-spacing: -.045em; }
 
-/* caixas */
+/* caixas e campos */
 .box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
 .box.forte { border: 1.5px solid var(--accent); }
 .box.ink { border: 1.5px solid var(--ink); }
-.campo { display: flex; flex-direction: column; gap: 4px; }
-.campo label, .rot { font: 600 11.5px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-input[type="text"], input[type="date"], input[type="number"], textarea {
-  width: 100%; font: 500 18px/1.3 var(--f-body); color: var(--pen); background: transparent;
-  border: 0; border-bottom: 1.5px solid var(--line); border-radius: 0; padding: 8px 2px 7px; min-height: 44px;
-  -webkit-appearance: none; appearance: none;
+.campo { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.campo > label, .rot { font: 600 11.5px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.rot.ac { color: var(--accent); }
+input[type="text"], input[type="date"], textarea.t {
+  width: 100%; font: 500 18px/1.35 var(--f-body); color: var(--pen); background: transparent;
+  border: 0; border-bottom: 1.5px solid var(--line); border-radius: 0; padding: 8px 2px 7px; min-height: 44px; -webkit-appearance: none; appearance: none;
 }
-input::placeholder, textarea::placeholder { color: var(--muted); opacity: .55; font-weight: 400; }
+textarea.t { resize: none; overflow: hidden; display: block; }
+input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+input[type="date"] { display: block; }
+.vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
 input:focus, textarea:focus { outline: none; border-bottom-color: var(--pen); background: var(--pen-soft); }
-textarea { min-height: 96px; font-size: 14px; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px; color: var(--ink2); }
+textarea.bk { width: 100%; min-height: 90px; font: 400 16px/1.4 ui-monospace, Menlo, monospace; color: var(--ink2); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px; background: transparent; }
 .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .g2 > * { min-width: 0; }
-.calc { font: 500 18px/1.3 var(--f-body); color: var(--pen); padding: 8px 2px 7px; border-bottom: 1.5px dashed var(--line); min-height: 44px; }
+.calc { font: 500 18px/1.3 var(--f-body); color: var(--pen); padding: 8px 2px 7px; border-bottom: 1.5px dashed var(--line); min-height: 44px; overflow-wrap: anywhere; }
+.calc.vz { color: var(--muted); font-weight: 400; font-size: 15px; }
+.linha { display: flex; align-items: flex-start; gap: 8px; }
+.linha .q { font-size: 14px; line-height: 21px; color: var(--ink2); white-space: nowrap; padding-top: 11px; }
+.linha .chip { margin-top: 4px; }
+.linha .mini { padding-top: 13px; }
+.linha input, .linha textarea { flex: 1; min-width: 0; }
+.chip { font: 600 14px/1 var(--f-body); border: 1.5px solid var(--pen); color: var(--pen); background: transparent; border-radius: 999px; padding: 0 14px; min-height: 36px; cursor: pointer; white-space: nowrap; }
+.chip.on { background: var(--pen); color: var(--card); }
+.chip.red { border-color: var(--red); color: var(--red); }
+.chip.red.on { background: var(--red); color: var(--card); }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.opts .chip { min-height: 36px; font-size: 14px; padding: 0 12px; }
+.vazia { color: var(--muted); font-size: 14px; padding: 2px 0; }
+.mini { font: 500 14px/1 var(--f-body); color: var(--muted); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 10px 0; }
 
 /* cadeiras */
 .cad { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 8px; }
 .cad.dir { border: 1.5px solid var(--accent); }
-.cad .nome { display: flex; align-items: center; justify-content: space-between; gap: 10px; font: 700 13px/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; }
+.cad .nome { font: 700 13px/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; }
 .cad .desc { font-size: 13.5px; color: var(--muted); line-height: 1.35; margin-top: -4px; }
-.linha { display: flex; align-items: flex-end; gap: 8px; }
-.linha .q { font-size: 14px; color: var(--ink2); white-space: nowrap; padding-bottom: 12px; }
-.linha input { flex: 1; min-width: 0; }
-.chip { font: 600 14px/1 var(--f-body); border: 1.5px solid var(--pen); color: var(--pen); background: transparent; border-radius: 999px; padding: 0 14px; min-height: 36px; cursor: pointer; white-space: nowrap; }
-.chip.on { background: var(--pen); color: var(--card); }
-.vazia { color: var(--muted); font-size: 14px; padding: 4px 0; }
 
-/* caixinha grande */
-.ck { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 16px; line-height: 1.4; color: var(--ink); padding: 6px 0; }
-.ck input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+/* caixinha */
+.ck { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 16px; line-height: 1.4; color: var(--ink); padding: 6px 0; position: relative; }
+.ck input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
 .ck .b { width: 26px; height: 26px; flex: none; border: 1.8px solid var(--muted); border-radius: 7px; display: grid; place-items: center; background: var(--card); margin-top: -1px; }
 .ck .b svg { width: 16px; height: 16px; opacity: 0; }
 .ck input:checked + .b { border-color: var(--pen); background: var(--pen-soft); }
 .ck input:checked + .b svg { opacity: 1; }
 .ck input:focus-visible + .b { outline: 3px solid var(--pen); outline-offset: 2px; }
 .ck small { display: block; color: var(--muted); font-size: 13px; }
-.cad .ck { padding: 2px 0 0; }
 
 /* ordem */
 .ord { display: flex; flex-direction: column; gap: 8px; }
@@ -131,234 +151,319 @@ textarea { min-height: 96px; font-size: 14px; border: 1.5px solid var(--line); b
 .res .big { font: 800 44px/1 var(--f-display); color: var(--pen); letter-spacing: -.03em; }
 .kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline; font-size: 15px; }
 .kv b { font-weight: 600; white-space: nowrap; }
-.kv span { color: var(--pen); font-weight: 500; min-width: 0; }
+.kv span { color: var(--pen); font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
 
-/* dia da semana */
+/* dias da semana */
 .dia { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
 .dia.forte { border: 1.5px solid var(--accent); }
 .dia .dh { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .dia .dn { font: 700 17px/1.2 var(--f-body); }
 .dia .dn span { color: var(--accent); }
 .dia .tm { font: 600 11px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-.tar { display: grid; grid-template-columns: 20px 1fr; gap: 6px; align-items: end; }
-.tar .n { font: 700 14px/1 var(--f-body); color: var(--accent); padding-bottom: 14px; }
+.num-l { display: grid; grid-template-columns: 20px 1fr; gap: 6px; align-items: start; }
+.num-l .n { font: 700 14px/21px var(--f-body); color: var(--accent); padding-top: 11px; }
 .chama { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
 .chama .topo2 { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.opts { display: flex; flex-wrap: wrap; gap: 6px; }
-.opts .chip { min-height: 34px; font-size: 13.5px; padding: 0 12px; }
-.mini { font: 500 13px/1 var(--f-body); color: var(--muted); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 8px 0; }
-.num { display: inline-flex; align-items: center; gap: 10px; }
-.num button { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--card); font: 600 20px/1 var(--f-body); color: var(--ink); cursor: pointer; }
-.num output { font: 700 24px/1 var(--f-display); color: var(--pen); min-width: 34px; text-align: center; font-variant-numeric: tabular-nums; }
+.stepper { display: inline-flex; align-items: center; gap: 10px; }
+.stepper button { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--card); font: 600 20px/1 var(--f-body); color: var(--ink); cursor: pointer; }
+.stepper output { font: 700 24px/1 var(--f-display); color: var(--pen); min-width: 34px; text-align: center; font-variant-numeric: tabular-nums; }
 .conta { display: flex; flex-direction: column; gap: 10px; }
 .conta .item { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px; }
-.conta .fixo { font: 700 24px/1 var(--f-display); color: var(--pen); min-width: 34px; text-align: center; }
+.conta .fixo { font: 700 24px/1 var(--f-display); color: var(--pen); min-width: 34px; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* terça */
+.terca { display: grid; grid-template-columns: 26px 1fr; gap: 6px 8px; align-items: start; }
+.terca .n { font: 800 22px/1 var(--f-display); color: var(--accent); padding-top: 12px; }
+.terca .c { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.terca textarea.nao { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* fichas (contratos, passo a passo, chamadas) */
+.ficha { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.ficha > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.ficha > summary::-webkit-details-marker { display: none; }
+.ficha > summary b { font: 700 17px/1.25 var(--f-body); }
+.ficha > summary small { display: block; color: var(--muted); font-size: 13.5px; font-weight: 400; }
+.ficha > summary .seta { color: var(--muted); font-size: 18px; transition: transform .15s; }
+.ficha[open] > summary .seta { transform: rotate(90deg); }
+.ficha .corpo { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+.txt { font-size: 16px; line-height: 1.55; color: var(--ink); }
+.txt input.inl { display: inline-block; width: 7.5em; min-height: 34px; padding: 2px 4px 3px; font-size: 16px; vertical-align: baseline; }
+.ent { display: grid; grid-template-columns: 20px 1fr; gap: 6px; }
+.ent b { color: var(--accent); }
+
+/* franquia */
+.regra { display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding: 14px 0; border-top: 1px solid var(--line); }
+.regra:first-child { border-top: 0; padding-top: 0; }
+.regra .k { font: 700 15px/1.3 var(--f-body); color: var(--muted); }
+.regra .t { font: 600 16px/1.35 var(--f-body); }
+.regra .a { font-size: 14px; line-height: 1.4; color: var(--ink2); margin-top: 4px; }
+.regra .a b { color: var(--accent); }
+.regra .nl { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.pill { display: inline-block; background: var(--accent); color: var(--card); font: 700 11px/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 6px 10px; }
 
 /* navegação no fim da página */
-.nav { display: flex; gap: 10px; margin-top: 8px; }
-.btn { flex: 1; min-height: 52px; border-radius: 14px; font: 600 16px/1 var(--f-body); cursor: pointer; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); padding: 0 16px; }
+.nav { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.btn { flex: 1; min-height: 52px; border-radius: 14px; font: 600 16px/1.2 var(--f-body); cursor: pointer; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); padding: 8px 16px; }
 .btn.pri { background: var(--accent); border-color: var(--accent); color: var(--card); }
-.btn:focus-visible, .chip:focus-visible, .ord button:focus-visible, .mini:focus-visible, .trilha button:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
-.btn[disabled] { opacity: .5; cursor: not-allowed; }
-
-/* listas de texto */
+.btn.sec { border-color: var(--pen); color: var(--pen); }
+.btn:focus-visible, .chip:focus-visible, .ord button:focus-visible, .mini:focus-visible, .trilha button:focus-visible, .bt-pag:focus-visible, .indice .it:focus-visible, .stepper button:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
 .ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .ol li { display: grid; grid-template-columns: 22px 1fr; gap: 6px; font-size: 15.5px; line-height: 1.45; color: var(--ink2); }
-.ol li b { color: var(--accent); }
-.sel { font-size: 13px; }
+.ol li > b { color: var(--accent); }
 .conf { background: var(--warn-soft); color: var(--warn); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
 .conf .nav { margin: 0; }
 .ok-msg { color: var(--ok); font-size: 14px; }
+a { color: var(--accent); }
 @media (prefers-reduced-motion: no-preference) { .pg { animation: entra .18s ease-out; } @keyframes entra { from { opacity: .4; transform: translateY(4px); } } }
-</style>
 
+/* impressão: só o caderno preenchido, em papel A4 */
+#imp { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  :root { --ink: #1D1C1A; --pen: #2F3A8F; --muted: #6F695F; --accent: #7A1F33; --line: #CFC8BA; --red: #B3261E; }
+  body { background: #fff !important; color: #1D1C1A; font-size: 10.5pt; }
+  .wrap, .indice { display: none !important; }
+  #imp { display: block; }
+  #imp h2 { font: 700 15pt/1.2 var(--f-display); margin: 0 0 6pt; break-after: avoid; }
+  #imp h3 { font: 600 8.5pt/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 10pt 0 4pt; break-after: avoid; }
+  #imp .sec { break-before: page; }
+  #imp .sec:first-child { break-before: auto; }
+  #imp .topo-imp { display: flex; justify-content: space-between; font: 600 7.5pt/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border-bottom: .6pt solid var(--line); padding-bottom: 5pt; margin-bottom: 10pt; }
+  #imp table { width: 100%; border-collapse: collapse; margin: 2pt 0 6pt; }
+  #imp th { font: 600 7.5pt/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 4pt 5pt; border-bottom: .6pt solid var(--line); }
+  #imp td { padding: 5pt; border-bottom: .5pt solid var(--line); vertical-align: top; font-size: 10pt; }
+  #imp .v { color: var(--pen); font-weight: 500; }
+  #imp p { margin: 3pt 0; }
+  #imp .ass { display: grid; grid-template-columns: 1fr 1fr; gap: 24pt; margin-top: 46pt; font-size: 8.5pt; color: var(--muted); }
+  #imp .ass div { border-top: .8pt solid var(--ink); padding-top: 4pt; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <div class="row">
-      <div class="marca"><svg viewBox="6.2 2.1 11.6 20.4" aria-hidden="true"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" fill="currentColor" style="color:var(--accent)"/><circle cx="12" cy="10.2" r="1.55" fill="var(--paper)"/><path d="M12 11.75 V20" stroke="var(--paper)" stroke-width="1.05" stroke-linecap="round"/></svg><span>Caderno de Dono(a)</span></div>
-      <span class="salvo" id="salvo" role="status"><i></i><span id="salvo-t">Salva no aparelho</span></span>
+      <div class="marca"><svg viewBox="6.2 2.1 11.6 20.4" aria-hidden="true"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" fill="var(--accent)"/><circle cx="12" cy="10.2" r="1.55" fill="var(--paper)"/><path d="M12 11.75 V20" stroke="var(--paper)" stroke-width="1.05" stroke-linecap="round"/></svg><span>Caderno de Dono(a)</span></div>
+      <div class="dir-top"><span class="salvo" id="salvo" role="status"><i></i><span id="salvo-t">Salvo</span></span><button class="bt-pag" data-acao="indice" aria-haspopup="dialog">Páginas</button></div>
     </div>
-    <nav class="trilha" id="trilha" aria-label="Páginas"></nav>
+    <nav class="trilha" id="trilha" aria-label="Caminho do caderno"></nav>
     <div class="aviso" id="aviso" hidden>Este navegador não está guardando o que você escreve (talvez seja uma janela privada). Abre num navegador normal pra não perder nada.</div>
   </header>
   <main id="pg"></main>
 </div>
+<div class="indice" id="indice" role="dialog" aria-modal="true" aria-label="Páginas do caderno" hidden></div>
+<div id="imp" aria-hidden="true"></div>
 
 <script>
 (() => {
-  const CHAVE = "caderno-dono-gerber-v1";
-  const PEN = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.8 6.4l2.6 2.7 5.8-6.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--pen)"/></svg>';
+  "use strict";
+  const CHAVE = "caderno-dono-gerber-v2", CHAVE_V1 = "caderno-dono-gerber-v1";
+  const NOME = "Minha empresa não anda sem mim";
+  const PEN = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.8 6.4l2.6 2.7 5.8-6.4" fill="none" stroke="var(--pen)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const CADS = [
-    ["direcao", "Direção", "Decide pra onde a empresa vai"],
-    ["vendas", "Vendas", "Fecha negócio e traz o dinheiro novo"],
-    ["atendimento", "Atendimento", "Responde o cliente antes e depois da venda"],
-    ["marketing", "Marketing", "Faz o cliente certo chegar até você"],
-    ["operacao", "Operação e entrega", "Faz e entrega o que foi vendido"],
-    ["pessoas", "Pessoas", "Contrata, treina e acompanha o time"],
-    ["compras", "Compras", "Negocia e compra o que a empresa usa"],
-    ["financeiro", "Financeiro", "Paga, cobra e sabe quanto sobrou"],
-    ["outra", "Outra", ""]
-  ];
-  const PAGS = [
-    ["capa", "Capa"], ["antes", "Antes de começar"], ["p1", "Dia 1 · Passo 1"], ["p2", "Dia 1 · Passo 2"],
-    ["p3", "Dia 1 · Passo 3"], ["p4", "Dia 1 · Passo 4"], ["s1", "Semana 1"], ["guardar", "Guardar"]
-  ];
-  const vazio = () => ({ capa: { de: "", empresa: "", comecei: "" }, cad: {}, outraNome: "", ordem: [],
-    s1: { de: "", ate: "", seg: {}, tarefas: ["", "", ""], ter: {}, cham: [], sexta: { hoje: null, cobre: false, prox: "", pquem: "", fim: false } }, pag: "capa" });
-  const EXEMPLO = {
-    capa: { de: "O dono do exemplo", empresa: "Exemplo do protocolo", comecei: "2026-10-02" },
-    cad: { direcao: { quem: "EU", fica: true }, vendas: { quem: "EU", fica: true }, atendimento: { quem: "EU", assume: "Paulo" },
-           marketing: { quem: "Bruna" }, operacao: { quem: "Carlos" }, pessoas: { quem: "EU" }, compras: { quem: "EU", assume: "Ana" }, financeiro: { quem: "EU" } },
-    outraNome: "", ordem: ["atendimento", "compras", "financeiro", "pessoas"],
-    s1: { de: "2026-10-05", ate: "2026-10-09", seg: { contrato: true, passo: true },
-          tarefas: ["Responder cliente no WhatsApp", "Anotar e resolver reclamação", "Avisar cliente de atraso"],
-          ter: { msg: true, leu: true, assin: true, mudanca: true },
-          cham: [{ dia: "Qua", quem: "Paulo", oque: "Cliente pediu desconto no frete", virou: "Passo a passo" },
-                 { dia: "Qui", quem: "Paulo", oque: "Troca fora do prazo", virou: "Contrato" }],
-          sexta: { hoje: 5, cobre: true, prox: "compras", pquem: "Ana", fim: true } }, pag: "capa" };
+    ["direcao", "Direção", "Decide pra onde a empresa vai"], ["vendas", "Vendas", "Fecha negócio e traz o dinheiro novo"],
+    ["atendimento", "Atendimento", "Responde o cliente antes e depois da venda"], ["marketing", "Marketing", "Faz o cliente certo chegar até você"],
+    ["operacao", "Operação e entrega", "Faz e entrega o que foi vendido"], ["pessoas", "Pessoas", "Contrata, treina e acompanha o time"],
+    ["compras", "Compras", "Negocia e compra o que a empresa usa"], ["financeiro", "Financeiro", "Paga, cobra e sabe quanto sobrou"], ["outra", "Outra", ""]];
+  const PRONTOS = {
+    Vendas: { ent: ["Proposta enviada em até 24 horas depois do pedido do cliente.", "Toda oportunidade anotada, com o próximo passo e a data.", "Meta de vendas do mês: [valor]."],
+      mede: "Propostas no prazo, oportunidades sem próximo passo e vendas fechadas no mês.", padrao: "Nenhuma oportunidade fica mais de 7 dias sem contato.", resp: "Direção" },
+    Financeiro: { ent: ["Contas pagas até o vencimento, sem juros.", "Cliente atrasado cobrado em até 2 dias úteis.", "Toda segunda, até as 10h, o saldo e as contas da semana na mão da Direção."],
+      mede: "Juros pagos no mês, valor em atraso e segundas sem o resumo.", padrao: "Nenhum pagamento sem nota e, acima de [valor], sem aprovação da Direção.", resp: "Direção" },
+    Compras: { ent: ["Nada falta pra operação.", "Três orçamentos pra toda compra acima de [valor].", "Pedido conferido na chegada: quantidade, preço e prazo."],
+      mede: "Vezes que faltou material no mês e compras grandes sem três orçamentos.", padrao: "Os [10] itens mais usados nunca abaixo do estoque mínimo.", resp: "Direção (ou Operação, se tiver gerente)" },
+    Atendimento: { ent: ["Cliente respondido em até 2 horas no horário comercial.", "Toda reclamação anotada e resolvida, ou passada pra quem resolve, no mesmo dia.", "Cliente avisado antes de qualquer atraso."],
+      mede: "Tempo de resposta e reclamações abertas há mais de 2 dias.", padrao: "Nenhum cliente termina o dia sem resposta.", resp: "Direção" } };
+  const FRANQUIA = [
+    ["Entrega o mesmo valor sempre: pro cliente, pro funcionário, pro fornecedor e pro banco.", "Escolhe o que o cliente mais elogia e escreve o que garante isso toda vez."],
+    ["Funciona com gente comum, não com gênio.", "Lista o que só o seu melhor funcionário sabe fazer. Cada item vira um passo a passo."],
+    ["Tudo tem lugar, e tudo tá no lugar.", "Escolhe um lugar (estoque, pasta, mesa) e define onde fica cada coisa."],
+    ["Todo trabalho tá escrito num passo a passo.", "Escreve o passo a passo da tarefa que mais te interrompe."],
+    ["O cliente recebe o mesmo atendimento toda vez.", "Escreve as 3 frases que todo cliente ouve no primeiro contato."],
+    ["Mesmo padrão de cor, roupa e lugar.", "Define o padrão de uniforme, fachada ou apresentação e confere uma vez por semana."]];
+  const VIROU = ["Passo a passo", "Contrato", "Nada ainda"], VIROU_D = ["Passo a passo", "Contrato", "Cadeira nova", "Nada ainda"];
+
+  // ---------------------------------------------------------------- estado
+  const semana = () => ({ de: "", ate: "", seg: {}, tarefas: ["", "", ""], ter: {}, cham: [], sexta: { hoje: null, cobre: false, prox: "", pquem: "", fim: false } });
+  const vazio = () => ({ v: 2, pag: "capa", capa: { de: "", empresa: "", comecei: "" }, cad: {}, outraNome: "", ordem: [],
+    terca: Array.from({ length: 5 }, () => ({ t: "", nao: false })), sem: [semana(), semana(), semana(), semana()],
+    d30: { hoje: null, s1: false, s2: false, consigo: [false, false, false, false, false], terca: "", prox: "", pquem: "", travou: "" },
+    contratos: [], passos: [], chamadas: [], franquia: { notas: [null, null, null, null, null, null], low: ["", ""] } });
+  const completa = n => {
+    const b = vazio(), S = Object.assign(b, n || {});
+    S.capa = Object.assign(vazio().capa, S.capa); S.d30 = Object.assign(vazio().d30, S.d30); S.franquia = Object.assign(vazio().franquia, S.franquia);
+    while (S.terca.length < 5) S.terca.push({ t: "", nao: false });
+    S.sem = (S.sem && S.sem.length ? S.sem : [semana(), semana(), semana(), semana()]).map(s => { const x = Object.assign(semana(), s); x.sexta = Object.assign(semana().sexta, s.sexta); return x; });
+    while (S.sem.length < 4) S.sem.push(semana());
+    return S;
+  };
+  const EXEMPLO = () => {
+    const S = vazio();
+    S.capa = { de: "O dono do exemplo", empresa: "Exemplo do protocolo", comecei: "2026-10-02" };
+    S.cad = { direcao: { quem: "EU", fica: true }, vendas: { quem: "EU", fica: true }, atendimento: { quem: "EU", assume: "Paulo" }, marketing: { quem: "Bruna" },
+      operacao: { quem: "Carlos" }, pessoas: { quem: "EU" }, compras: { quem: "EU", assume: "Ana" }, financeiro: { quem: "EU" } };
+    S.ordem = ["atendimento", "compras", "financeiro", "pessoas"];
+    S.terca = [["6h · Acordo sem despertador e corro 40 minutos.", false], ["8h · Levo as crianças na escola. Treino até as 9h30.", true],
+      ["10h às 15h · Gerentes, vendas grandes e o número da semana.", false], ["15h · Saio da empresa. Busco as crianças às 17h.", true], ["21h · Celular desligado. Leio antes de dormir.", true]].map(([t, nao]) => ({ t, nao }));
+    const tudo = { seg: { contrato: true, passo: true }, ter: { msg: true, leu: true, assin: true, mudanca: false } };
+    S.sem = [
+      Object.assign(semana(), tudo, { de: "2026-10-05", ate: "2026-10-09", ter: { msg: true, leu: true, assin: true, mudanca: true }, tarefas: ["Responder cliente no WhatsApp", "Anotar e resolver reclamação", "Avisar cliente de atraso"],
+        cham: [{ dia: "Qua", quem: "Paulo", oque: "Cliente pediu desconto no frete", virou: "Passo a passo" }, { dia: "Qui", quem: "Paulo", oque: "Troca fora do prazo", virou: "Contrato" }],
+        sexta: { hoje: 5, cobre: true, prox: "compras", pquem: "Ana", fim: true } }),
+      Object.assign(semana(), tudo, { de: "2026-10-12", ate: "2026-10-16", tarefas: ["Cotar com 3 fornecedores", "Conferir pedido na chegada", "Repor o estoque mínimo"],
+        cham: [{ dia: "Qua", quem: "Ana", oque: "Fornecedor mandou preço novo", virou: "Passo a passo" }, { dia: "Qui", quem: "Carlos", oque: "Faltou embalagem pra entrega", virou: "Contrato" }],
+        sexta: { hoje: 4, cobre: true, prox: "financeiro", pquem: "Juliana", fim: true } }),
+      Object.assign(semana(), tudo, { de: "2026-10-19", ate: "2026-10-23", tarefas: ["Fechar o caixa do dia", "Cobrar cliente atrasado", "Pagar as contas da semana"],
+        cham: [{ dia: "Qua", quem: "Juliana", oque: "Fornecedor pediu pagamento adiantado", virou: "Contrato" }, { dia: "Qui", quem: "Juliana", oque: "R$ 40 de diferença no caixa", virou: "Passo a passo" }],
+        sexta: { hoje: 3, cobre: true, prox: "teste", pquem: "Paulo, Ana e Juliana", fim: true } }),
+      Object.assign(semana(), { de: "2026-10-26", ate: "2026-10-30", ter: { teste: true }, tarefas: ["Revisar os 3 contratos", "Deixar os passo a passo na pasta", "Mandar a mensagem do teste"],
+        cham: [{ dia: "Qua", quem: "Paulo", oque: "Cliente pediu prazo maior", virou: "Passo a passo" }, { dia: "Qua", quem: "Ana", oque: "Compra acima de R$ 10 mil", virou: "Contrato" }, { dia: "Qui", quem: "Juliana", oque: "Boleto vencido de fornecedor", virou: "Nada ainda" }],
+        sexta: { hoje: 3, cobre: true, prox: "pessoas", pquem: "Vaga aberta", fim: true } })];
+    S.d30 = { hoje: 3, s1: true, s2: true, consigo: [false, false, false, true, true], terca: "Saio às 15h na terça e na quinta. Almoço sem o celular na mesa.", prox: "pessoas", pquem: "Vaga aberta", travou: "" };
+    S.contratos = [
+      { id: 1, modelo: "Atendimento", cad: "Atendimento", quem: "Paulo", data: "2026-10-06", val: {}, ajustes: ["06/10 · WhatsApp: resposta em até 1 hora.", "09/10 · Troca fora do prazo: só com aprovação da Direção."] },
+      { id: 2, modelo: "Compras", cad: "Compras", quem: "Ana", data: "2026-10-13", val: { "ent1_0": "R$ 5 mil", "padrao_0": "15" }, ajustes: ["16/10 · Pedido de embalagem até quarta, pra entrega de sexta.", "30/10 · Compra acima de R$ 10 mil: só com a Direção."] },
+      { id: 3, modelo: "Financeiro", cad: "Financeiro", quem: "Juliana", data: "2026-10-20", val: { "padrao_0": "R$ 2 mil" }, ajustes: ["23/10 · Pagamento adiantado: só com aprovação da Direção."] },
+      { id: 4, modelo: "Vendas", cad: "Vendas", quem: "EU (fica comigo)", data: "2026-10-05", val: { "ent2_0": "R$ 80 mil" }, ajustes: ["Proposta acima de R$ 50 mil: em até 48 horas."] },
+      { id: 5, modelo: "", cad: "Pessoas", quem: "Vaga aberta. Até lá, EU", data: "", ent: ["Vaga aberta com a descrição da cadeira em até 5 dias.", "Quem entra recebe o passo a passo da 1ª semana.", "Conversa de 15 minutos com cada um, todo mês."],
+        mede: "Dias com a vaga aberta e conversas feitas no mês.", padrao: "Ninguém começa sem o passo a passo da 1ª semana.", resp: "Direção", rev: "30 dias", val: {}, ajustes: [] }];
+    S.passos = [{ id: 1, tarefa: "Fechar o caixa do dia", cad: "Financeiro", quem: "Juliana", tempo: "15 minutos", quando: "Todo dia, às 17h30",
+      passos: ["Abre o extrato do banco e o controle de caixa.", "Lança cada entrada e cada saída do dia, com o número da nota.", "Confere se o saldo do controle é igual ao do banco.",
+        "Bateu? Marca “fechado” e manda o print do saldo no grupo da Direção.", "Não bateu? Procura o lançamento que falta nos últimos 3 dias.", "Não achou em 15 minutos? Manda a diferença pra Direção e fecha amanhã cedo.", "", ""],
+      pronto: "O saldo do controle é igual ao do banco e o print foi enviado.", errado: "Diferença acima de R$ 100: a Direção fica sabendo no mesmo dia.", escrito: "2026-10-19", rev: "2026-11-19" }];
+    S.chamadas = [{ data: "2026-10-28", cad: "Atendimento", quem: "Paulo", oque: "Cliente pediu prazo maior", virou: "Passo a passo", escrevi: true },
+      { data: "2026-10-28", cad: "Compras", quem: "Ana", oque: "Compra acima de R$ 10 mil", virou: "Contrato", escrevi: true },
+      { data: "2026-10-29", cad: "Financeiro", quem: "Juliana", oque: "Boleto vencido de fornecedor", virou: "Nada ainda", escrevi: false }];
+    S.franquia = { notas: [6, 5, 4, 2, 5, 7], low: ["4 · Todo trabalho tá escrito num passo a passo.", "Escrever o passo a passo do fechamento do caixa."] };
+    return S;
+  };
 
   let S, guarda = true;
-  try { S = JSON.parse(localStorage.getItem(CHAVE)) || vazio(); } catch (e) { S = vazio(); }
-  try { localStorage.setItem(CHAVE + "-teste", "1"); localStorage.removeItem(CHAVE + "-teste"); } catch (e) { guarda = false; }
-  S = Object.assign(vazio(), S); S.s1 = Object.assign(vazio().s1, S.s1); S.s1.sexta = Object.assign(vazio().s1.sexta, S.s1.sexta);
+  try {
+    const v2 = localStorage.getItem(CHAVE);
+    if (v2) S = completa(JSON.parse(v2));
+    else { const v1 = JSON.parse(localStorage.getItem(CHAVE_V1) || "null"); S = vazio();
+      if (v1) { S = completa({ capa: v1.capa, cad: v1.cad, outraNome: v1.outraNome, ordem: v1.ordem }); if (v1.s1) S.sem[0] = Object.assign(semana(), v1.s1, { sexta: Object.assign(semana().sexta, v1.s1.sexta) }); } }
+  } catch (e) { S = vazio(); }
+  try { localStorage.setItem(CHAVE + "-t", "1"); localStorage.removeItem(CHAVE + "-t"); } catch (e) { guarda = false; }
 
+  // ---------------------------------------------------------------- utilidades
   const $ = (q, r = document) => r.querySelector(q);
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const cad = k => (S.cad[k] = S.cad[k] || {});
-  const nomeCad = k => k === "outra" ? (S.outraNome.trim() || "Outra") : CADS.find(c => c[0] === k)[1];
+  const nomeCad = k => k === "teste" ? "Teste da ausência" : k === "outra" ? ((S.outraNome || "").trim() || "Outra") : (CADS.find(c => c[0] === k) || [k, k])[1];
   const eu = k => (cad(k).quem || "").trim().toUpperCase() === "EU";
   const comEu = () => CADS.map(c => c[0]).filter(eu);
   const passaveis = () => comEu().filter(k => !cad(k).fica);
   const comNome = () => passaveis().filter(k => (cad(k).assume || "").trim());
   const semNome = () => passaveis().filter(k => !(cad(k).assume || "").trim());
   const ordem = () => S.ordem.filter(k => passaveis().includes(k));
-  const primeira = () => ordem()[0] || "";
-
-  let tSalvo;
-  function salva() {
-    if (!guarda) { $("#aviso").hidden = false; $("#salvo").classList.add("erro"); $("#salvo-t").textContent = "Não está salvando"; return; }
-    try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { guarda = false; return salva(); }
-    const h = new Date(); $("#salvo-t").textContent = "Salvo " + h.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-    clearTimeout(tSalvo); tSalvo = setTimeout(() => { $("#salvo-t").textContent = "Salvo no aparelho"; }, 4000);
-  }
-
-  // datas: o dia 1 é o dia em que começa; o dia 30 é 29 dias depois; a semana 1 começa na segunda seguinte
-  const iso = d => d.toISOString().slice(0, 10);
+  const iso = d => { const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10); };
   const soma = (s, n) => { const d = new Date(s + "T12:00:00"); d.setDate(d.getDate() + n); return iso(d); };
   const br = s => s ? s.split("-").reverse().join("/") : "";
-  const segunda = s => { const d = new Date(s + "T12:00:00"); const w = d.getDay(); d.setDate(d.getDate() + ((8 - w) % 7 || 7)); return iso(d); };
+  const brc = s => s ? s.split("-").reverse().slice(0, 2).join("/") : "";
+  const segundaDepois = s => { const d = new Date(s + "T12:00:00"); const w = d.getDay(); d.setDate(d.getDate() + (w === 1 ? 7 : (8 - w) % 7)); return iso(d); };
+  const pega = p => p.split(".").reduce((o, k) => (o == null ? o : o[k]), S);
+  const poe = (p, v) => { const ks = p.split("."); let o = S; for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = {}; o = o[ks[i]]; } o[ks[ks.length - 1]] = v; };
 
-  function campo(id, rot, val, extra = "") {
-    return `<div class="campo"><label for="${id}">${rot}</label><input type="text" id="${id}" value="${esc(val)}" autocomplete="off" ${extra}></div>`;
+  // semana k (0..n-1): cadeira, quem, datas e contas
+  const semCad = k => k === 0 ? (ordem()[0] || "") : (S.sem[k - 1].sexta.prox || "");
+  const semQuem = k => k === 0 ? ((cad(ordem()[0] || "x").assume) || "") : (S.sem[k - 1].sexta.pquem || "");
+  const ehTeste = k => semCad(k) === "teste";
+  const feitas = k => { const out = []; for (let j = 0; j <= k; j++) { const c = semCad(j); if (c && c !== "teste") out.push(c); } return out; };
+  const restantes = k => ordem().filter(c => !feitas(k).includes(c));
+  const hojeAntes = k => k === 0 ? comEu().length : (S.sem[k - 1].sexta.hoje ?? comEu().length);
+  function datasSemana(k) {
+    const s = S.sem[k];
+    if (!s.de) { const base = k === 0 ? (S.capa.comecei ? segundaDepois(S.capa.comecei) : "") : (S.sem[k - 1].de ? soma(S.sem[k - 1].de, 7) : ""); if (base) { s.de = base; s.ate = soma(base, 4); } }
+    if (s.sexta.hoje == null) s.sexta.hoje = Math.max(hojeAntes(k) - (ehTeste(k) ? 0 : 1), 0);
   }
-  function caixa(id, txt, on, sub = "") {
-    return `<label class="ck" for="${id}"><input type="checkbox" id="${id}" ${on ? "checked" : ""}><span class="b">${PEN}</span><span>${txt}${sub ? `<small>${sub}</small>` : ""}</span></label>`;
-  }
-  function nav(ant, prox, rotProx = "Próximo") {
-    return `<div class="nav">${ant ? `<button class="btn" data-ir="${ant}">Voltar</button>` : ""}${prox ? `<button class="btn pri" data-ir="${prox}">${rotProx}</button>` : ""}</div>`;
-  }
+  const saidas = () => S.sem.map((s, k) => ({ k, c: semCad(k), q: semQuem(k), d: s.de ? soma(s.de, 1) : "", ok: !!s.ter.assin })).filter(x => x.c && x.c !== "teste" && x.ok);
 
+  // ---------------------------------------------------------------- páginas
+  const PRINCIPAL = () => ["capa", "antes", "d1a", "d1b", "d1c", "d1d", "terca", ...S.sem.map((_, k) => "s" + k), "d30"];
+  const ANEXOS = ["contratos", "passos", "chamadas", "franquia", "guardar"];
+  const TITULO = p => ({ capa: "Capa", antes: "Antes de começar", d1a: "Dia 1 · Escreve EU", d1b: "Dia 1 · O que fica com você", d1c: "Dia 1 · Quem assumiria",
+    d1d: "Dia 1 · Qual sai primeiro", terca: "Dia 1 · A terça daqui a 5 anos", d30: "Dia 30 · Funcionou?", contratos: "Anexos A e B · Contratos", passos: "Anexo C · Passo a passo",
+    chamadas: "Anexo D · Me chamaram", franquia: "Anexo E · As 6 regras da franquia", guardar: "Guardar, PDF e lembretes" }[p] || ("Semana " + (+p.slice(1) + 1) + (semCad(+p.slice(1)) ? " · " + nomeCad(semCad(+p.slice(1))) : "")));
+  const seguinte = p => { const L = [...PRINCIPAL(), ...ANEXOS]; const i = L.indexOf(p); return [L[i - 1] || "", L[i + 1] || ""]; };
+
+  const um = (id, bind, ph = "", extra = "") => `<textarea class="t um" id="${id}" data-b="${bind}" rows="1" placeholder="${esc(ph)}" autocomplete="off" enterkeyhint="done" ${extra}>${esc(pega(bind))}</textarea>`;
+  const campo = (id, rot, bind, ph = "", extra = "") => `<div class="campo"><label for="${id}">${rot}</label>${um(id, bind, ph, extra)}</div>`;
+  const data = (id, rot, bind) => `<div class="campo"><label for="${id}">${rot}</label><input type="date" id="${id}" data-b="${bind}" value="${esc(pega(bind))}"></div>`;
+  const texto = (id, bind, ph = "", rot = "") => `<textarea class="t" id="${id}" data-b="${bind}" rows="1" placeholder="${esc(ph)}" ${rot ? `aria-label="${esc(rot)}"` : ""}>${esc(pega(bind))}</textarea>`;
+  const caixa = (id, txt, bind, sub = "") => `<label class="ck" for="${id}"><input type="checkbox" id="${id}" data-b="${bind}" ${pega(bind) ? "checked" : ""}><span class="b">${PEN}</span><span>${txt}${sub ? `<small>${sub}</small>` : ""}</span></label>`;
+  const linha = (id, rot, bind, ph = "") => `<div class="linha"><label class="q" for="${id}">${rot}</label>${um(id, bind, ph, 'autocapitalize="sentences"')}</div>`;
+  const stepper = (bind, rot) => `<span class="stepper"><button data-num="${bind}" data-d="-1" aria-label="${rot}: menos um">−</button><output data-out="v:${bind}">${pega(bind) ?? "—"}</output><button data-num="${bind}" data-d="1" aria-label="${rot}: mais um">+</button></span>`;
+  function nav(p, rotProx) {
+    const [a, b] = seguinte(p);
+    return `<div class="nav">${a ? `<button class="btn" data-ir="${a}">Voltar</button>` : ""}${b ? `<button class="btn pri" data-ir="${b}">${rotProx || "Próximo"}</button>` : ""}</div>`;
+  }
   const P = {};
-  P.capa = () => {
-    const fim = S.capa.comecei ? br(soma(S.capa.comecei, 29)) : "";
-    return `<section class="pg capa">
-      <div class="eb">Protocolo · Minha empresa não anda sem mim</div>
-      <div class="aviso" id="instala" hidden><b>Antes de preencher:</b> toca em Compartilhar (o quadrado com a seta pra cima) e depois em “Adicionar à Tela de Início”. Abre o caderno pelo ícone novo e preenche por lá. O que você escrever aqui no Safari não aparece no ícone.</div>
-      <h1>Caderno<br>de Dono(a).</h1>
-      <p class="lead">30 dias pra tirar o seu nome das cadeiras da empresa. Uma cadeira por semana, aqui no celular.</p>
-      <div class="box ink">
-        ${campo("capa-de", "Este caderno é de", S.capa.de, 'data-k="capa.de" placeholder="Seu nome"')}
-        ${campo("capa-empresa", "Empresa", S.capa.empresa, 'data-k="capa.empresa" placeholder="Nome da empresa"')}
-        <div class="g2">
-          <div class="campo"><label for="capa-comecei">Comecei em</label><input type="date" id="capa-comecei" value="${esc(S.capa.comecei)}" data-k="capa.comecei"></div>
-          <div class="campo"><span class="rot">O dia 30 cai em</span><div class="calc" id="dia30">${fim || "&nbsp;"}</div></div>
-        </div>
-        <p class="nota">O dia 1 é o dia em que você começa, não o começo do mês. Os 30 dias contam daqui.</p>
-      </div>
-      ${nav("", "antes", "Começar")}
-      <p class="nota">Inspirado em Michael Gerber · Fabio Takahashi · Prática Business</p>
-    </section>`;
-  };
-  P.antes = () => `<section class="pg">
-      <div class="eb">Antes do dia 1</div>
-      <h1>Antes de começar</h1>
-      <div class="box">
-        <div class="rot" style="color:var(--accent)">Onde fica o que você escreve</div>
-        <ul class="ol">
-          <li><b>1</b><span>Tudo fica salvo neste celular, na hora, sem botão. Nada vai pra internet, nem os nomes do seu time.</span></li>
-          <li><b>2</b><span><b style="color:var(--ink)">Põe na Tela de Início antes de preencher.</b> No iPhone: Compartilhar e “Adicionar à Tela de Início”. No Android: menu ⋮ e “Adicionar à tela inicial”. Vira um ícone, como app, e o celular não apaga o que você escreveu.</span></li>
-          <li><b>3</b><span>Trocou de celular? Faz uma cópia de segurança na última página e restaura no novo.</span></li>
-        </ul>
-      </div>
-      <div class="box">
-        <div class="rot" style="color:var(--accent)">Como usar</div>
-        <ul class="ol">
-          <li><b>1</b><span>Uma página por vez: o dia 1 em 4 passos, uma página por semana e o dia 30.</span></li>
-          <li><b>2</b><span>O Exemplo Comentado mostra cada página preenchida e explicada. Lá, o que fica com o dono aparece riscado e a primeira cadeira, circulada.</span></li>
-          <li><b>3</b><span>O caderno deste protocolo foi feito pra escrever à mão, de propósito. Se der, imprime a versão em papel: ainda é o ideal.</span></li>
-        </ul>
-      </div>
-      <div class="box" id="exemplo-box">
-        <div class="rot">Quer ver funcionando antes?</div>
-        <p class="nota" style="color:var(--ink2)">Preenche tudo com o exemplo do protocolo (o mesmo do Exemplo Comentado). Depois é só apagar e começar o seu.</p>
-        <div class="nav" style="margin:0"><button class="btn" data-acao="exemplo">Carregar o exemplo</button></div>
-      </div>
-      ${nav("capa", "p1", "Ir pro dia 1")}
-    </section>`;
 
-  P.p1 = () => {
-    const cs = CADS.map(([k, n, d]) => {
-      const c = cad(k), isEu = eu(k);
-      const nome = k === "outra"
-        ? `<div class="campo"><label for="outra-nome">Outra cadeira</label><input type="text" id="outra-nome" value="${esc(S.outraNome)}" data-k="outraNome" placeholder="Nome da cadeira, se tiver"></div>`
-        : `<div class="nome"><span>${n}</span></div>${d ? `<div class="desc">${d}</div>` : ""}`;
-      return `<div class="cad${k === "direcao" ? " dir" : ""}">${nome}
-        <div class="linha"><label class="q" for="q-${k}">Quem senta hoje:</label><input type="text" id="q-${k}" value="${esc(c.quem)}" data-cad="${k}" data-f="quem" autocomplete="off" autocapitalize="words">
-        <button class="chip${isEu ? " on" : ""}" data-eu="${k}" aria-pressed="${isEu}">EU</button></div></div>`;
-    }).join("");
-    return `<section class="pg">
-      <div class="eb">Dia 1 · Passo 1 de 4 · 10 min</div>
-      <h1>Escreve EU</h1>
-      <p class="lead">Em cada cadeira, quem faz esse trabalho hoje. Onde for você, toca em <b style="color:var(--pen)">EU</b>. Vale se você faz isso toda semana, mesmo com alguém “ajudando”.</p>
-      ${cs}
-      <div class="res"><div class="rot">Seu nome tá em</div><div><span class="big" id="conta-eu">${comEu().length}</span> <span class="nota" style="display:inline">cadeiras, contando a Direção</span></div></div>
-      ${nav("antes", "p2")}
-    </section>`;
-  };
-  P.p2 = () => {
-    const ks = comEu();
-    const lista = ks.length ? ks.map(k => `<div class="cad${k === "direcao" ? " dir" : ""}"><div class="nome"><span>${esc(nomeCad(k))}</span></div>
-        ${caixa("fica-" + k, "Fica comigo", cad(k).fica, k === "direcao" ? "A Direção é sua: decide pra onde a empresa vai." : "")}</div>`).join("")
-      : `<p class="vazia">Nenhuma cadeira com EU ainda. Volta no passo 1.</p>`;
-    return `<section class="pg">
-      <div class="eb">Dia 1 · Passo 2 de 4</div>
-      <h1>O que fica com você</h1>
-      <p class="lead">Marca “Fica comigo” na Direção e, no máximo, em mais uma: a que só você faz bem hoje. As outras são as que vão sair do seu nome.</p>
-      ${lista}
-      <div class="aviso" id="muitas" hidden>Mais de uma além da Direção? Escolhe só uma: a que, se sair de você hoje, a empresa perde. As outras vão ficar prontas pra passar depois.</div>
-      ${nav("p1", "p3")}
-    </section>`;
-  };
-  P.p3 = () => {
-    const ks = passaveis();
-    const lista = ks.length ? ks.map(k => `<div class="cad"><div class="nome"><span>${esc(nomeCad(k))}</span></div>
-        <div class="linha"><label class="q" for="a-${k}">Quem assumiria:</label><input type="text" id="a-${k}" value="${esc(cad(k).assume)}" data-cad="${k}" data-f="assume" autocomplete="off" autocapitalize="words" placeholder="Ninguém? Deixa vazio"></div></div>`).join("")
-      : `<p class="vazia">Nenhuma cadeira pra passar. Volta nos passos 1 e 2.</p>`;
-    return `<section class="pg">
-      <div class="eb">Dia 1 · Passo 3 de 4</div>
-      <h1>Quem assumiria</h1>
-      <p class="lead">Nas que vão sair do seu nome: quem faria com uma semana de treino? Pode ser alguém que já te ajuda nisso. Ninguém pronto? Deixa vazio: ela vai pro fim da fila e fica pronta pra próxima contratação.</p>
-      ${lista}
-      ${nav("p2", "p4")}
-    </section>`;
-  };
+  P.capa = () => `<section class="pg capa">
+    <div class="aviso" id="instala" hidden><b>Antes de preencher:</b> toca em Compartilhar (o quadrado com a seta pra cima) e depois em “Adicionar à Tela de Início”. Abre o caderno pelo ícone novo e preenche por lá. O que você escrever aqui no Safari não aparece no ícone.</div>
+    <div class="eb">Protocolo · ${NOME}</div>
+    <h1>Caderno<br>de Dono(a).</h1>
+    <p class="lead">30 dias pra tirar o seu nome das cadeiras da empresa. Uma cadeira por semana, aqui no celular.</p>
+    <div class="box ink">
+      ${campo("capa-de", "Este caderno é de", "capa.de", "Seu nome", 'autocapitalize="words"')}
+      ${campo("capa-empresa", "Empresa", "capa.empresa", "Nome da empresa", 'autocapitalize="words"')}
+      <div class="g2">${data("capa-comecei", "Comecei em", "capa.comecei")}
+        <div class="campo"><span class="rot">O dia 30 cai em</span><div class="calc" data-out="dia30">${S.capa.comecei ? br(soma(S.capa.comecei, 29)) : "&nbsp;"}</div></div></div>
+      <p class="nota">O dia 1 é o dia em que você começa, não o começo do mês. Os 30 dias contam daqui.</p>
+    </div>
+    <div class="nav"><button class="btn pri" data-ir="antes">Começar</button></div>
+    <p class="nota">Inspirado em Michael Gerber · Fabio Takahashi · Prática Business</p>
+  </section>`;
+
+  P.antes = () => `<section class="pg">
+    <div class="eb">Antes do dia 1</div><h1>Antes de começar</h1>
+    <div class="box"><div class="rot ac">Onde fica o que você escreve</div><ul class="ol">
+      <li><b>1</b><span>Tudo fica salvo neste celular, na hora, sem botão. Nada vai pra internet, nem os nomes do seu time.</span></li>
+      <li><b>2</b><span><b style="color:var(--ink)">Põe na Tela de Início antes de preencher.</b> No iPhone: Compartilhar e “Adicionar à Tela de Início”. No Android: menu ⋮ e “Adicionar à tela inicial”. Vira um ícone, como app, e o celular não apaga o que você escreveu.</span></li>
+      <li><b>3</b><span>De vez em quando, guarda uma cópia de segurança (no menu Páginas, em “Guardar”). Se trocar de celular, é ela que leva o caderno junto.</span></li></ul></div>
+    <div class="box"><div class="rot ac">Como usar</div><ul class="ol">
+      <li><b>1</b><span>Uma página por vez: o dia 1, uma por semana e o dia 30. Os anexos (contratos, passo a passo, chamadas e a franquia) ficam no menu Páginas.</span></li>
+      <li><b>2</b><span>O Exemplo Comentado mostra cada página preenchida e explicada. Lá, o que fica com o dono aparece riscado e a primeira cadeira, circulada.</span></li>
+      <li><b>3</b><span>O caderno deste protocolo foi feito pra escrever à mão, de propósito. Se der, imprime a versão em papel: ainda é o ideal.</span></li></ul></div>
+    <div class="box" id="exemplo-box"><div class="rot">Quer ver funcionando antes?</div>
+      <p class="nota" style="color:var(--ink2)">Preenche tudo com o exemplo do protocolo, o mesmo do Exemplo Comentado. Depois é só apagar e começar o seu.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="exemplo">Carregar o exemplo</button></div><div id="conf-ex"></div></div>
+    ${nav("antes", "Ir pro dia 1")}
+  </section>`;
+
+  P.d1a = () => `<section class="pg">
+    <div class="eb">Dia 1 · Passo 1 de 4 · 10 min</div><h1>Escreve EU</h1>
+    <p class="lead">Em cada cadeira, quem faz esse trabalho hoje. Onde for você, toca em <b style="color:var(--pen)">EU</b>. Vale se você faz isso toda semana, mesmo com alguém “ajudando”.</p>
+    ${CADS.map(([k, n, d]) => `<div class="cad${k === "direcao" ? " dir" : ""}">
+      ${k === "outra" ? campo("outra-nome", "Outra cadeira", "outraNome", "Nome da cadeira, se tiver") : `<div class="nome">${n}</div>${d ? `<div class="desc">${d}</div>` : ""}`}
+      <div class="linha"><label class="q" for="q-${k}">Quem senta hoje:</label>${um("q-" + k, "cad." + k + ".quem", "", 'autocapitalize="words"')}
+      <button class="chip${eu(k) ? " on" : ""}" data-eu="${k}" aria-pressed="${eu(k)}">EU</button></div></div>`).join("")}
+    <div class="res"><div class="rot">Seu nome tá em</div><div><span class="big" data-out="conta-eu">${comEu().length}</span> <span class="nota" style="display:inline">cadeiras, contando a Direção</span></div></div>
+    ${nav("d1a")}
+  </section>`;
+
+  P.d1b = () => { const ks = comEu(); return `<section class="pg">
+    <div class="eb">Dia 1 · Passo 2 de 4</div><h1>O que fica com você</h1>
+    <p class="lead">Marca “Fica comigo” na Direção e, no máximo, em mais uma: a que só você faz bem hoje. As outras são as que vão sair do seu nome.</p>
+    ${ks.length ? ks.map(k => `<div class="cad${k === "direcao" ? " dir" : ""}"><div class="nome">${esc(nomeCad(k))}</div>
+      ${caixa("fica-" + k, "Fica comigo", "cad." + k + ".fica", k === "direcao" ? "A Direção é sua: decide pra onde a empresa vai." : "")}</div>`).join("") : `<p class="vazia">Nenhuma cadeira com EU ainda. Volta no passo 1.</p>`}
+    <div class="aviso" id="muitas" ${comEu().filter(k => k !== "direcao" && cad(k).fica).length > 1 ? "" : "hidden"}>Mais de uma além da Direção? Escolhe só uma: a que, se sair de você hoje, a empresa perde. As outras vão ficar prontas pra passar depois.</div>
+    ${nav("d1b")}
+  </section>`; };
+
+  P.d1c = () => { const ks = passaveis(); return `<section class="pg">
+    <div class="eb">Dia 1 · Passo 3 de 4</div><h1>Quem assumiria</h1>
+    <p class="lead">Nas que vão sair do seu nome: quem faria com uma semana de treino? Pode ser alguém que já te ajuda nisso. Ninguém pronto? Deixa vazio: ela vai pro fim da fila e fica pronta pra próxima contratação.</p>
+    ${ks.length ? ks.map(k => `<div class="cad"><div class="nome">${esc(nomeCad(k))}</div>${linha("a-" + k, "Quem assumiria:", "cad." + k + ".assume", "Ninguém? Deixa vazio")}</div>`).join("") : `<p class="vazia">Nenhuma cadeira pra passar. Volta nos passos 1 e 2.</p>`}
+    ${nav("d1c")}
+  </section>`; };
+
   function ordemHtml() {
-    const ord = ordem();
+    const ord = ordem(), pos = k => { const i = ord.indexOf(k); return i < 0 ? 99 + CADS.findIndex(c => c[0] === k) : i; };
     const item = k => { const i = ord.indexOf(k), a = (cad(k).assume || "").trim();
       return `<button class="${i >= 0 ? "on" : ""}${i === 0 ? " primeira" : ""}" data-ord="${k}" aria-pressed="${i >= 0}"><span class="n">${i >= 0 ? i + 1 : ""}</span><span>${esc(nomeCad(k))}<span class="s">${a ? "Quem assume: " + esc(a) : "Ninguém pronto ainda"}</span></span></button>`; };
-    const pos = k => { const i = ord.indexOf(k); return i < 0 ? 99 + CADS.findIndex(c => c[0] === k) : i; };
     const a = comNome().sort((x, y) => pos(x) - pos(y)), b = semNome().sort((x, y) => pos(x) - pos(y));
     return `${a.length ? `<div class="rot">Com alguém pronto</div><div class="ord">${a.map(item).join("")}</div>` : ""}
       ${b.length ? `<div class="rot" style="margin-top:6px">Sem ninguém (por último)</div><div class="ord">${b.map(item).join("")}</div>` : ""}
@@ -367,177 +472,411 @@ textarea { min-height: 96px; font-size: 14px; border: 1.5px solid var(--line); b
   function resumoHtml() {
     const ord = ordem(), p = ord[0];
     return `<div class="rot">Seu nome tá em</div><div><span class="big">${comEu().length}</span> <span class="nota" style="display:inline">cadeiras, contando a Direção e as que ficam com você</span></div>
-      <div class="kv"><b>A primeira:</b><span>${p ? esc(nomeCad(p)) : "—"}</span><b>Quem vai sentar:</b><span>${p ? esc(cad(p).assume || "ninguém ainda") : "—"}</span>
-      <b>Depois:</b><span>${ord.slice(1).map(nomeCad).map(esc).join(", ") || "—"}</span></div>`;
+      <div class="kv"><b>A primeira:</b><span>${p ? esc(nomeCad(p)) : "—"}</span><b>Quem vai sentar:</b><span>${p ? esc(cad(p).assume || "ninguém ainda") : "—"}</span><b>Depois:</b><span>${ord.slice(1).map(nomeCad).map(esc).join(", ") || "—"}</span></div>`;
   }
-  P.p4 = () => `<section class="pg">
-      <div class="eb">Dia 1 · Passo 4 de 4</div>
-      <h1>Qual sai primeiro</h1>
-      <p class="lead">Toca nas cadeiras na ordem: primeiro a que mais te chama no dia a dia, entre as que têm alguém pronto. As sem ninguém vão por último. Tocou errado? Toca de novo pra tirar.</p>
-      <div id="ordem">${ordemHtml()}</div>
-      <div class="res" id="resumo">${resumoHtml()}</div>
-      ${nav("p3", "s1", "Ir pra semana 1")}
-    </section>`;
+  P.d1d = () => `<section class="pg">
+    <div class="eb">Dia 1 · Passo 4 de 4</div><h1>Qual sai primeiro</h1>
+    <p class="lead">Toca nas cadeiras na ordem: primeiro a que mais te chama no dia a dia, entre as que têm alguém pronto. As sem ninguém vão por último. Tocou errado? Toca de novo pra tirar.</p>
+    <div id="ordem">${ordemHtml()}</div><div class="res" id="resumo">${resumoHtml()}</div>
+    ${nav("d1d")}
+  </section>`;
 
-  P.s1 = () => {
-    const s = S.s1, p = primeira();
-    if (!s.de && S.capa.comecei) { s.de = segunda(S.capa.comecei); s.ate = soma(s.de, 4); }
-    if (s.sexta.hoje == null) s.sexta.hoje = Math.max(comEu().length - 1, 0);
-    const resto = ordem().slice(1);
-    const cham = s.cham.map((c, i) => `<div class="chama" data-ch="${i}">
-        <div class="topo2"><div class="opts">${["Qua", "Qui"].map(d => `<button class="chip${c.dia === d ? " on" : ""}" data-chdia="${i}" data-v="${d}">${d === "Qua" ? "Quarta" : "Quinta"}</button>`).join("")}</div>
-          <button class="mini" data-chdel="${i}">Apagar</button></div>
-        <div class="linha"><label class="q" for="ch-quem-${i}">Quem chamou:</label><input type="text" id="ch-quem-${i}" value="${esc(c.quem)}" data-ch="${i}" data-f="quem" autocapitalize="words"></div>
-        <div class="linha"><label class="q" for="ch-oque-${i}">O que precisava:</label><input type="text" id="ch-oque-${i}" value="${esc(c.oque)}" data-ch="${i}" data-f="oque"></div>
-        <div class="rot" style="margin-top:4px">Virou o quê?</div>
-        <div class="opts">${["Passo a passo", "Contrato", "Nada ainda"].map(v => `<button class="chip${c.virou === v ? " on" : ""}" data-chvirou="${i}" data-v="${v}">${v}</button>`).join("")}</div>
-      </div>`).join("");
+  P.terca = () => `<section class="pg">
+    <div class="eb">Dia 1 · 5 min</div><h1>A terça daqui a 5 anos</h1>
+    <p class="lead">Da hora que acorda até a hora que dorme, em 5 linhas. Depois, marca “Hoje não dá” no que a empresa de hoje não deixa acontecer.</p>
+    <div class="box"><p class="nota" style="color:var(--ink2)"><b style="color:var(--ink)">Pra quê:</b> as horas que você tirar das cadeiras têm que ir pra algum lugar. Se não forem pra esta terça, viram mais trabalho. E ela diz qual cadeira pesa mais: a que te segura na hora que a sua terça precisa de você.</p></div>
+    <div class="box">${S.terca.map((l, i) => `<div class="terca"><span class="n">${i + 1}</span><div class="c">
+      <textarea class="t${l.nao ? " nao" : ""}" id="terca-${i}" data-b="terca.${i}.t" rows="1" placeholder="${["6h · Acordo e…", "Manhã…", "Meio do dia…", "Tarde…", "Noite…"][i]}" aria-label="Linha ${i + 1}">${esc(l.t)}</textarea>
+      <div><button class="chip red${l.nao ? " on" : ""}" data-flip="terca.${i}.nao" aria-pressed="${!!l.nao}">Hoje não dá</button></div></div></div>`).join("")}</div>
+    ${nav("terca", "Ir pra semana 1")}
+  </section>`;
+
+  function semanaPg(k) {
+    datasSemana(k);
+    const s = S.sem[k], c = semCad(k), q = semQuem(k), t = ehTeste(k), p = "sem." + k;
+    const proxOpts = restantes(k).concat(k === 2 && !S.sem.slice(0, 3).some((_, j) => semCad(j) === "teste") ? ["teste"] : []);
+    const nomeSem = c ? nomeCad(c) : "";
+    const cham = s.cham.map((x, i) => `<div class="chama">
+      <div class="topo2"><div class="opts">${["Qua", "Qui"].map(d => `<button class="chip${x.dia === d ? " on" : ""}" data-set="${p}.cham.${i}.dia" data-v="${d}">${d === "Qua" ? "Quarta" : "Quinta"}</button>`).join("")}</div>
+        <button class="mini" data-del="${p}.cham" data-i="${i}">Apagar</button></div>
+      ${linha(`ch${k}-q${i}`, "Quem chamou:", `${p}.cham.${i}.quem`)}
+      ${linha(`ch${k}-o${i}`, "O que precisava:", `${p}.cham.${i}.oque`)}
+      <div class="rot" style="margin-top:4px">Virou o quê?</div>
+      <div class="opts">${VIROU.map(v => `<button class="chip${x.virou === v ? " on" : ""}" data-set="${p}.cham.${i}.virou" data-v="${v}">${v}</button>`).join("")}</div></div>`).join("");
+    const ins = k === 0 ? "A cadeira que você escolheu como a primeira no dia 1." : k === 3 ? "A próxima cadeira, ou o teste da ausência (protocolo, página&nbsp;23)." : "A cadeira que você escreveu na sexta passada.";
     return `<section class="pg">
-      <div class="eb">Semana 1</div>
-      <h1>A primeira cadeira</h1>
-      <p class="lead">Segunda escreve, terça entrega, quarta e quinta solta, sexta confere.</p>
+      <div class="eb">Semana ${k + 1}</div><h1>${t ? "Teste da ausência" : esc(nomeSem || "Semana " + (k + 1))}</h1>
+      <p class="lead">${t ? "Uma semana trabalhando fora da empresa, com o celular ligado. Cada ligação mostra o que ainda não está escrito." : "Segunda escreve, terça entrega, quarta e quinta solta, sexta confere."}</p>
       <div class="box forte">
-        <div class="g2">
-          <div class="campo"><span class="rot">Cadeira da semana</span><div class="calc">${p ? esc(nomeCad(p)) : "Escolhe no passo 4 do dia 1"}</div></div>
-          <div class="campo"><span class="rot">Quem vai sentar</span><div class="calc">${p ? esc(cad(p).assume || "ninguém ainda") : "&nbsp;"}</div></div>
-        </div>
-        <div class="g2">
-          <div class="campo"><label for="s1-de">De</label><input type="date" id="s1-de" value="${esc(s.de)}" data-k="s1.de"></div>
-          <div class="campo"><label for="s1-ate">Até</label><input type="date" id="s1-ate" value="${esc(s.ate)}" data-k="s1.ate"></div>
-        </div>
+        <div class="g2"><div class="campo"><span class="rot">${t ? "Esta semana" : "Cadeira da semana"}</span><div class="calc${c ? "" : " vz"}">${c ? esc(nomeSem) : (k === 0 ? "Escolhe no passo 4 do dia 1" : "Escolhe na sexta da semana " + k)}</div></div>
+          <div class="campo"><span class="rot">${t ? "Quem segura" : "Quem vai sentar"}</span><div class="calc${q ? "" : " vz"}">${q ? esc(q) : "&nbsp;"}</div></div></div>
+        <div class="g2">${data(`s${k}-de`, "De", p + ".de")}${data(`s${k}-ate`, "Até", p + ".ate")}</div>
+        <p class="nota">${ins}</p>
       </div>
-      <div class="dia"><div class="dh"><span class="dn">Segunda · <span>Escreve</span></span><span class="tm">20 min</span></div>
-        ${caixa("seg-contrato", "O contrato da cadeira", s.seg.contrato, "Anexo A, ou o pronto do Anexo B")}
-        ${caixa("seg-passo", "O passo a passo das 3 tarefas que mais te chamam nela", s.seg.passo, "Anexo C")}
-        ${s.tarefas.map((t, i) => `<div class="tar"><span class="n">${i + 1}</span><input type="text" id="tar-${i}" value="${esc(t)}" data-tar="${i}" aria-label="Tarefa ${i + 1}" placeholder="Tarefa ${i + 1}"></div>`).join("")}
-      </div>
-      <div class="dia"><div class="dh"><span class="dn">Terça · <span>Entrega</span></span><span class="tm">15 min</span></div>
-        ${caixa("ter-msg", "Mandei a mensagem pra quem vai sentar", s.ter.msg, "protocolo, página 21")}
-        ${caixa("ter-leu", "Li o contrato com essa pessoa", s.ter.leu)}
-        ${caixa("ter-assin", "Nós dois assinamos", s.ter.assin, "À mão, no papel")}
-        ${caixa("ter-mudanca", "Mandei pro time a mensagem da mudança", s.ter.mudanca, "uma vez só")}
-      </div>
+      ${t ? `<div class="dia"><div class="dh"><span class="dn">Segunda e terça · <span>Prepara a saída</span></span></div>
+          <p class="nota" style="color:var(--ink2)">No teste não tem contrato novo. Usa as linhas pra preparar a saída.</p>
+          ${s.tarefas.map((x, i) => `<div class="num-l"><span class="n">${i + 1}</span>${um(`t${k}-${i}`, `${p}.tarefas.${i}`, ["Revisar os contratos", "Deixar os passo a passo na pasta", "Mandar a mensagem do teste"][i], `aria-label="Preparação ${i + 1}"`)}</div>`).join("")}
+          ${caixa(`ter${k}-teste`, "Mandei pro time a mensagem do teste", p + ".ter.teste", "protocolo, página 21")}</div>`
+        : `<div class="dia"><div class="dh"><span class="dn">Segunda · <span>Escreve</span></span><span class="tm">20 min</span></div>
+          ${caixa(`seg${k}-c`, "O contrato da cadeira", p + ".seg.contrato", "Anexo A, ou o pronto do Anexo B")}
+          ${caixa(`seg${k}-p`, "O passo a passo das 3 tarefas que mais te chamam nela", p + ".seg.passo", "Anexo C")}
+          ${s.tarefas.map((x, i) => `<div class="num-l"><span class="n">${i + 1}</span>${um(`t${k}-${i}`, `${p}.tarefas.${i}`, `Tarefa ${i + 1}`, `aria-label="Tarefa ${i + 1}"`)}</div>`).join("")}
+          <div class="nav" style="margin:2px 0 0">${c ? `<button class="btn sec" data-acao="abre-contrato" data-k="${k}">Abrir o contrato</button>` : ""}<button class="btn sec" data-acao="abre-passos" data-k="${k}">Escrever os passo a passo</button></div></div>
+        <div class="dia"><div class="dh"><span class="dn">Terça · <span>Entrega</span></span><span class="tm">15 min</span></div>
+          ${caixa(`ter${k}-m`, "Mandei a mensagem pra quem vai sentar", p + ".ter.msg", "protocolo, página 21")}
+          ${caixa(`ter${k}-l`, "Li o contrato com essa pessoa", p + ".ter.leu")}
+          ${caixa(`ter${k}-a`, "Nós dois assinamos", p + ".ter.assin", "À mão, no papel")}
+          ${k === 0 ? caixa(`ter${k}-x`, "Mandei pro time a mensagem da mudança", p + ".ter.mudanca", "uma vez só") : ""}</div>`}
       <div class="dia"><div class="dh"><span class="dn">Quarta e quinta · <span>Solta</span></span><span class="tm">30 s por chamada</span></div>
         <p class="nota" style="color:var(--ink2)">Te chamaram pro que é dessa cadeira? Não resolve: aponta pro passo a passo e anota aqui.</p>
-        <div id="chamadas">${cham}</div>
-        <div class="nav" style="margin:0"><button class="btn" data-acao="nova-chamada">+ Anotar chamada</button></div>
-      </div>
+        ${cham}<div class="nav" style="margin:0"><button class="btn" data-add="${p}.cham" data-tpl="cham">+ Anotar chamada</button></div></div>
       <div class="dia forte"><div class="dh"><span class="dn">Sexta · <span>Confere</span></span><span class="tm">15 min · só você</span></div>
         <div class="conta">
-          <div class="item"><span>Seu nome tá em</span><span class="num"><button data-mais="-1" aria-label="Menos uma">−</button><output id="hoje">${s.sexta.hoje}</output><button data-mais="1" aria-label="Mais uma">+</button></span></div>
+          <div class="item"><span>Seu nome tá em</span>${stepper(p + ".sexta.hoje", "Cadeiras com o seu nome")}</div>
           <div class="item"><span>No dia 1, tava em</span><span class="fixo">${comEu().length}</span></div>
-          <div class="item"><span>Te chamaram</span><span class="fixo" id="vezes">${s.cham.length}</span></div>
-        </div>
-        ${caixa("sex-cobre", "O contrato tá assinado e o passo a passo cobre o que te chamaram. Se não cobre, acrescenta agora.", s.sexta.cobre)}
-        <div class="rot" style="margin-top:4px">Próxima cadeira</div>
-        <div class="opts">${resto.length ? resto.map(k => `<button class="chip${s.sexta.prox === k ? " on" : ""}" data-prox="${k}">${esc(nomeCad(k))}</button>`).join("") : '<span class="vazia">Defina a ordem no passo 4 do dia 1.</span>'}</div>
-        <div class="linha"><label class="q" for="sex-pquem">Quem vai sentar:</label><input type="text" id="sex-pquem" value="${esc(s.sexta.pquem)}" data-k="s1.sexta.pquem" autocapitalize="words"></div>
+          <div class="item"><span>Te chamaram</span><span class="fixo">${s.cham.length}</span></div></div>
+        ${caixa(`sex${k}-c`, "O contrato tá assinado e o passo a passo cobre o que te chamaram. Se não cobre, acrescenta agora.", p + ".sexta.cobre")}
+        <div class="rot" style="margin-top:4px">${k >= 3 ? "Próxima cadeira (depois desta semana)" : "Próxima cadeira"}</div>
+        <div class="opts">${proxOpts.length ? proxOpts.map(x => `<button class="chip${s.sexta.prox === x ? " on" : ""}" data-prox="${k}" data-v="${x}">${esc(nomeCad(x))}</button>`).join("") : '<span class="vazia">Defina a ordem no passo 4 do dia 1.</span>'}</div>
+        ${linha(`sex${k}-q`, "Quem vai sentar:", p + ".sexta.pquem")}
         <p class="nota">Mesma pergunta do dia 1: das que ainda têm o seu nome e alguém pronto, qual te chama mais?</p>
-        ${caixa("sex-fim", "Mandei pro time a mensagem de fim do ritual", s.sexta.fim, "protocolo, página 21")}
-      </div>
-      ${nav("p4", "guardar")}
-      <p class="nota">No protótipo, o caderno para aqui. Na versão completa vêm as semanas 2 a 4, o dia 30 e os anexos.</p>
+        ${caixa(`sex${k}-f`, "Mandei pro time a mensagem de fim do ritual", p + ".sexta.fim", "protocolo, página 21")}</div>
+      ${k === S.sem.length - 1 ? `<div class="nav" style="margin:0"><button class="btn" data-acao="mais-semana">+ Mais uma semana</button></div>` : ""}
+      ${nav("s" + k, k === S.sem.length - 1 ? "Ir pro dia 30" : "Próxima semana")}
+    </section>`;
+  }
+
+  P.d30 = () => {
+    const ult = [...S.sem].reverse().find(s => s.sexta.hoje != null);
+    if (S.d30.hoje == null) S.d30.hoje = ult ? ult.sexta.hoje : comEu().length;
+    const sa = saidas(), linhas = S.terca.map((l, i) => ({ l, i })).filter(x => x.l.t.trim());
+    const rest = ordem().filter(c => !S.sem.some((_, k) => semCad(k) === c));
+    return `<section class="pg">
+      <div class="eb">Dia 30 · 10 min</div><h1>Funcionou?</h1><p class="lead">Volta no dia 1 e compara.</p>
+      <div class="dia"><div class="dh"><span class="dn">O antes e o depois</span></div>
+        <div class="conta"><div class="item"><span>No dia 1, seu nome tava em</span><span class="fixo">${comEu().length}</span></div>
+          <div class="item"><span>Hoje, tá em</span>${stepper("d30.hoje", "Cadeiras com o seu nome hoje")}</div></div>
+        ${sa.length ? `<div class="rot" style="margin-top:6px">Saíram do seu nome</div><div class="kv">${sa.map(x => `<b>${esc(nomeCad(x.c))}</b><span>${esc(x.q || "—")} · contrato em ${brc(x.d) || "—"}</span>`).join("")}</div>`
+          : `<p class="nota">Aqui aparecem as cadeiras da semana em que você marcou “Nós dois assinamos”.</p>`}</div>
+      <div class="dia forte"><div class="dh"><span class="dn">Sinal de que funcionou</span><span class="tm">os dois</span></div>
+        ${caixa("d30-s1", "Seu nome saiu de pelo menos 2 cadeiras, e elas têm outro nome, com contrato assinado.", "d30.s1")}
+        ${caixa("d30-s2", "Te chamam no máximo 3 vezes por semana. O resto já está no passo a passo.", "d30.s2")}</div>
+      <div class="dia"><div class="dh"><span class="dn">Da sua terça daqui a 5 anos, o que você já consegue fazer?</span></div>
+        ${linhas.length ? linhas.map(x => caixa("d30-c" + x.i, esc(x.l.t), "d30.consigo." + x.i, x.l.nao ? "Hoje não dava" : "")).join("") : `<p class="nota">Escreve a sua terça no dia 1 pra ela aparecer aqui.</p>`}
+        ${texto("d30-terca", "d30.terca", "O que mais você já consegue fazer", "O que você já consegue fazer")}</div>
+      <div class="dia"><div class="dh"><span class="dn">Os dois apareceram?</span></div>
+        <p class="nota" style="color:var(--ink2)">Segue uma cadeira por semana até o seu nome ficar só na Direção. Abre mais uma semana na página da última semana.</p>
+        <div class="rot">Próxima cadeira</div>
+        <div class="opts">${rest.length ? rest.map(x => `<button class="chip${S.d30.prox === x ? " on" : ""}" data-set="d30.prox" data-v="${x}">${esc(nomeCad(x))}</button>`).join("") : '<span class="vazia">Todas as cadeiras da ordem já passaram.</span>'}</div>
+        ${linha("d30-pq", "Quem vai sentar:", "d30.pquem")}</div>
+      <div class="dia"><div class="dh"><span class="dn">Ainda não?</span></div>
+        <p class="nota" style="color:var(--ink2)">Escreve o que travou. Cadeira em crise ou ninguém pronto? Volta nas páginas 16 e 24 do protocolo.</p>
+        ${texto("d30-trav", "d30.travou", "O que travou", "O que travou")}</div>
+      <div class="box"><p class="nota" style="color:var(--ink2)">Quando o seu nome sair da primeira cadeira, me conta no direct: <a href="https://instagram.com/fabio.takahashi" target="_blank" rel="noopener"><b>@fabio.takahashi</b></a>. Eu leio todas.</p></div>
+      ${nav("d30")}
     </section>`;
   };
+
+  function partes(t, base) {   // texto de contrato pronto com os colchetes virando campos
+    let j = 0;
+    return esc(t).replace(/\[[^\]]*\]/g, m => { const id = base + j++; return `<input type="text" class="inl" data-b="${id}" value="${esc(pega(id))}" placeholder="${esc(m.slice(1, -1))}" aria-label="${esc(m.slice(1, -1))}">`; });
+  }
+  function contratoHtml(c, i) {
+    const p = "contratos." + i, M = PRONTOS[c.modelo];
+    const entr = M ? M.ent.map((t, j) => `<div class="ent"><b>${j + 1}</b><span class="txt">${partes(t, `${p}.val.ent${j}_`)}</span></div>`).join("")
+      : [0, 1, 2].map(j => `<div class="ent"><b>${j + 1}</b>${texto(`ct${c.id}-e${j}`, `${p}.ent.${j}`, "Um resultado, não uma tarefa", `Resultado ${j + 1}`)}</div>`).join("");
+    const bloco = (rot, campoK) => M ? `<div class="campo"><span class="rot">${rot}</span><div class="txt">${partes(M[campoK], `${p}.val.${campoK}_`)}</div></div>`
+      : `<div class="campo"><label for="ct${c.id}-${campoK}">${rot}</label>${texto(`ct${c.id}-${campoK}`, `${p}.${campoK}`)}</div>`;
+    return `<details class="ficha" data-id="c${c.id}" ${ABERTOS.has("c" + c.id) ? "open" : ""}><summary><span><b>${esc(c.cad || "Contrato sem cadeira")}</b><small>${esc(c.quem || "quem senta: —")}${c.modelo ? " · pronto" : ""}</small></span><span class="seta">›</span></summary>
+      <div class="corpo">
+        <div class="g2">${campo(`ct${c.id}-cad`, "Cadeira", p + ".cad")}${campo(`ct${c.id}-q`, "Quem senta", p + ".quem")}</div>
+        <div class="campo"><span class="rot">O que ela entrega · 3 resultados</span>${entr}</div>
+        ${bloco("Como se mede", "mede")}${bloco("Padrão mínimo", "padrao")}
+        <div class="g2">${M ? `<div class="campo"><span class="rot">Responde a</span><div class="txt">${esc(M.resp)}</div></div>` : campo(`ct${c.id}-r`, "Responde a", p + ".resp")}
+          ${M ? data(`ct${c.id}-d`, "Data", p + ".data") : campo(`ct${c.id}-rv`, "Revisar em", p + ".rev")}</div>
+        <div class="campo"><span class="rot">Ajustes</span>${(c.ajustes || []).map((a, j) => `<div class="linha">${um(`ct${c.id}-a${j}`, `${p}.ajustes.${j}`, "Data · o que mudou", `aria-label="Ajuste ${j + 1}"`)}<button class="mini" data-del="${p}.ajustes" data-i="${j}">Apagar</button></div>`).join("")}
+          <div><button class="mini" data-add="${p}.ajustes" data-tpl="texto">+ Ajuste</button></div></div>
+        <p class="nota">Quem senta e você assinam à mão, cada um na sua linha${V_FUNC}. Imprime só este contrato.</p>
+        <div class="nav" style="margin:0"><button class="btn sec" data-acao="imprime-contrato" data-i="${i}">Imprimir pra assinar</button><button class="btn" data-acao="apaga-ficha" data-lista="contratos" data-i="${i}">Apagar</button></div>
+        <div data-conf="contratos-${i}"></div>
+      </div></details>`;
+  }
+  const V_FUNC = ": você, como se fosse funcionário(a)";
+  const ABERTOS = new Set();
+  P.contratos = () => `<section class="pg">
+    <div class="eb">Anexos A e B</div><h1>Contratos das cadeiras</h1>
+    <p class="lead">Um por cadeira. Primeiro a cadeira, depois a pessoa. Começa de um pronto ou em branco.</p>
+    ${S.contratos.length ? S.contratos.map(contratoHtml).join("") : `<p class="vazia">Nenhum contrato ainda.</p>`}
+    <div class="box"><div class="rot">Novo contrato</div><div class="opts">
+      ${Object.keys(PRONTOS).map(m => `<button class="chip" data-acao="novo-contrato" data-m="${m}">${m} (pronto)</button>`).join("")}<button class="chip" data-acao="novo-contrato" data-m="">Em branco</button></div></div>
+    ${nav("contratos")}
+  </section>`;
+
+  function passoHtml(x, i) {
+    const p = "passos." + i;
+    return `<details class="ficha" data-id="p${x.id}" ${ABERTOS.has("p" + x.id) ? "open" : ""}><summary><span><b>${esc(x.tarefa || "Passo a passo sem nome")}</b><small>${esc([x.cad, x.quem].filter(Boolean).join(" · ") || "cadeira e quem faz: —")}</small></span><span class="seta">›</span></summary>
+      <div class="corpo">
+        ${campo(`pp${x.id}-t`, "Tarefa", p + ".tarefa")}
+        <div class="g2">${campo(`pp${x.id}-c`, "Cadeira", p + ".cad")}${campo(`pp${x.id}-q`, "Quem faz", p + ".quem")}</div>
+        <div class="g2">${campo(`pp${x.id}-te`, "Tempo", p + ".tempo")}${campo(`pp${x.id}-w`, "Quando acontece", p + ".quando")}</div>
+        <div class="campo"><span class="rot">Um passo por linha, começando com verbo</span>
+          ${x.passos.map((s, j) => `<div class="num-l"><span class="n">${j + 1}</span>${texto(`pp${x.id}-s${j}`, `${p}.passos.${j}`, j === 0 ? "Abre…" : "", `Passo ${j + 1}`)}</div>`).join("")}</div>
+        <div class="campo"><label for="pp${x.id}-pr">Pronto quando</label>${texto(`pp${x.id}-pr`, p + ".pronto")}</div>
+        <div class="campo"><label for="pp${x.id}-er">Se der errado</label>${texto(`pp${x.id}-er`, p + ".errado")}</div>
+        <div class="g2">${data(`pp${x.id}-e`, "Escrito em", p + ".escrito")}${data(`pp${x.id}-r`, "Revisar em", p + ".rev")}</div>
+        <div class="nav" style="margin:0"><button class="btn sec" data-acao="imprime-passo" data-i="${i}">Imprimir</button><button class="btn" data-acao="apaga-ficha" data-lista="passos" data-i="${i}">Apagar</button></div>
+        <div data-conf="passos-${i}"></div>
+      </div></details>`;
+  }
+  P.passos = () => `<section class="pg">
+    <div class="eb">Anexo C</div><h1>Passo a passo de 1 página</h1>
+    <p class="lead">Tudo que você faz de cabeça, numa página, pra uma pessoa comum fazer igual. Uma tarefa por passo a passo, escrito pra quem nunca fez.</p>
+    ${S.passos.length ? S.passos.map(passoHtml).join("") : `<p class="vazia">Nenhum passo a passo ainda.</p>`}
+    <div class="nav" style="margin:0"><button class="btn" data-acao="novo-passo">+ Novo passo a passo</button></div>
+    ${nav("passos")}
+  </section>`;
+
+  P.chamadas = () => `<section class="pg">
+    <div class="eb">Anexo D</div><h1>Me chamaram</h1>
+    <p class="lead">Pro teste da ausência ou pra semana com chamada demais. Toda vez que alguém te chamar pro que devia estar escrito, anota aqui.</p>
+    ${S.chamadas.map((x, i) => `<div class="dia"><div class="g2">${data(`cm${i}-d`, "Data", `chamadas.${i}.data`)}${campo(`cm${i}-c`, "Cadeira", `chamadas.${i}.cad`)}</div>
+      ${linha(`cm${i}-q`, "Quem chamou:", `chamadas.${i}.quem`)}${linha(`cm${i}-o`, "O que precisava:", `chamadas.${i}.oque`)}
+      <div class="rot" style="margin-top:4px">Virou o quê?</div><div class="opts">${VIROU_D.map(v => `<button class="chip${x.virou === v ? " on" : ""}" data-set="chamadas.${i}.virou" data-v="${v}">${v}</button>`).join("")}</div>
+      ${caixa(`cm${i}-e`, "Já escrevi", `chamadas.${i}.escrevi`, "no passo a passo ou no contrato")}
+      <div><button class="mini" data-del="chamadas" data-i="${i}">Apagar</button></div></div>`).join("") || `<p class="vazia">Nenhuma chamada anotada.</p>`}
+    <div class="nav" style="margin:0"><button class="btn" data-add="chamadas" data-tpl="chamada">+ Anotar chamada</button></div>
+    ${nav("chamadas")}
+  </section>`;
+
+  P.franquia = () => { const ns = S.franquia.notas, val = ns.filter(n => n != null), min = val.length ? Math.min(...val) : null;
+    return `<section class="pg">
+    <div class="eb">Anexo E · Bônus 1</div><h1>As 6 regras da franquia</h1>
+    <p class="lead">Monta a empresa como se fosse virar franquia, mesmo que nunca vire. Dá nota de 0 a 10 em cada regra e começa pela mais baixa.</p>
+    <div class="box">${FRANQUIA.map(([t, a], i) => `<div class="regra"><span class="k">${i + 1}</span><div><div class="t">${t}</div><div class="a"><b>Amanhã:</b> ${a}</div>
+      <div class="nl">${ns[i] != null && ns[i] === min ? '<span class="pill">Comece aqui</span>' : "<span></span>"}<span>${stepper("franquia.notas." + i, "Nota da regra " + (i + 1))}<span class="nota" style="display:inline"> /10</span></span></div></div></div>`).join("")}</div>
+    <div class="box forte"><div class="rot ac">A mais baixa, por onde eu começo</div>${texto("fr-l0", "franquia.low.0", "Qual regra", "A mais baixa")}${texto("fr-l1", "franquia.low.1", "O que eu faço amanhã", "O que fazer amanhã")}</div>
+    ${nav("franquia")}
+  </section>`; };
+
   P.guardar = () => `<section class="pg">
-      <div class="eb">Guardar</div>
-      <h1>Cópia de segurança</h1>
-      <p class="lead">O caderno fica salvo neste celular. Pra levar pra outro aparelho, copia o texto abaixo e cola no outro, em “Restaurar”.</p>
-      <div class="box">
-        <div class="rot">Copiar</div>
-        <textarea id="bk" readonly aria-label="Cópia de segurança">${esc(JSON.stringify(S))}</textarea>
-        <div class="nav" style="margin:0"><button class="btn" data-acao="copiar">Copiar cópia de segurança</button></div>
-        <span class="ok-msg" id="copiado" hidden>Copiado. Guarda nas Notas ou manda pra você mesmo.</span>
-      </div>
-      <div class="box">
-        <div class="rot">Restaurar</div>
-        <textarea id="rest" aria-label="Colar cópia de segurança" placeholder="Cola aqui a cópia de segurança"></textarea>
-        <div class="nav" style="margin:0"><button class="btn" data-acao="restaurar">Restaurar</button></div>
-        <span class="nota" id="rest-msg"></span>
-      </div>
-      <div class="box">
-        <div class="rot">PDF do caderno preenchido</div>
-        <p class="nota" style="color:var(--ink2)">Na versão final, este botão gera o PDF pra guardar ou imprimir o contrato e assinar à mão. No protótipo ele ainda não funciona.</p>
-        <div class="nav" style="margin:0"><button class="btn" disabled>Gerar PDF</button></div>
-      </div>
-      <div class="box">
-        <div class="rot">Começar do zero</div>
-        <div class="nav" style="margin:0"><button class="btn" data-acao="apagar">Apagar tudo</button></div>
-        <div id="conf-apagar"></div>
-      </div>
-      ${nav("s1", "")}
-    </section>`;
+    <div class="eb">Guardar</div><h1>Guardar, PDF e lembretes</h1>
+    <div class="box forte"><div class="rot ac">Lembretes na agenda</div>
+      <p class="nota" style="color:var(--ink2)">Põe na agenda do celular as segundas, terças e sextas das semanas e o dia 30, já nas datas certas. O próprio celular avisa na hora.</p>
+      <div class="nav" style="margin:0"><button class="btn pri" data-acao="agenda">Pôr os lembretes na agenda</button></div><span class="nota" id="agenda-msg"></span></div>
+    <div class="box"><div class="rot ac">PDF do caderno</div>
+      <p class="nota" style="color:var(--ink2)">Abre a impressão do celular com tudo o que você preencheu. No iPhone, “Compartilhar” e depois “Salvar em Arquivos” guarda o PDF.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="imprime-tudo">Gerar PDF do caderno</button></div></div>
+    <div class="box"><div class="rot ac">Cópia de segurança</div>
+      <p class="nota" style="color:var(--ink2)">Guarda um arquivo com o caderno inteiro. No celular novo, abre o caderno e usa “Restaurar”.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="baixar">Baixar cópia</button><label class="btn" for="arq" style="display:grid;place-items:center">Restaurar de arquivo</label></div>
+      <input type="file" id="arq" class="vh" accept=".json,application/json" tabindex="-1">
+      <details><summary class="nota" style="cursor:pointer">Sem arquivo? Copiar e colar o texto</summary>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+          <textarea class="bk" id="bk" readonly aria-label="Cópia de segurança">${esc(JSON.stringify(S))}</textarea>
+          <div class="nav" style="margin:0"><button class="btn" data-acao="copiar">Copiar o texto</button></div>
+          <textarea class="bk" id="rest" aria-label="Colar cópia de segurança" placeholder="Cola aqui o texto da cópia"></textarea>
+          <div class="nav" style="margin:0"><button class="btn" data-acao="restaurar-texto">Restaurar do texto</button></div></div></details>
+      <span class="nota" id="bk-msg"></span></div>
+    <div class="box"><div class="rot">Começar do zero</div><div class="nav" style="margin:0"><button class="btn" data-acao="apagar">Apagar tudo</button></div><div id="conf-apagar"></div></div>
+    ${nav("guardar")}
+  </section>`;
 
+  // ---------------------------------------------------------------- render
   function trilha() {
-    const i = PAGS.findIndex(p => p[0] === S.pag);
-    $("#trilha").innerHTML = PAGS.map(([k, n], j) => `<button class="${j < i ? "feito" : j === i ? "agora" : ""}" data-ir="${k}" aria-label="${n}" title="${n}" ${j === i ? 'aria-current="page"' : ""}></button>`).join("");
+    const L = PRINCIPAL(), i = L.indexOf(S.pag);
+    $("#trilha").innerHTML = L.map((k, j) => `<button class="${i >= 0 && j < i ? "feito" : j === i ? "agora" : ""}" data-ir="${k}" aria-label="${esc(TITULO(k))}" ${j === i ? 'aria-current="page"' : ""}></button>`).join("");
   }
-  function mostra(pag, rola = true) {
-    S.pag = pag; $("#pg").innerHTML = P[pag](); trilha(); salva();
-    if (pag === "p2") avisaMuitas();
-    if (pag === "capa") { const ios = /iPhone|iPad|iPod/.test(navigator.userAgent), app = window.navigator.standalone === true || (window.matchMedia && matchMedia("(display-mode: standalone)").matches); const a = $("#instala"); if (a) a.hidden = !(ios && !app); }
-    if (rola) window.scrollTo({ top: 0, behavior: "auto" });
+  function render(p) { if (p[0] === "s" && /^s\d+$/.test(p)) return semanaPg(+p.slice(1)); return (P[p] || P.capa)(); }
+  function mostra(p, rola = true) {
+    if (!(PRINCIPAL().includes(p) || ANEXOS.includes(p))) p = "capa";
+    S.pag = p; $("#pg").innerHTML = render(p); trilha(); salva(); cresce();
+    if (p === "capa") { const ios = /iPhone|iPad|iPod/.test(navigator.userAgent), app = navigator.standalone === true || (window.matchMedia && matchMedia("(display-mode: standalone)").matches); const a = $("#instala"); if (a) a.hidden = !(ios && !app); }
+    if (rola) window.scrollTo(0, 0);
   }
-  function avisaMuitas() { const n = comEu().filter(k => k !== "direcao" && cad(k).fica).length; const a = $("#muitas"); if (a) a.hidden = n <= 1; }
-  function poe(caminho, v) { const p = caminho.split("."); let o = S; while (p.length > 1) o = o[p.shift()]; o[p[0]] = v; }
+  const redesenha = () => { const y = window.scrollY; $("#pg").innerHTML = render(S.pag); trilha(); cresce(); window.scrollTo(0, y); };
+  function cresce(el) { (el ? [el] : document.querySelectorAll("textarea.t")).forEach(t => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }); }
+  function saidas_out() {
+    document.querySelectorAll("[data-out]").forEach(el => { const o = el.dataset.out;
+      if (o === "conta-eu") el.textContent = comEu().length;
+      else if (o === "dia30") el.textContent = S.capa.comecei ? br(soma(S.capa.comecei, 29)) : " ";
+      else if (o.startsWith("v:")) el.textContent = pega(o.slice(2)) ?? "—"; });
+  }
+  let tSalvo;
+  function salva() {
+    if (!guarda) { $("#aviso").hidden = false; $("#salvo").classList.add("erro"); $("#salvo-t").textContent = "Não está salvando"; return; }
+    try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { guarda = false; return salva(); }
+    $("#salvo-t").textContent = "Salvo " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    clearTimeout(tSalvo); tSalvo = setTimeout(() => { $("#salvo-t").textContent = "Salvo"; }, 4000);
+  }
 
-  document.addEventListener("input", e => {
-    const t = e.target;
-    if (t.dataset.k) {
-      poe(t.dataset.k, t.value);
-      if (t.dataset.k === "capa.comecei") { const d = $("#dia30"); if (d) d.textContent = t.value ? br(soma(t.value, 29)) : " "; }
-    } else if (t.dataset.cad) {
-      cad(t.dataset.cad)[t.dataset.f] = t.value;
-      if (t.dataset.f === "quem") { const b = document.querySelector(`[data-eu="${t.dataset.cad}"]`); const on = eu(t.dataset.cad); b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); const c = $("#conta-eu"); if (c) c.textContent = comEu().length; }
-    } else if (t.dataset.tar) { S.s1.tarefas[+t.dataset.tar] = t.value; }
-    else if (t.dataset.ch && t.dataset.f) { S.s1.cham[+t.dataset.ch][t.dataset.f] = t.value; }
+  function indice() {
+    const L = PRINCIPAL(), it = p => `<button class="it${S.pag === p ? " agora" : ""}" data-ir="${p}" data-fecha="1"><span>${esc(TITULO(p))}</span>${S.pag === p ? "<small>aqui</small>" : ""}</button>`;
+    $("#indice").innerHTML = `<div class="in"><div class="cab"><h2>Páginas</h2><button class="bt-pag" data-acao="fecha-indice">Fechar</button></div>
+      <div class="grp">Começo</div>${["capa", "antes"].map(it).join("")}
+      <div class="grp">Dia 1</div>${["d1a", "d1b", "d1c", "d1d", "terca"].map(it).join("")}
+      <div class="grp">Semanas</div>${L.filter(p => /^s\d+$/.test(p)).map(it).join("")}
+      <div class="grp">Dia 30</div>${it("d30")}
+      <div class="grp">Anexos</div>${["contratos", "passos", "chamadas", "franquia"].map(it).join("")}
+      <div class="grp">Guardar</div>${it("guardar")}</div>`;
+    $("#indice").hidden = false; document.body.style.overflow = "hidden";
+    const b = $("#indice .it.agora"); if (b) b.focus();
+  }
+  function fechaIndice() { $("#indice").hidden = true; document.body.style.overflow = ""; }
+
+  // ---------------------------------------------------------------- impressão (PDF) e agenda
+  const v = x => `<span class="v">${esc(x || "")}</span>`;
+  const topoImp = r => `<div class="topo-imp"><span>Protocolo · ${NOME}</span><span>Caderno de Dono(a) · ${r}</span></div>`;
+  function impContrato(c) {
+    const M = PRONTOS[c.modelo], fillT = (t, base) => { let j = 0; return esc(t).replace(/\[[^\]]*\]/g, m => `<span class="v">${esc((c.val || {})[base + j++] || m)}</span>`); };
+    const ent = M ? M.ent.map((t, j) => `<tr><td style="width:18pt">${j + 1}</td><td>${fillT(t, "ent" + j + "_")}</td></tr>`).join("") : (c.ent || ["", "", ""]).map((t, j) => `<tr><td style="width:18pt">${j + 1}</td><td>${v(t)}</td></tr>`).join("");
+    return `<div class="sec">${topoImp("Contrato da cadeira")}<h2>Contrato da cadeira: ${esc(c.cad || "")}</h2>
+      <table><tr><th>Quem senta</th><th>Data</th></tr><tr><td>${v(c.quem)}</td><td>${v(br(c.data))}</td></tr></table>
+      <h3>O que ela entrega</h3><table>${ent}</table>
+      <h3>Como se mede</h3><p>${M ? fillT(M.mede, "mede_") : v(c.mede)}</p>
+      <h3>Padrão mínimo</h3><p>${M ? fillT(M.padrao, "padrao_") : v(c.padrao)}</p>
+      <h3>Responde a</h3><p>${M ? esc(M.resp) : v(c.resp)}${!M && c.rev ? ` · revisar em ${v(c.rev)}` : ""}</p>
+      ${(c.ajustes || []).filter(Boolean).length ? `<h3>Ajustes</h3><table>${c.ajustes.filter(Boolean).map(a => `<tr><td>${v(a)}</td></tr>`).join("")}</table>` : ""}
+      <div class="ass"><div>Assinatura de quem senta · data</div><div>Sua assinatura, como se fosse funcionário(a) · data</div></div></div>`;
+  }
+  function impPasso(x) {
+    return `<div class="sec">${topoImp("Passo a passo")}<h2>${esc(x.tarefa || "Passo a passo")}</h2>
+      <table><tr><th>Cadeira</th><th>Quem faz</th><th>Tempo</th><th>Quando</th></tr><tr><td>${v(x.cad)}</td><td>${v(x.quem)}</td><td>${v(x.tempo)}</td><td>${v(x.quando)}</td></tr></table>
+      <table>${x.passos.filter(s => s.trim()).map((s, j) => `<tr><td style="width:18pt">${j + 1}</td><td>${v(s)}</td></tr>`).join("")}</table>
+      <h3>Pronto quando</h3><p>${v(x.pronto)}</p><h3>Se der errado</h3><p>${v(x.errado)}</p><p class="nota">Escrito em ${v(br(x.escrito))} · revisar em ${v(br(x.rev))}</p></div>`;
+  }
+  function impTudo() {
+    const linhasCad = CADS.map(([k]) => k).filter(k => (cad(k).quem || "").trim() || k !== "outra").map(k =>
+      `<tr><td>${esc(nomeCad(k))}</td><td>${v(cad(k).quem)}</td><td>${cad(k).fica ? v("Fica comigo") : ""}</td><td>${v(cad(k).assume)}</td></tr>`).join("");
+    const ord = ordem();
+    let h = `<div class="sec">${topoImp("Capa")}<h2>Caderno de Dono(a)</h2><table><tr><th>Este caderno é de</th><th>Empresa</th><th>Comecei em</th><th>O dia 30 cai em</th></tr>
+      <tr><td>${v(S.capa.de)}</td><td>${v(S.capa.empresa)}</td><td>${v(br(S.capa.comecei))}</td><td>${v(S.capa.comecei ? br(soma(S.capa.comecei, 29)) : "")}</td></tr></table>
+      <h3>Dia 1 · Qual cadeira você larga primeiro</h3><table><tr><th>Cadeira</th><th>Quem senta hoje</th><th>Fica comigo</th><th>Quem assumiria</th></tr>${linhasCad}</table>
+      <p>Seu nome tá em ${v(comEu().length)} cadeiras. A primeira: ${v(ord[0] ? nomeCad(ord[0]) : "")} · quem vai sentar: ${v(ord[0] ? cad(ord[0]).assume : "")}. Depois: ${v(ord.slice(1).map(nomeCad).join(", "))}</p>
+      <h3>Dia 1 · A terça daqui a 5 anos</h3><table>${S.terca.map((l, i) => `<tr><td style="width:18pt">${i + 1}</td><td>${v(l.t)}${l.nao ? ' <span style="color:var(--red)">· hoje não dá</span>' : ""}</td></tr>`).join("")}</table></div>`;
+    S.sem.forEach((s, k) => { const t = ehTeste(k);
+      h += `<div class="sec">${topoImp("Semana " + (k + 1))}<h2>Semana ${k + 1}: ${esc(t ? "Teste da ausência" : nomeCad(semCad(k)) || "")}</h2>
+        <p>De ${v(br(s.de))} a ${v(br(s.ate))} · ${t ? "quem segura" : "quem vai sentar"}: ${v(semQuem(k))}</p>
+        <h3>${t ? "Preparar a saída" : "Segunda · Escreve"}</h3><p>${t ? "" : `Contrato: ${v(s.seg.contrato ? "feito" : "")} · Passo a passo: ${v(s.seg.passo ? "feito" : "")}`}</p>
+        <table>${s.tarefas.map((x, i) => `<tr><td style="width:18pt">${i + 1}</td><td>${v(x)}</td></tr>`).join("")}</table>
+        ${t ? "" : `<h3>Terça · Entrega</h3><p>Mensagem: ${v(s.ter.msg ? "sim" : "")} · Leu o contrato: ${v(s.ter.leu ? "sim" : "")} · Os dois assinaram: ${v(s.ter.assin ? "sim" : "")}</p>`}
+        <h3>Quarta e quinta · Solta</h3><table><tr><th>Dia</th><th>Quem te chamou</th><th>O que precisava</th><th>Virou o quê?</th></tr>${s.cham.map(c => `<tr><td>${v(c.dia)}</td><td>${v(c.quem)}</td><td>${v(c.oque)}</td><td>${v(c.virou)}</td></tr>`).join("") || "<tr><td colspan='4'></td></tr>"}</table>
+        <h3>Sexta · Confere</h3><p>Seu nome tá em ${v(s.sexta.hoje)} cadeiras. No dia 1: ${v(comEu().length)}. Te chamaram ${v(s.cham.length)} vezes. Próxima: ${v(s.sexta.prox ? nomeCad(s.sexta.prox) : "")} · quem vai sentar: ${v(s.sexta.pquem)}</p></div>`; });
+    const sa = saidas();
+    h += `<div class="sec">${topoImp("Dia 30")}<h2>Dia 30: funcionou?</h2><p>No dia 1, seu nome tava em ${v(comEu().length)} cadeiras. Hoje, tá em ${v(S.d30.hoje)}.</p>
+      <table><tr><th>Cadeira que saiu do seu nome</th><th>Quem senta agora</th><th>Contrato assinado em</th></tr>${sa.map(x => `<tr><td>${v(nomeCad(x.c))}</td><td>${v(x.q)}</td><td>${v(brc(x.d))}</td></tr>`).join("") || "<tr><td colspan='3'></td></tr>"}</table>
+      <p>Sinal 1 (saiu de 2 cadeiras, com contrato): ${v(S.d30.s1 ? "sim" : "")} · Sinal 2 (no máximo 3 chamadas por semana): ${v(S.d30.s2 ? "sim" : "")}</p>
+      <h3>Da terça daqui a 5 anos, o que já consegue</h3><p>${v(S.terca.filter((l, i) => l.t && S.d30.consigo[i]).map(l => l.t).join(" · "))} ${v(S.d30.terca)}</p>
+      <p>Próxima cadeira: ${v(S.d30.prox ? nomeCad(S.d30.prox) : "")} · quem vai sentar: ${v(S.d30.pquem)}</p>${S.d30.travou ? `<h3>O que travou</h3><p>${v(S.d30.travou)}</p>` : ""}</div>`;
+    S.contratos.forEach(c => { h += impContrato(c); });
+    S.passos.forEach(x => { h += impPasso(x); });
+    if (S.chamadas.length) h += `<div class="sec">${topoImp("Anexo D")}<h2>Me chamaram</h2><table><tr><th>Data</th><th>Cadeira</th><th>Quem</th><th>O que precisava</th><th>Virou o quê?</th><th>Já escrevi?</th></tr>
+      ${S.chamadas.map(c => `<tr><td>${v(brc(c.data))}</td><td>${v(c.cad)}</td><td>${v(c.quem)}</td><td>${v(c.oque)}</td><td>${v(c.virou)}</td><td>${v(c.escrevi ? "sim" : "")}</td></tr>`).join("")}</table></div>`;
+    if (S.franquia.notas.some(n => n != null)) h += `<div class="sec">${topoImp("Anexo E")}<h2>As 6 regras da franquia</h2><table>${FRANQUIA.map(([t], i) => `<tr><td style="width:18pt">${i + 1}</td><td>${esc(t)}</td><td style="width:40pt">${v(S.franquia.notas[i] ?? "")} /10</td></tr>`).join("")}</table>
+      <h3>A mais baixa, por onde eu começo</h3><p>${v(S.franquia.low[0])}</p><p>${v(S.franquia.low[1])}</p></div>`;
+    return h;
+  }
+  function imprime(html) { $("#imp").innerHTML = html; setTimeout(() => { try { window.print(); } catch (e) { /* sem impressão neste navegador */ } }, 60); }
+
+  function dobra(l) {   // linhas do .ics com no máximo 75 bytes (RFC 5545)
+    const enc = new TextEncoder(); let out = "", n = 0;
+    for (const ch of l) { const b = enc.encode(ch).length; if (n + b > 73) { out += "\r\n "; n = 1; } out += ch; n += b; }
+    return out;
+  }
+  function agenda() {
+    const ev = [], fmt = (d, h) => d.replace(/-/g, "") + "T" + h + "00", stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    const add = (d, hi, hf, t, desc) => ev.push(["BEGIN:VEVENT", `UID:caderno-${d}-${hi}@caderno-dono`, `DTSTAMP:${stamp}`, `DTSTART:${fmt(d, hi)}`, `DTEND:${fmt(d, hf)}`,
+      `SUMMARY:${t}`, `DESCRIPTION:${desc}`, "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${t}`, "TRIGGER:-PT0M", "END:VALARM", "END:VEVENT"].map(dobra).join("\r\n"));
+    S.sem.forEach((s, k) => { datasSemana(k); if (!s.de) return; const c = semCad(k), nome = c && c !== "teste" ? ` (${nomeCad(c)})` : "";
+      if (ehTeste(k)) add(s.de, "0800", "0815", `Caderno · Semana ${k + 1}: teste da ausência`, "Prepara a saída. Uma semana fora\\, com o celular ligado. Cada ligação vira uma linha.");
+      else { add(s.de, "0800", "0820", `Caderno · Segunda: escreve${nome}`, "O contrato da cadeira e o passo a passo das 3 tarefas que mais te chamam nela.");
+             add(soma(s.de, 1), "0900", "0915", `Caderno · Terça: entrega${nome}`, "Lê o contrato com quem vai sentar. Os dois assinam\\, à mão."); }
+      add(soma(s.de, 4), "1700", "1715", "Caderno · Sexta: ritual de 15 minutos", "A conta\\, a cadeira da semana\\, a próxima e o aviso pro time."); });
+    if (S.capa.comecei) add(soma(S.capa.comecei, 29), "0900", "0910", "Caderno · Dia 30: funcionou?", "Volta no dia 1 e compara.");
     salva();
+    if (!ev.length) { $("#agenda-msg").textContent = "Preenche “Comecei em” na capa pra eu saber as datas."; return; }
+    const ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Pratica Business//Caderno de Dono(a)//PT\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n${ev.join("\r\n")}\r\nEND:VCALENDAR\r\n`;
+    baixa(ics, "lembretes-caderno.ics", "text/calendar");
+    $("#agenda-msg").textContent = `${ev.length} lembretes. No iPhone, abre o arquivo e toca em “Adicionar tudo”. Mudou a cadeira ou as datas? Toca de novo.`;
+  }
+  function baixa(conteudo, nome, tipo) {
+    const url = URL.createObjectURL(new Blob([conteudo], { type: tipo }));
+    const a = document.createElement("a"); a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+  function restaura(txt) { const n = JSON.parse(txt); if (!n || !n.cad || !n.capa) throw new Error("formato"); S = completa(n); salva(); mostra("guardar", false); $("#bk-msg").textContent = "Restaurado."; }
+
+  // ---------------------------------------------------------------- eventos
+  document.addEventListener("input", e => {
+    const t = e.target, b = t.dataset.b; if (!b || t.type === "checkbox") return;
+    if (t.classList.contains("um") && /\n/.test(t.value)) t.value = t.value.replace(/\s*\n+\s*/g, " ");
+    poe(b, t.value);
+    if (t.tagName === "TEXTAREA") cresce(t);
+    if (/^cad\.\w+\.quem$/.test(b)) { const k = b.split(".")[1], ch = document.querySelector(`[data-eu="${k}"]`); if (ch) { ch.classList.toggle("on", eu(k)); ch.setAttribute("aria-pressed", eu(k)); } }
+    if (/^sem\.\d+\.de$/.test(b) && t.value) { const k = +b.split(".")[1]; S.sem[k].ate = soma(t.value, 4); const at = $(`#s${k}-ate`); if (at) at.value = S.sem[k].ate; }
+    saidas_out(); salva();
   });
   document.addEventListener("change", e => {
-    const t = e.target; if (t.type !== "checkbox") return;
-    const id = t.id;
-    if (id.startsWith("fica-")) { cad(id.slice(5)).fica = t.checked; avisaMuitas(); }
-    else if (id.startsWith("seg-")) S.s1.seg[id.slice(4)] = t.checked;
-    else if (id.startsWith("ter-")) S.s1.ter[id.slice(4)] = t.checked;
-    else if (id === "sex-cobre") S.s1.sexta.cobre = t.checked;
-    else if (id === "sex-fim") S.s1.sexta.fim = t.checked;
-    salva();
+    const t = e.target;
+    if (t.id === "arq" && t.files && t.files[0]) { const r = new FileReader(); r.onload = () => { try { restaura(r.result); } catch (x) { $("#bk-msg").textContent = "Esse arquivo não é uma cópia do caderno."; } }; r.readAsText(t.files[0]); return; }
+    if (t.type !== "checkbox" || !t.dataset.b) return;
+    poe(t.dataset.b, t.checked); salva();
+    if (/^cad\.\w+\.fica$/.test(t.dataset.b)) { const a = $("#muitas"); if (a) a.hidden = comEu().filter(k => k !== "direcao" && cad(k).fica).length <= 1; }
   });
+  document.addEventListener("toggle", e => { const d = e.target; if (d.classList && d.classList.contains("ficha")) { d.open ? ABERTOS.add(d.dataset.id) : ABERTOS.delete(d.dataset.id); if (d.open) cresce(); } }, true);
   document.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     const d = b.dataset;
-    if (d.ir) { mostra(d.ir); return; }
-    if (d.eu) { const c = cad(d.eu); c.quem = eu(d.eu) ? "" : "EU"; const i = $("#q-" + d.eu); i.value = c.quem; b.classList.toggle("on", eu(d.eu)); b.setAttribute("aria-pressed", eu(d.eu)); $("#conta-eu").textContent = comEu().length; salva(); return; }
-    if (d.ord) { const o = ordem(); const i = o.indexOf(d.ord); S.ordem = i >= 0 ? o.filter(k => k !== d.ord) : [...o, d.ord];
-      // com alguém pronto sempre antes das sem ninguém
+    if (d.ir) { if (d.fecha) fechaIndice(); mostra(d.ir); return; }
+    if (d.eu) { const c = cad(d.eu); c.quem = eu(d.eu) ? "" : "EU"; $("#q-" + d.eu).value = c.quem; cresce($("#q-" + d.eu)); b.classList.toggle("on", eu(d.eu)); b.setAttribute("aria-pressed", eu(d.eu)); saidas_out(); salva(); return; }
+    if (d.ord) { const o = ordem(), i = o.indexOf(d.ord); S.ordem = i >= 0 ? o.filter(k => k !== d.ord) : [...o, d.ord];
       const a = comNome(); S.ordem = [...S.ordem.filter(k => a.includes(k)), ...S.ordem.filter(k => !a.includes(k))];
       $("#ordem").innerHTML = ordemHtml(); $("#resumo").innerHTML = resumoHtml(); salva(); return; }
-    if (d.mais) { S.s1.sexta.hoje = Math.max(0, (S.s1.sexta.hoje || 0) + +d.mais); $("#hoje").textContent = S.s1.sexta.hoje; salva(); return; }
-    if (d.prox) { S.s1.sexta.prox = S.s1.sexta.prox === d.prox ? "" : d.prox; if (S.s1.sexta.prox && !S.s1.sexta.pquem) S.s1.sexta.pquem = cad(d.prox).assume || ""; mostra("s1", false); return; }
-    if (d.chdia) { S.s1.cham[+d.chdia].dia = d.v; mostra("s1", false); return; }
-    if (d.chvirou) { const c = S.s1.cham[+d.chvirou]; c.virou = c.virou === d.v ? "" : d.v; mostra("s1", false); return; }
-    if (d.chdel) { S.s1.cham.splice(+d.chdel, 1); mostra("s1", false); return; }
+    if (d.num) { const cur = pega(d.num); poe(d.num, Math.min(10 + (d.num.startsWith("franquia") ? 0 : 90), Math.max(0, (cur ?? (d.num.startsWith("franquia") ? 5 : 0)) + +d.d))); salva(); if (d.num.startsWith("franquia")) redesenha(); else saidas_out(); return; }
+    if (d.flip) { poe(d.flip, !pega(d.flip)); salva(); redesenha(); return; }
+    if (d.set) { poe(d.set, pega(d.set) === d.v ? "" : d.v); salva(); redesenha(); return; }
+    if (d.prox) { const s = S.sem[+d.prox].sexta; s.prox = s.prox === d.v ? "" : d.v; if (s.prox && s.prox !== "teste" && !s.pquem) s.pquem = cad(s.prox).assume || ""; salva(); redesenha(); return; }
+    if (d.add) { const L = pega(d.add) || []; L.push(d.tpl === "cham" ? { dia: "", quem: "", oque: "", virou: "" } : d.tpl === "chamada" ? { data: iso(new Date()), cad: "", quem: "", oque: "", virou: "", escrevi: false } : ""); poe(d.add, L); salva(); redesenha(); return; }
+    if (d.del) { const L = pega(d.del); L.splice(+d.i, 1); salva(); redesenha(); return; }
     const ac = d.acao;
-    if (ac === "nova-chamada") { S.s1.cham.push({ dia: "", quem: "", oque: "", virou: "" }); mostra("s1", false); const i = S.s1.cham.length - 1; const el = $("#ch-quem-" + i); if (el) { el.scrollIntoView({ block: "center" }); el.focus(); } return; }
-    if (ac === "exemplo") {
-      $("#exemplo-box").insertAdjacentHTML("beforeend", `<div class="conf" id="conf-ex">Isso troca o que você já escreveu pelo exemplo. Trocar?<div class="nav"><button class="btn" data-acao="nao-ex">Não</button><button class="btn pri" data-acao="sim-ex">Trocar</button></div></div>`);
-      b.disabled = true; return; }
-    if (ac === "nao-ex") { $("#conf-ex").remove(); $('[data-acao="exemplo"]').disabled = false; return; }
-    if (ac === "sim-ex") { S = JSON.parse(JSON.stringify(EXEMPLO)); S.pag = "p1"; mostra("p1"); return; }
-    if (ac === "copiar") { const t = $("#bk"); const ok = () => { $("#copiado").hidden = false; };
-      try { navigator.clipboard.writeText(t.value).then(ok, () => { t.select(); }); } catch (e2) { t.select(); } return; }
-    if (ac === "restaurar") { const m = $("#rest-msg");
-      try { const n = JSON.parse($("#rest").value); if (!n || !n.cad || !n.capa) throw 0; S = Object.assign(vazio(), n); S.s1 = Object.assign(vazio().s1, S.s1); m.textContent = "Restaurado."; salva(); $("#bk").value = JSON.stringify(S); }
-      catch (e3) { m.textContent = "Não reconheci esse texto. Cola a cópia inteira, do jeito que saiu do outro aparelho."; } return; }
+    if (ac === "indice") { indice(); return; }
+    if (ac === "fecha-indice") { fechaIndice(); return; }
+    if (ac === "exemplo") { $("#conf-ex").innerHTML = `<div class="conf">Isso troca o que você já escreveu pelo exemplo. Trocar?<div class="nav"><button class="btn" data-acao="nao-ex">Não</button><button class="btn pri" data-acao="sim-ex">Trocar</button></div></div>`; return; }
+    if (ac === "nao-ex") { $("#conf-ex").innerHTML = ""; return; }
+    if (ac === "sim-ex") { S = EXEMPLO(); mostra("d1a"); return; }
+    if (ac === "mais-semana") { S.sem.push(semana()); salva(); mostra("s" + (S.sem.length - 1)); return; }
+    if (ac === "novo-contrato") { const id = Date.now(), M = PRONTOS[d.m]; S.contratos.push({ id, modelo: d.m, cad: d.m || "", quem: "", data: "", ent: ["", "", ""], mede: "", padrao: "", resp: "", rev: "", val: {}, ajustes: [] }); ABERTOS.add("c" + id); salva(); redesenha(); const el = document.querySelector(`[data-id="c${id}"]`); if (el) el.scrollIntoView({ block: "start" }); return; }
+    if (ac === "abre-contrato") { const k = +d.k, nome = nomeCad(semCad(k)), q = semQuem(k); let c = S.contratos.find(x => (x.cad || "").trim().toLowerCase() === nome.toLowerCase());
+      if (!c) { const id = Date.now(); c = { id, modelo: PRONTOS[nome] ? nome : "", cad: nome, quem: q, data: S.sem[k].de ? soma(S.sem[k].de, 1) : "", ent: ["", "", ""], mede: "", padrao: "", resp: "Direção", rev: "30 dias", val: {}, ajustes: [] }; S.contratos.push(c); }
+      ABERTOS.add("c" + c.id); salva(); mostra("contratos"); const el = document.querySelector(`[data-id="c${c.id}"]`); if (el) el.scrollIntoView({ block: "start" }); return; }
+    if (ac === "abre-passos") { const k = +d.k, s = S.sem[k], nome = nomeCad(semCad(k)), q = semQuem(k); let ultimo;
+      s.tarefas.filter(t => t.trim()).forEach(t => { const ja = S.passos.find(x => x.tarefa.trim().toLowerCase() === t.trim().toLowerCase()); if (ja) ABERTOS.add("p" + ja.id); else { const id = Date.now() + Math.random(); ultimo = id;
+        S.passos.push({ id, tarefa: t, cad: nome, quem: q, tempo: "", quando: "", passos: Array(8).fill(""), pronto: "", errado: "", escrito: iso(new Date()), rev: soma(iso(new Date()), 30) }); ABERTOS.add("p" + id); } });
+      if (!ultimo && !s.tarefas.some(t => t.trim())) { const id = Date.now(); S.passos.push({ id, tarefa: "", cad: nome, quem: q, tempo: "", quando: "", passos: Array(8).fill(""), pronto: "", errado: "", escrito: iso(new Date()), rev: soma(iso(new Date()), 30) }); ABERTOS.add("p" + id); }
+      salva(); mostra("passos"); return; }
+    if (ac === "novo-passo") { const id = Date.now(); S.passos.push({ id, tarefa: "", cad: "", quem: "", tempo: "", quando: "", passos: Array(8).fill(""), pronto: "", errado: "", escrito: iso(new Date()), rev: soma(iso(new Date()), 30) }); ABERTOS.add("p" + id); salva(); redesenha(); const el = document.querySelector(`[data-id="p${id}"]`); if (el) el.scrollIntoView({ block: "start" }); return; }
+    if (ac === "apaga-ficha") { const box = document.querySelector(`[data-conf="${d.lista}-${d.i}"]`); box.innerHTML = `<div class="conf">Apagar de vez?<div class="nav"><button class="btn" data-acao="nao-apaga-ficha" data-lista="${d.lista}" data-i="${d.i}">Não</button><button class="btn pri" data-acao="sim-apaga-ficha" data-lista="${d.lista}" data-i="${d.i}">Apagar</button></div></div>`; return; }
+    if (ac === "nao-apaga-ficha") { document.querySelector(`[data-conf="${d.lista}-${d.i}"]`).innerHTML = ""; return; }
+    if (ac === "sim-apaga-ficha") { S[d.lista].splice(+d.i, 1); salva(); redesenha(); return; }
+    if (ac === "imprime-contrato") { imprime(impContrato(S.contratos[+d.i])); return; }
+    if (ac === "imprime-passo") { imprime(impPasso(S.passos[+d.i])); return; }
+    if (ac === "imprime-tudo") { imprime(impTudo()); return; }
+    if (ac === "agenda") { agenda(); return; }
+    if (ac === "baixar") { const n = (S.capa.de || "caderno").normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase(); baixa(JSON.stringify(S, null, 1), `copia-${n}-${iso(new Date())}.json`, "application/json"); $("#bk-msg").textContent = "Cópia baixada. Guarda em Arquivos, no iCloud ou no Drive."; return; }
+    if (ac === "copiar") { const t = $("#bk"); try { navigator.clipboard.writeText(t.value).then(() => { $("#bk-msg").textContent = "Copiado. Guarda nas Notas ou manda pra você mesmo."; }, () => t.select()); } catch (x) { t.select(); } return; }
+    if (ac === "restaurar-texto") { try { restaura($("#rest").value); } catch (x) { $("#bk-msg").textContent = "Não reconheci esse texto. Cola a cópia inteira."; } return; }
     if (ac === "apagar") { $("#conf-apagar").innerHTML = `<div class="conf">Apagar tudo o que você escreveu neste celular? Não dá pra desfazer.<div class="nav"><button class="btn" data-acao="nao-apagar">Não</button><button class="btn pri" data-acao="sim-apagar">Apagar</button></div></div>`; return; }
     if (ac === "nao-apagar") { $("#conf-apagar").innerHTML = ""; return; }
     if (ac === "sim-apagar") { S = vazio(); mostra("capa"); return; }
   });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !$("#indice").hidden) fechaIndice();
+    if (e.key === "Enter" && e.target.classList && e.target.classList.contains("um")) { e.preventDefault(); e.target.blur(); }
+  });
+  window.addEventListener("afterprint", () => { $("#imp").innerHTML = ""; });
 
-  if (!guarda) { $("#aviso").hidden = false; }
-  mostra(PAGS.some(p => p[0] === S.pag) ? S.pag : "capa", false);
+  if (!guarda) $("#aviso").hidden = false;
+  mostra(S.pag, false);
 })();
 </script>
-
 </body>
 </html>
