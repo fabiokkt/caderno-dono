@@ -243,6 +243,7 @@ a { color: var(--accent); }
 .ilu .ring { fill: none; stroke: var(--accent); stroke-width: 2.4; }
 .ilu .tog { fill: var(--ok); }
 .ilu .knob { fill: var(--card); }
+.ilu .bt { fill: var(--well); }
 .ilu .ibg { fill: var(--icon-bg); }
 .ilu .ifg { fill: var(--icon-fg); }
 .ilu .ifs { fill: none; stroke: var(--icon-bg); stroke-width: 1.05; stroke-linecap: round; }
@@ -484,24 +485,37 @@ a { color: var(--accent); }
     iosBarra: () => ilus(64, `<circle cx="32" cy="32" r="20" class="k"/><path d="M35 24 L27 32 L35 40" class="st"/>
       <rect x="62" y="12" width="176" height="40" rx="20" class="k"/><text x="150" y="35.5" text-anchor="middle" class="ts">${HOST}</text>
       <circle cx="268" cy="32" r="20" class="k"/>${pontos(268, 32)}<circle cx="268" cy="32" r="25.5" class="ring"/>`),
-    iosMenu: () => ilus(124, `<rect x="51" y="6" width="198" height="112" rx="14" class="k"/>
-      <rect x="67" y="21" width="96" height="8" rx="4" class="m"/><rect x="217" y="17" width="16" height="16" rx="4" class="m"/>
-      <path d="M51 43.5 H249" class="sep"/>
-      <rect x="57" y="47" width="186" height="30" rx="8" class="hl"/><text x="71" y="66.5" class="tb">Compartilhar</text>${share(225, 62)}
-      <path d="M51 80.5 H249" class="sep"/>
-      <rect x="67" y="95" width="120" height="8" rx="4" class="m"/><rect x="217" y="91" width="16" height="16" rx="4" class="m"/>`),
-    iosLista: () => ilus(150, `${moldura(150)}<rect x="134" y="13" width="32" height="4" rx="2" class="m"/>
-      ${barra(22, 45, 110)}<path d="M54 64.5 H294" class="sep"/>${barra(22, 83, 140)}<path d="M54 102.5 H294" class="sep"/>
-      <rect x="12" y="106" width="276" height="32" rx="9" class="hl"/>${mais(32, 122)}<text x="54" y="126.5" class="tb">Adicionar à Tela de Início</text>`),
-    iosAdicionar: () => ilus(150, `${moldura(150)}
-      <text x="22" y="35" class="tm">Cancelar</text><text x="276" y="35" text-anchor="end" class="tb">Adicionar</text>
-      <rect x="208" y="17" width="78" height="26" rx="13" class="ring"/>
-      <path d="M6 50.5 H294" class="sep"/>
-      ${iconeD(40, 74, 32)}<rect x="66" y="62" width="212" height="24" rx="6" class="k"/><text x="76" y="78.5" class="tb">${ICONE}</text>
-      <path d="M6 98.5 H294" class="sep"/>
-      <text x="22" y="126" class="t">Abrir como App da Web</text>
-      <rect x="236" y="110" width="44" height="26" rx="13" class="tog"/><circle cx="267" cy="123" r="10.5" class="knob"/>
-      <rect x="231" y="105" width="54" height="36" rx="18" class="ring"/>`),
+    // menu dos três pontinhos: Compartilhar é a primeira opção, com o ícone à esquerda
+    iosMenu: () => ilus(150, `<rect x="70" y="6" width="224" height="138" rx="16" class="k"/>
+      <rect x="78" y="14" width="208" height="30" rx="9" class="hl"/>${share(97, 29)}<text x="116" y="33.5" class="tb">Compartilhar</text>
+      ${barra(87, 62, 120)}${barra(87, 92, 96)}
+      <path d="M78 110.5 H286" class="sep"/>
+      ${barra(87, 128, 84)}`),
+    // a folha de compartilhar abre fechada: a fileira de botões redondos termina em "Ver Mais"
+    iosVerMais: () => ilus(150, `${moldura(150)}
+      ${iconeD(36, 34, 28)}<rect x="60" y="25" width="150" height="8" rx="4" class="m"/><rect x="60" y="39" width="100" height="6" rx="3" class="m"/>
+      <path d="M6 60.5 H294" class="sep"/>
+      ${[48, 114, 180].map(x => `<circle cx="${x}" cy="92" r="19" class="bt"/><rect x="${x - 18}" y="122" width="36" height="6" rx="3" class="m"/>`).join("")}
+      <rect x="44" y="84" width="8" height="11" rx="2" class="st"/><path d="M47 99 H55 V88" class="st"/>
+      <path d="M109 84 H119 V100 L114 96 L109 100 Z" class="st"/>
+      <circle cx="173.5" cy="92" r="4.5" class="st"/><circle cx="186.5" cy="92" r="4.5" class="st"/><path d="M178 91 Q180 89.5 182 91" class="st"/>
+      <circle cx="248" cy="92" r="19" class="bt"/><path d="M242 89 L248 95 L254 89" class="st"/><text x="248" y="129" text-anchor="middle" class="tb">Ver Mais</text>
+      <circle cx="248" cy="92" r="25.5" class="ring"/>`),
+    // depois de "Ver Mais", a lista abre: "Adicionar à Tela de Início" é a quarta linha
+    iosLista: () => ilus(160, `${moldura(160)}
+      ${barra(22, 30, 120)}<path d="M54 46.5 H294" class="sep"/>${barra(22, 62, 90)}<path d="M54 78.5 H294" class="sep"/>${barra(22, 94, 130)}<path d="M54 110.5 H294" class="sep"/>
+      <rect x="12" y="116" width="276" height="32" rx="9" class="hl"/>${mais(32, 132)}<text x="54" y="136.5" class="tb">Adicionar à Tela de Início</text>`),
+    // a tela de adicionar: X à esquerda, "Adicionar" à direita, o nome já vem preenchido
+    iosAdicionar: () => ilus(160, `${moldura(160)}
+      <circle cx="32" cy="32" r="13" class="bt"/><path d="M27.5 27.5 L36.5 36.5 M36.5 27.5 L27.5 36.5" class="st"/>
+      <text x="52" y="36" class="t">Adicionar à Tela de Início</text>
+      <rect x="218" y="18" width="66" height="28" rx="14" class="hl"/><text x="251" y="36.5" text-anchor="middle" class="tb">Adicionar</text>
+      <rect x="213" y="13" width="76" height="38" rx="19" class="ring"/>
+      <path d="M6 58.5 H294" class="sep"/>
+      ${iconeD(36, 83, 32)}<text x="62" y="80" class="tb">${ICONE}</text><rect x="62" y="89" width="150" height="6" rx="3" class="m"/>
+      <path d="M6 108.5 H294" class="sep"/>
+      <text x="22" y="137" class="t">Abrir como app web</text>
+      <rect x="236" y="121" width="44" height="26" rx="13" class="tog"/><circle cx="267" cy="134" r="10.5" class="knob"/>`),
     inicio: () => ilus(104, `${moldura(104)}
       ${[60, 120, 240].map(x => `<rect x="${x - 20}" y="22" width="40" height="40" rx="10" class="m"/><rect x="${x - 14}" y="72" width="28" height="6" rx="3" class="m"/>`).join("")}
       ${iconeD(180, 42, 40)}<text x="180" y="80" text-anchor="middle" class="ts">${ICONE}</text>
@@ -553,10 +567,11 @@ a { color: var(--accent); }
       <div class="aviso">Se você preencher aqui no Safari e ficar uma semana sem abrir, o iPhone pode apagar o que escreveu. Pelo ícone, não.</div>
       <ol class="passos">
         ${passoI(1, "Toca nos três pontinhos", "Ficam embaixo, à direita do endereço.", D.iosBarra(), "Se na barra já aparecer o quadrado com a seta pra cima, toca nele e pula pro passo 3.")}
-        ${passoI(2, "Toca em Compartilhar", "", D.iosMenu())}
-        ${passoI(3, "Desce e toca em “Adicionar à Tela de Início”", "", D.iosLista(), "Não achou? No fim da lista, toca em Editar Ações e acrescenta essa opção.")}
-        ${passoI(4, "Deixa ligado “Abrir como App da Web” e toca em Adicionar", "", D.iosAdicionar())}
-        ${passoI(5, `Abre pelo ícone ${ICONE}`, "Fecha o Safari e toca no ícone novo, com a pena. Daqui em diante, abre sempre por ele.", D.inicio())}
+        ${passoI(2, "Toca em Compartilhar", "É a primeira opção do menu.", D.iosMenu())}
+        ${passoI(3, "Toca em Ver Mais", "É o último botão redondo da fileira, com a setinha pra baixo.", D.iosVerMais(), "Se a lista de opções já estiver aberta, pula pro passo 4.")}
+        ${passoI(4, "Toca em “Adicionar à Tela de Início”", "", D.iosLista(), "Não achou? No fim da lista, toca em Editar Ações e acrescenta essa opção.")}
+        ${passoI(5, "Deixa ligado “Abrir como app web” e toca em Adicionar", `O nome já vem como ${ICONE}.`, D.iosAdicionar())}
+        ${passoI(6, `Abre pelo ícone ${ICONE}`, "Fecha o Safari e toca no ícone novo, com a pena. Daqui em diante, abre sempre por ele.", D.inicio())}
       </ol>
       ${fica("Prefiro preencher aqui no Safari", `Pode, mas fica o risco: se você ficar uma semana sem abrir, o iPhone pode apagar o que escreveu. ${COPIA}`, "Preencher aqui")}
     </section>`;
@@ -626,7 +641,7 @@ a { color: var(--accent); }
     <div class="box"><div class="rot ac">Onde fica o que você escreve</div><ul class="ol">
       <li><b>1</b><span>Tudo fica salvo neste celular, na hora, sem botão. Nada vai pra internet, nem os nomes do seu time.</span></li>
       <li><b>2</b><span>${APP ? `<b style="color:var(--ink)">Você já abriu pelo ícone ${ICONE}.</b> É por ele que o celular guarda o caderno: abre sempre por ele.`
-        : `<b style="color:var(--ink)">Põe na tela do celular antes de preencher.</b> No iPhone, no Safari: três pontinhos, Compartilhar e “Adicionar à Tela de Início”. No Android, no Chrome: menu ⋮ e “Instalar e criar atalho”. Vira o ícone ${ICONE}, como app, e o celular não apaga o que você escreveu. <button class="mini" data-ir="instala" style="padding:4px 0">Ver o passo a passo</button>`}</span></li>
+        : `<b style="color:var(--ink)">Põe na tela do celular antes de preencher.</b> No iPhone, no Safari: três pontinhos, Compartilhar, Ver Mais e “Adicionar à Tela de Início”. No Android, no Chrome: menu ⋮ e “Instalar e criar atalho”. Vira o ícone ${ICONE}, como app, e o celular não apaga o que você escreveu. <button class="mini" data-ir="instala" style="padding:4px 0">Ver o passo a passo</button>`}</span></li>
       <li><b>3</b><span>De vez em quando, guarda uma cópia de segurança (no menu Páginas, em “Guardar”). Se trocar de celular, é ela que leva o caderno junto.</span></li></ul></div>
     <div class="box"><div class="rot ac">Como usar</div><ul class="ol">
       <li><b>1</b><span>Uma página por vez: o dia 1, uma por semana e o dia 30. Os anexos (contratos, passo a passo, chamadas e a franquia) ficam no menu Páginas.</span></li>
