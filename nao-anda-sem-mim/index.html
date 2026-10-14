@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Caderno de Dono(a)</title>
+<title>Caderno de Dono(a) · Minha empresa não anda sem mim</title>
 <meta name="description" content="Caderno de Dono(a) · Minha empresa não anda sem mim · Protocolos da Prática">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Caderno">
+<meta name="apple-mobile-web-app-title" content="Sem mim">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141316" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800&display=swap">
@@ -20,7 +21,7 @@
 :root {
   --paper: #FAF8F4; --dot: #DDD6C8; --card: #FFFFFF; --line: #E2DCD0; --ink: #1D1C1A; --ink2: #4A453D; --muted: #776F64;
   --accent: #7A1F33; --accent-soft: #F6E9EB; --pen: #2F3A8F; --pen-soft: #ECEEF8; --ok: #2E6B4F; --warn: #8A5A00; --warn-soft: #FBF1DC;
-  --red: #B3261E;
+  --red: #B3261E; --well: #F2EEE7; --ok-soft: #E4F1EA; --icon-bg: #7A1F33; --icon-fg: #FFFFFF;
   --f-display: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -28,13 +29,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #141316; --dot: #2A2730; --card: #1D1B20; --line: #36323C; --ink: #F2EFEA; --ink2: #D2CCC3; --muted: #A0988D;
-    --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80;
+    --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80; --well: #18161B; --ok-soft: #1B3328;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #141316; --dot: #2A2730; --card: #1D1B20; --line: #36323C; --ink: #F2EFEA; --ink2: #D2CCC3; --muted: #A0988D;
-  --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80;
+  --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80; --well: #18161B; --ok-soft: #1B3328;
   color-scheme: dark;
 }
 [hidden] { display: none !important; }
@@ -52,7 +53,9 @@ body {
 .top .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .marca { display: flex; align-items: center; gap: 8px; font: 700 15px/1 var(--f-display); letter-spacing: -.01em; min-width: 0; }
 .marca svg { width: 11px; height: 19px; flex: none; }
-.marca span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.marca .nm { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.marca .nm span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.marca .nm small { font: 500 11px/1.15 var(--f-body); letter-spacing: 0; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dir-top { display: flex; align-items: center; gap: 10px; }
 .salvo { font: 500 12px/1 var(--f-body); color: var(--muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
 .salvo i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); display: inline-block; }
@@ -216,6 +219,51 @@ textarea.bk { width: 100%; min-height: 90px; font: 400 16px/1.4 ui-monospace, Me
 a { color: var(--accent); }
 @media (prefers-reduced-motion: no-preference) { .pg { animation: entra .18s ease-out; } @keyframes entra { from { opacity: .4; transform: translateY(4px); } } }
 
+/* instalação: passos numerados com o desenho do botão que a pessoa toca */
+.passos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.passo { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 4px 10px; }
+.pn { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--card); display: grid; place-items: center; font: 700 14px/1 var(--f-body); margin-top: -2px; }
+.pc { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pc h3 { font: 700 17px/1.25 var(--f-body); margin: 0; text-wrap: balance; }
+.pc p { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink2); }
+.pc .dica { font-size: 13.5px; color: var(--muted); }
+.ilu { margin: 2px 0 0; background: var(--well); border-radius: 12px; padding: 8px; }
+.ilu svg { display: block; width: 100%; height: auto; }
+.ilu .k { fill: var(--card); stroke: var(--line); stroke-width: 1.2; }
+.ilu .m { fill: var(--line); }
+.ilu .sep { stroke: var(--line); stroke-width: 1; }
+.ilu .st { fill: none; stroke: var(--ink2); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.ilu .dt { fill: var(--ink); }
+.ilu .t { font: 500 12px var(--f-body); fill: var(--ink2); }
+.ilu .ts { font: 500 11px var(--f-body); fill: var(--muted); }
+.ilu .tb { font: 600 12.5px var(--f-body); fill: var(--ink); }
+.ilu .th { font: 700 14px var(--f-body); fill: var(--ink); }
+.ilu .tm { font: 500 12.5px var(--f-body); fill: var(--muted); }
+.ilu .hl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.8; }
+.ilu .ring { fill: none; stroke: var(--accent); stroke-width: 2.4; }
+.ilu .tog { fill: var(--ok); }
+.ilu .knob { fill: var(--card); }
+.ilu .ibg { fill: var(--icon-bg); }
+.ilu .ifg { fill: var(--icon-fg); }
+.ilu .ifs { fill: none; stroke: var(--icon-bg); stroke-width: 1.05; stroke-linecap: round; }
+.ilu .ifc { fill: var(--icon-bg); }
+@media (prefers-reduced-motion: no-preference) { .ilu .ring { animation: pulso 1.8s ease-in-out infinite; } @keyframes pulso { 0%, 100% { opacity: 1; } 50% { opacity: .3; } } }
+.pronto { background: var(--ok-soft); color: var(--ok); border-radius: 12px; padding: 12px 14px; font-size: 15px; line-height: 1.45; }
+.link { display: flex; flex-direction: column; gap: 8px; }
+.link input { width: 100%; font: 500 16px/1.3 var(--f-body); color: var(--pen); background: var(--pen-soft); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 44px; }
+.link input:focus { outline: 3px solid var(--pen); outline-offset: 1px; }
+.btn.big { width: 100%; flex: none; min-height: 60px; font-size: 17px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn.big svg { width: 18px; height: 18px; }
+.ou { display: flex; align-items: center; gap: 10px; font: 600 12px/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ou::before, .ou::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.qr { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.qr #qr-img { width: 184px; height: 184px; }
+.qr svg { width: 184px; height: 184px; display: block; }
+.qr .qr-bg { fill: var(--card); }
+.qr .qr-fg { fill: var(--ink); }
+.qr p { margin: 0; font-size: 14px; color: var(--ink2); text-align: center; }
+.pg > .mini { align-self: flex-start; }
+
 /* impressão: só o caderno preenchido, em papel A4 */
 #imp { display: none; }
 @media print {
@@ -243,7 +291,7 @@ a { color: var(--accent); }
 <div class="wrap">
   <header class="top">
     <div class="row">
-      <div class="marca"><svg viewBox="6.2 2.1 11.6 20.4" aria-hidden="true"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" fill="var(--accent)"/><circle cx="12" cy="10.2" r="1.55" fill="var(--paper)"/><path d="M12 11.75 V20" stroke="var(--paper)" stroke-width="1.05" stroke-linecap="round"/></svg><span>Caderno de Dono(a)</span></div>
+      <div class="marca"><svg viewBox="6.2 2.1 11.6 20.4" aria-hidden="true"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" fill="var(--accent)"/><circle cx="12" cy="10.2" r="1.55" fill="var(--paper)"/><path d="M12 11.75 V20" stroke="var(--paper)" stroke-width="1.05" stroke-linecap="round"/></svg><span class="nm"><span>Caderno de Dono(a)</span><small>Minha empresa não anda sem mim</small></span></div>
       <div class="dir-top"><span class="salvo" id="salvo" role="status"><i></i><span id="salvo-t">Salvo</span></span><button class="bt-pag" data-acao="indice" aria-haspopup="dialog">Páginas</button></div>
     </div>
     <nav class="trilha" id="trilha" aria-label="Caminho do caderno"></nav>
@@ -288,10 +336,10 @@ a { color: var(--accent); }
   const vazio = () => ({ v: 2, pag: "capa", capa: { de: "", empresa: "", comecei: "" }, cad: {}, outraNome: "", ordem: [],
     terca: Array.from({ length: 5 }, () => ({ t: "", nao: false })), sem: [semana(), semana(), semana(), semana()],
     d30: { hoje: null, s1: false, s2: false, consigo: [false, false, false, false, false], terca: "", prox: "", pquem: "", travou: "" },
-    contratos: [], passos: [], chamadas: [], franquia: { notas: [null, null, null, null, null, null], low: ["", ""] } });
+    contratos: [], passos: [], chamadas: [], franquia: { notas: [null, null, null, null, null, null], low: ["", ""] }, inst: { aqui: false, okVisto: false } });
   const completa = n => {
     const b = vazio(), S = Object.assign(b, n || {});
-    S.capa = Object.assign(vazio().capa, S.capa); S.d30 = Object.assign(vazio().d30, S.d30); S.franquia = Object.assign(vazio().franquia, S.franquia);
+    S.capa = Object.assign(vazio().capa, S.capa); S.d30 = Object.assign(vazio().d30, S.d30); S.franquia = Object.assign(vazio().franquia, S.franquia); S.inst = Object.assign(vazio().inst, S.inst);
     while (S.terca.length < 5) S.terca.push({ t: "", nao: false });
     S.sem = (S.sem && S.sem.length ? S.sem : [semana(), semana(), semana(), semana()]).map(s => { const x = Object.assign(semana(), s); x.sexta = Object.assign(semana().sexta, s.sexta); return x; });
     while (S.sem.length < 4) S.sem.push(semana());
@@ -383,7 +431,7 @@ a { color: var(--accent); }
   // ---------------------------------------------------------------- páginas
   const PRINCIPAL = () => ["capa", "antes", "d1a", "d1b", "d1c", "d1d", "terca", ...S.sem.map((_, k) => "s" + k), "d30"];
   const ANEXOS = ["contratos", "passos", "chamadas", "franquia", "guardar"];
-  const TITULO = p => ({ capa: "Capa", antes: "Antes de começar", d1a: "Dia 1 · Escreve EU", d1b: "Dia 1 · O que fica com você", d1c: "Dia 1 · Quem assumiria",
+  const TITULO = p => ({ capa: "Capa", instala: AQUI === "pc" ? "Abrir no celular" : "Pôr o caderno no celular", antes: "Antes de começar", d1a: "Dia 1 · Escreve EU", d1b: "Dia 1 · O que fica com você", d1c: "Dia 1 · Quem assumiria",
     d1d: "Dia 1 · Qual sai primeiro", terca: "Dia 1 · A terça daqui a 5 anos", d30: "Dia 30 · Funcionou?", contratos: "Anexos A e B · Contratos", passos: "Anexo C · Passo a passo",
     chamadas: "Anexo D · Me chamaram", franquia: "Anexo E · As 6 regras da franquia", guardar: "Guardar, PDF e lembretes" }[p] || ("Semana " + (+p.slice(1) + 1) + (semCad(+p.slice(1)) ? " · " + nomeCad(semCad(+p.slice(1))) : "")));
   const seguinte = p => { const L = [...PRINCIPAL(), ...ANEXOS]; const i = L.indexOf(p); return [L[i - 1] || "", L[i + 1] || ""]; };
@@ -401,8 +449,163 @@ a { color: var(--accent); }
   }
   const P = {};
 
+  // ---------------------------------------------------------------- instalação (primeira tela, pra quem ainda não abriu pelo ícone)
+  // Descobre onde o caderno foi aberto e mostra só o passo a passo daquele caso.
+  const LINK = "https://caderno.praticabusiness.com/nao-anda-sem-mim/", HOST = "caderno.praticabusiness.com", ICONE = "Sem mim";
+  function detecta() {
+    const ua = navigator.userAgent || "";
+    const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const android = /Android/i.test(ua);
+    let app = false;
+    try { app = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches; } catch (e) { /* sem matchMedia */ }
+    if (app) return "app";
+    if (ios) return /Safari\//.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|Instagram|FBAN|FBAV|Line\/|GSA\//.test(ua) ? "ios" : "ios-app";
+    if (android) return /Chrome\//.test(ua) && !/; wv\)|SamsungBrowser|EdgA|OPR\/|Firefox|Instagram|FBAN|FBAV|Line\/|GSA\//.test(ua) ? "and" : "and-app";
+    return "pc";
+  }
+  const AQUI = detecta(), APP = AQUI === "app", DENTRO = AQUI === "ios-app" || AQUI === "and-app";
+  let pedido = null, instConf = false, instMsg = "";
+  // Android: o Chrome avisa quando dá pra instalar com um toque
+  addEventListener("beforeinstallprompt", e => { e.preventDefault(); pedido = e; if (S.pag === "instala") redesenha(); });
+  addEventListener("appinstalled", () => { pedido = null; instMsg = `Pronto. O caderno está na tela inicial: abre pelo ícone ${ICONE}.`; if (S.pag === "instala") redesenha(); });
+
+  // desenhos dos botões do celular (ilustração, não é o botão de verdade)
+  const ilus = (h, corpo) => `<figure class="ilu"><svg viewBox="0 0 300 ${h}" aria-hidden="true">${corpo}</svg></figure>`;
+  const pena = (cx, cy, s) => `<g transform="translate(${cx - 12 * s} ${cy - 12.3 * s}) scale(${s})"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" class="ifg"/><circle cx="12" cy="10.2" r="1.55" class="ifc"/><path d="M12 11.75 V20" class="ifs"/></g>`;
+  const iconeD = (cx, cy, n) => `<rect x="${cx - n / 2}" y="${cy - n / 2}" width="${n}" height="${n}" rx="${n * .24}" class="ibg"/>${pena(cx, cy, n * .6 / 20.4)}`;
+  const share = (x, y) => `<path d="M${x - 3} ${y - 3} H${x - 6} V${y + 8} H${x + 6} V${y - 3} H${x + 3}" class="st"/><path d="M${x} ${y + 3} V${y - 9} M${x - 3.5} ${y - 5.5} L${x} ${y - 9} L${x + 3.5} ${y - 5.5}" class="st"/>`;
+  const mais = (x, y) => `<rect x="${x - 8}" y="${y - 8}" width="16" height="16" rx="4" class="st"/><path d="M${x} ${y - 4} V${y + 4} M${x - 4} ${y} H${x + 4}" class="st"/>`;
+  const instalaD = (x, y) => `<rect x="${x - 5.5}" y="${y - 8.5}" width="11" height="17" rx="2.5" class="st"/><path d="M${x} ${y - 4} V${y + 2.5} M${x - 2.8} ${y - .3} L${x} ${y + 2.5} L${x + 2.8} ${y - .3}" class="st"/>`;
+  const bussola = (x, y) => `<circle cx="${x}" cy="${y}" r="8" class="st"/><path d="M${x + 3.5} ${y - 3.5} L${x - 1.2} ${y - 1.2} L${x - 3.5} ${y + 3.5} L${x + 1.2} ${y + 1.2} Z" class="dt"/>`;
+  const pontos = (x, y, vert) => [-8, 0, 8].map(d => `<circle cx="${vert ? x : x + d}" cy="${vert ? y + d : y}" r="2.3" class="dt"/>`).join("");
+  const barra = (x, y, w, ic = true) => `${ic ? `<rect x="${x}" y="${y - 10}" width="20" height="20" rx="5" class="m"/>` : ""}<rect x="${x + (ic ? 32 : 0)}" y="${y - 4}" width="${w}" height="8" rx="4" class="m"/>`;
+  const moldura = n => `<rect x="6" y="6" width="288" height="${n - 12}" rx="16" class="k"/>`;
+  const D = {
+    iosBarra: () => ilus(64, `<circle cx="32" cy="32" r="20" class="k"/><path d="M35 24 L27 32 L35 40" class="st"/>
+      <rect x="62" y="12" width="176" height="40" rx="20" class="k"/><text x="150" y="35.5" text-anchor="middle" class="ts">${HOST}</text>
+      <circle cx="268" cy="32" r="20" class="k"/>${pontos(268, 32)}<circle cx="268" cy="32" r="25.5" class="ring"/>`),
+    iosMenu: () => ilus(124, `<rect x="51" y="6" width="198" height="112" rx="14" class="k"/>
+      <rect x="67" y="21" width="96" height="8" rx="4" class="m"/><rect x="217" y="17" width="16" height="16" rx="4" class="m"/>
+      <path d="M51 43.5 H249" class="sep"/>
+      <rect x="57" y="47" width="186" height="30" rx="8" class="hl"/><text x="71" y="66.5" class="tb">Compartilhar</text>${share(225, 62)}
+      <path d="M51 80.5 H249" class="sep"/>
+      <rect x="67" y="95" width="120" height="8" rx="4" class="m"/><rect x="217" y="91" width="16" height="16" rx="4" class="m"/>`),
+    iosLista: () => ilus(150, `${moldura(150)}<rect x="134" y="13" width="32" height="4" rx="2" class="m"/>
+      ${barra(22, 45, 110)}<path d="M54 64.5 H294" class="sep"/>${barra(22, 83, 140)}<path d="M54 102.5 H294" class="sep"/>
+      <rect x="12" y="106" width="276" height="32" rx="9" class="hl"/>${mais(32, 122)}<text x="54" y="126.5" class="tb">Adicionar à Tela de Início</text>`),
+    iosAdicionar: () => ilus(150, `${moldura(150)}
+      <text x="22" y="35" class="tm">Cancelar</text><text x="276" y="35" text-anchor="end" class="tb">Adicionar</text>
+      <rect x="208" y="17" width="78" height="26" rx="13" class="ring"/>
+      <path d="M6 50.5 H294" class="sep"/>
+      ${iconeD(40, 74, 32)}<rect x="66" y="62" width="212" height="24" rx="6" class="k"/><text x="76" y="78.5" class="tb">${ICONE}</text>
+      <path d="M6 98.5 H294" class="sep"/>
+      <text x="22" y="126" class="t">Abrir como App da Web</text>
+      <rect x="236" y="110" width="44" height="26" rx="13" class="tog"/><circle cx="267" cy="123" r="10.5" class="knob"/>
+      <rect x="231" y="105" width="54" height="36" rx="18" class="ring"/>`),
+    inicio: () => ilus(104, `${moldura(104)}
+      ${[60, 120, 240].map(x => `<rect x="${x - 20}" y="22" width="40" height="40" rx="10" class="m"/><rect x="${x - 14}" y="72" width="28" height="6" rx="3" class="m"/>`).join("")}
+      ${iconeD(180, 42, 40)}<text x="180" y="80" text-anchor="middle" class="ts">${ICONE}</text>
+      <rect x="152" y="14" width="56" height="76" rx="14" class="ring"/>`),
+    andBarra: () => ilus(64, `<rect x="8" y="12" width="240" height="40" rx="20" class="k"/><text x="28" y="36" class="t">${HOST}</text>
+      ${pontos(274, 32, true)}<circle cx="274" cy="32" r="20" class="ring"/>`),
+    andMenu: () => ilus(150, `<rect x="66" y="6" width="228" height="138" rx="10" class="k"/>
+      ${barra(80, 27, 110)}${barra(80, 60, 90)}
+      <rect x="72" y="79" width="216" height="28" rx="8" class="hl"/>${instalaD(90, 93)}<text x="108" y="97.5" class="tb">Instalar e criar atalho</text>
+      ${barra(80, 126, 100)}`),
+    andInstalar: () => ilus(140, `<rect x="26" y="6" width="248" height="128" rx="20" class="k"/>
+      <text x="46" y="38" class="th">Instalar app</text>
+      ${iconeD(62, 72, 32)}<text x="88" y="69" class="tb">${ICONE}</text><text x="88" y="85" class="ts">${HOST}</text>
+      <text x="168" y="117" text-anchor="middle" class="tm">Cancelar</text><text x="232" y="117" text-anchor="middle" class="tb">Instalar</text>
+      <rect x="200" y="99" width="64" height="28" rx="14" class="ring"/>`),
+    dentro: nav => ilus(150, `<rect x="6" y="6" width="288" height="40" rx="12" class="k"/>
+      <path d="M19 21 L29 31 M29 21 L19 31" class="st"/><text x="150" y="30" text-anchor="middle" class="ts">${HOST}</text>
+      ${pontos(268, 26)}<circle cx="268" cy="26" r="17" class="ring"/>
+      <rect x="106" y="54" width="188" height="90" rx="12" class="k"/>
+      <rect x="122" y="66" width="100" height="8" rx="4" class="m"/>
+      <rect x="112" y="84" width="176" height="30" rx="8" class="hl"/>${bussola(129, 99)}<text x="145" y="103.5" class="tb">Abrir no ${nav}</text>
+      <rect x="122" y="126" width="80" height="8" rx="4" class="m"/>`)
+  };
+
+  const passoI = (n, h, p, ilu = "", dica = "") => `<li class="passo"><span class="pn" aria-hidden="true">${n}</span><div class="pc"><h3>${h}</h3>${p ? `<p>${p}</p>` : ""}${ilu}${dica ? `<p class="dica">${dica}</p>` : ""}</div></li>`;
+  const caixaLink = nav => `<div class="link"><input type="text" id="link" value="${LINK}" readonly aria-label="Link do caderno">
+      <button class="btn" data-acao="copiar-link">Copiar o link</button>
+      <span class="ok-msg" id="copiado" hidden>${nav ? `Copiado. Abre o ${nav}, toca na barra de endereço e cola.` : "Copiado. Manda pra você no WhatsApp e abre no celular."}</span></div>`;
+  const COPIA = "Toda sexta, guarda uma cópia de segurança: menu Páginas, em Guardar.";
+  const fica = (pergunta, aviso, rotOk) => instConf
+    ? `<div class="conf">${aviso}<div class="nav"><button class="btn" data-acao="inst-nao">Voltar</button><button class="btn pri" data-acao="inst-aqui">${rotOk}</button></div></div>`
+    : `<button class="mini" data-acao="inst-confirma">${pergunta}</button>`;
+  function dentro(nav, onde) {
+    return `<section class="pg">
+      <div class="eb">Antes de escrever</div><h1>Abre o caderno no ${nav}</h1>
+      <p class="lead">Você abriu o link de dentro de um app, como o da Hotmart. Daqui não dá pra pôr o caderno na ${onde}, e o que você escrever pode se perder.</p>
+      <ol class="passos">
+        ${passoI(1, "Toca no menu desta tela", `Procura “Abrir no ${nav}” ou “Abrir no navegador”.`, D.dentro(nav), "Cada app põe num lugar: nos três pontinhos, no ícone de bússola ou no de compartilhar.")}
+        ${passoI(2, "Não achou? Copia o link", `Depois abre o ${nav}, toca na barra de endereço e cola.`, caixaLink(nav))}
+        ${passoI(3, `No ${nav}, o caderno mostra o resto`, "Leva um minuto, e daí ele vira um ícone no seu celular.")}
+      </ol>
+      ${fica("Preencher aqui mesmo assim", `Pode, mas o que você escrever aqui pode sumir quando o app fechar. ${COPIA}`, "Preencher aqui")}
+    </section>`;
+  }
+  P.instala = () => {
+    if (AQUI === "ios") return `<section class="pg">
+      <div class="eb">Antes de escrever · 1 minuto</div><h1>Põe o caderno na Tela de Início</h1>
+      <p class="lead">Ele vira um ícone, igual app. É por ele que você preenche os 30 dias, e o iPhone guarda tudo.</p>
+      <div class="aviso">Se você preencher aqui no Safari e ficar uma semana sem abrir, o iPhone pode apagar o que escreveu. Pelo ícone, não.</div>
+      <ol class="passos">
+        ${passoI(1, "Toca nos três pontinhos", "Ficam embaixo, à direita do endereço.", D.iosBarra(), "Se na barra já aparecer o quadrado com a seta pra cima, toca nele e pula pro passo 3.")}
+        ${passoI(2, "Toca em Compartilhar", "", D.iosMenu())}
+        ${passoI(3, "Desce e toca em “Adicionar à Tela de Início”", "", D.iosLista(), "Não achou? No fim da lista, toca em Editar Ações e acrescenta essa opção.")}
+        ${passoI(4, "Deixa ligado “Abrir como App da Web” e toca em Adicionar", "", D.iosAdicionar())}
+        ${passoI(5, `Abre pelo ícone ${ICONE}`, "Fecha o Safari e toca no ícone novo, com a pena. Daqui em diante, abre sempre por ele.", D.inicio())}
+      </ol>
+      ${fica("Prefiro preencher aqui no Safari", `Pode, mas fica o risco: se você ficar uma semana sem abrir, o iPhone pode apagar o que escreveu. ${COPIA}`, "Preencher aqui")}
+    </section>`;
+    if (AQUI === "ios-app") return dentro("Safari", "Tela de Início");
+    if (AQUI === "and-app") return dentro("Chrome", "tela inicial");
+    if (AQUI === "and") return `<section class="pg">
+      <div class="eb">Antes de escrever · 1 minuto</div><h1>Põe o caderno na tela inicial</h1>
+      <p class="lead">Ele vira um ícone, igual app, e abre direto no caderno. É por ele que você preenche os 30 dias.</p>
+      ${instMsg ? `<div class="pronto">${instMsg}</div>` : ""}
+      ${pedido ? `<button class="btn pri big" data-acao="instalar"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5 V11.5 M5.2 7.8 L9 11.6 L12.8 7.8 M3 15.5 H15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Instalar o caderno</button>
+        <div class="ou">Não deu? Pelo menu</div>` : ""}
+      <ol class="passos">
+        ${passoI(1, "Toca nos três pontinhos", "Ficam em cima, à direita do endereço.", D.andBarra())}
+        ${passoI(2, "Toca em “Instalar e criar atalho”", "", D.andMenu(), "Em alguns celulares o nome é “Adicionar à tela inicial”.")}
+        ${passoI(3, "Toca em Instalar", "", D.andInstalar())}
+        ${passoI(4, `Abre pelo ícone ${ICONE}`, "Ele fica na tela inicial, com a pena. Daqui em diante, abre sempre por ele.", D.inicio())}
+      </ol>
+      <button class="mini" data-acao="inst-aqui">Agora não</button>
+    </section>`;
+    if (AQUI === "pc") return `<section class="pg">
+      <div class="eb">O caderno é pra celular</div><h1>Abre no seu celular</h1>
+      <p class="lead">Você vai preencher um pouco por dia, durante 30 dias. No celular ele fica à mão. Aponta a câmera pro código.</p>
+      <div class="qr" id="qr"><div id="qr-img" aria-hidden="true"></div><p>No iPhone, abre no Safari. No Android, no Chrome.</p></div>
+      <div class="ou">Ou manda o link pra você</div>
+      ${caixaLink("")}
+      <button class="mini" data-acao="inst-aqui">Só quero dar uma olhada no computador</button>
+    </section>`;
+    return P.capa();
+  };
+  // código QR do link, desenhado na hora (a biblioteca só carrega no computador)
+  function qr() {
+    const box = $("#qr-img"); if (!box) return;
+    const desenha = () => {
+      try {
+        const q = window.qrcode(0, "M"); q.addData(LINK); q.make();
+        const n = q.getModuleCount(), p = 2; let d = "";
+        for (let r = 0; r < n; r++) { let c = 0; while (c < n) { if (q.isDark(r, c)) { const s = c; while (c < n && q.isDark(r, c)) c++; d += `M${s} ${r}h${c - s}v1h-${c - s}z`; } else c++; } }
+        box.innerHTML = `<svg viewBox="${-p} ${-p} ${n + 2 * p} ${n + 2 * p}" shape-rendering="crispEdges" role="img" aria-label="Código QR com o link do caderno"><rect x="${-p}" y="${-p}" width="${n + 2 * p}" height="${n + 2 * p}" class="qr-bg"/><path d="${d}" class="qr-fg"/></svg>`;
+      } catch (e) { const q = $("#qr"); if (q) q.hidden = true; }
+    };
+    if (typeof window.qrcode === "function") return desenha();
+    const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js";
+    s.onload = desenha; s.onerror = () => { const q = $("#qr"); if (q) q.hidden = true; }; document.head.appendChild(s);
+  }
+
   P.capa = () => `<section class="pg capa">
-    <div class="aviso" id="instala" hidden><b>Antes de preencher:</b> toca em Compartilhar (o quadrado com a seta pra cima) e depois em “Adicionar à Tela de Início”. Abre o caderno pelo ícone novo e preenche por lá. O que você escrever aqui no Safari não aparece no ícone.</div>
+    ${APP && !S.inst.okVisto ? `<div class="pronto">Pronto, o caderno está no seu celular. Daqui em diante, abre sempre por este ícone.</div>` : ""}
+    ${!APP && S.inst.aqui && AQUI === "ios" ? `<div class="aviso">Você está preenchendo no Safari. ${COPIA}</div>` : ""}
+    ${!APP && S.inst.aqui && DENTRO ? `<div class="aviso">Você está preenchendo dentro de outro app, e o que escrever pode sumir. ${COPIA}</div>` : ""}
     <div class="eb">Protocolo · ${NOME}</div>
     <h1>Caderno<br>de Dono(a).</h1>
     <p class="lead">30 dias pra tirar o seu nome das cadeiras da empresa. Uma cadeira por semana, aqui no celular.</p>
@@ -414,6 +617,7 @@ a { color: var(--accent); }
       <p class="nota">O dia 1 é o dia em que você começa, não o começo do mês. Os 30 dias contam daqui.</p>
     </div>
     <div class="nav"><button class="btn pri" data-ir="antes">Começar</button></div>
+    ${APP ? "" : `<button class="mini" data-ir="instala">${AQUI === "pc" ? "Abrir no celular" : AQUI.startsWith("and") ? "Pôr o caderno na tela inicial" : "Pôr o caderno na Tela de Início"}</button>`}
     <p class="nota">Inspirado em Michael Gerber · Fabio Takahashi · Prática Business</p>
   </section>`;
 
@@ -421,7 +625,8 @@ a { color: var(--accent); }
     <div class="eb">Antes do dia 1</div><h1>Antes de começar</h1>
     <div class="box"><div class="rot ac">Onde fica o que você escreve</div><ul class="ol">
       <li><b>1</b><span>Tudo fica salvo neste celular, na hora, sem botão. Nada vai pra internet, nem os nomes do seu time.</span></li>
-      <li><b>2</b><span><b style="color:var(--ink)">Põe na Tela de Início antes de preencher.</b> No iPhone: Compartilhar e “Adicionar à Tela de Início”. No Android: menu ⋮ e “Adicionar à tela inicial”. Vira um ícone, como app, e o celular não apaga o que você escreveu.</span></li>
+      <li><b>2</b><span>${APP ? `<b style="color:var(--ink)">Você já abriu pelo ícone ${ICONE}.</b> É por ele que o celular guarda o caderno: abre sempre por ele.`
+        : `<b style="color:var(--ink)">Põe na tela do celular antes de preencher.</b> No iPhone, no Safari: três pontinhos, Compartilhar e “Adicionar à Tela de Início”. No Android, no Chrome: menu ⋮ e “Instalar e criar atalho”. Vira o ícone ${ICONE}, como app, e o celular não apaga o que você escreveu. <button class="mini" data-ir="instala" style="padding:4px 0">Ver o passo a passo</button>`}</span></li>
       <li><b>3</b><span>De vez em quando, guarda uma cópia de segurança (no menu Páginas, em “Guardar”). Se trocar de celular, é ela que leva o caderno junto.</span></li></ul></div>
     <div class="box"><div class="rot ac">Como usar</div><ul class="ol">
       <li><b>1</b><span>Uma página por vez: o dia 1, uma por semana e o dia 30. Os anexos (contratos, passo a passo, chamadas e a franquia) ficam no menu Páginas.</span></li>
@@ -688,12 +893,14 @@ a { color: var(--accent); }
   }
   function render(p) { if (p[0] === "s" && /^s\d+$/.test(p)) return semanaPg(+p.slice(1)); return (P[p] || P.capa)(); }
   function mostra(p, rola = true) {
-    if (!(PRINCIPAL().includes(p) || ANEXOS.includes(p))) p = "capa";
+    if (!(PRINCIPAL().includes(p) || ANEXOS.includes(p) || (p === "instala" && !APP))) p = "capa";
+    if (p !== "instala") instConf = false;
     S.pag = p; $("#pg").innerHTML = render(p); trilha(); salva(); cresce();
-    if (p === "capa") { const ios = /iPhone|iPad|iPod/.test(navigator.userAgent), app = navigator.standalone === true || (window.matchMedia && matchMedia("(display-mode: standalone)").matches); const a = $("#instala"); if (a) a.hidden = !(ios && !app); }
+    if (p === "instala" && AQUI === "pc") qr();
+    if (p === "capa" && APP && !S.inst.okVisto) { S.inst.okVisto = true; salva(); }
     if (rola) window.scrollTo(0, 0);
   }
-  const redesenha = () => { const y = window.scrollY; $("#pg").innerHTML = render(S.pag); trilha(); cresce(); window.scrollTo(0, y); };
+  const redesenha = () => { const y = window.scrollY; $("#pg").innerHTML = render(S.pag); trilha(); cresce(); if (S.pag === "instala" && AQUI === "pc") qr(); window.scrollTo(0, y); };
   function cresce(el) { (el ? [el] : document.querySelectorAll("textarea.t")).forEach(t => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }); }
   function saidas_out() {
     document.querySelectorAll("[data-out]").forEach(el => { const o = el.dataset.out;
@@ -712,7 +919,7 @@ a { color: var(--accent); }
   function indice() {
     const L = PRINCIPAL(), it = p => `<button class="it${S.pag === p ? " agora" : ""}" data-ir="${p}" data-fecha="1"><span>${esc(TITULO(p))}</span>${S.pag === p ? "<small>aqui</small>" : ""}</button>`;
     $("#indice").innerHTML = `<div class="in"><div class="cab"><h2>Páginas</h2><button class="bt-pag" data-acao="fecha-indice">Fechar</button></div>
-      <div class="grp">Começo</div>${["capa", "antes"].map(it).join("")}
+      <div class="grp">Começo</div>${["capa", ...(APP ? [] : ["instala"]), "antes"].map(it).join("")}
       <div class="grp">Dia 1</div>${["d1a", "d1b", "d1c", "d1d", "terca"].map(it).join("")}
       <div class="grp">Semanas</div>${L.filter(p => /^s\d+$/.test(p)).map(it).join("")}
       <div class="grp">Dia 30</div>${it("d30")}
@@ -803,7 +1010,7 @@ a { color: var(--accent); }
     const a = document.createElement("a"); a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
   }
-  function restaura(txt) { const n = JSON.parse(txt); if (!n || !n.cad || !n.capa) throw new Error("formato"); S = completa(n); salva(); mostra("guardar", false); $("#bk-msg").textContent = "Restaurado."; }
+  function restaura(txt) { const n = JSON.parse(txt); if (!n || !n.cad || !n.capa) throw new Error("formato"); const inst = S.inst; S = completa(n); S.inst = inst; salva(); mostra("guardar", false); $("#bk-msg").textContent = "Restaurado."; }
 
   // ---------------------------------------------------------------- eventos
   document.addEventListener("input", e => {
@@ -838,11 +1045,17 @@ a { color: var(--accent); }
     if (d.add) { const L = pega(d.add) || []; L.push(d.tpl === "cham" ? { dia: "", quem: "", oque: "", virou: "" } : d.tpl === "chamada" ? { data: iso(new Date()), cad: "", quem: "", oque: "", virou: "", escrevi: false } : ""); poe(d.add, L); salva(); redesenha(); return; }
     if (d.del) { const L = pega(d.del); L.splice(+d.i, 1); salva(); redesenha(); return; }
     const ac = d.acao;
+    if (ac === "inst-confirma") { instConf = true; redesenha(); const c = $(".pg .conf"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    if (ac === "inst-nao") { instConf = false; redesenha(); return; }
+    if (ac === "inst-aqui") { S.inst.aqui = true; instConf = false; mostra("capa"); return; }
+    if (ac === "instalar") { if (pedido) { pedido.prompt(); pedido.userChoice.then(r => { pedido = null; if (r && r.outcome === "accepted") instMsg = `Pronto. O caderno está na tela inicial: abre pelo ícone ${ICONE}.`; redesenha(); }, () => {}); } return; }
+    if (ac === "copiar-link") { const inp = $("#link"), ok = () => { $("#copiado").hidden = false; }, marca = () => { inp.focus(); inp.select(); };
+      try { navigator.clipboard.writeText(LINK).then(ok, marca); } catch (x) { marca(); } return; }
     if (ac === "indice") { indice(); return; }
     if (ac === "fecha-indice") { fechaIndice(); return; }
     if (ac === "exemplo") { $("#conf-ex").innerHTML = `<div class="conf">Isso troca o que você já escreveu pelo exemplo. Trocar?<div class="nav"><button class="btn" data-acao="nao-ex">Não</button><button class="btn pri" data-acao="sim-ex">Trocar</button></div></div>`; return; }
     if (ac === "nao-ex") { $("#conf-ex").innerHTML = ""; return; }
-    if (ac === "sim-ex") { S = EXEMPLO(); mostra("d1a"); return; }
+    if (ac === "sim-ex") { const inst = S.inst; S = EXEMPLO(); S.inst = inst; mostra("d1a"); return; }
     if (ac === "mais-semana") { S.sem.push(semana()); salva(); mostra("s" + (S.sem.length - 1)); return; }
     if (ac === "novo-contrato") { const id = Date.now(), M = PRONTOS[d.m]; S.contratos.push({ id, modelo: d.m, cad: d.m || "", quem: "", data: "", ent: ["", "", ""], mede: "", padrao: "", resp: "", rev: "", val: {}, ajustes: [] }); ABERTOS.add("c" + id); salva(); redesenha(); const el = document.querySelector(`[data-id="c${id}"]`); if (el) el.scrollIntoView({ block: "start" }); return; }
     if (ac === "abre-contrato") { const k = +d.k, nome = nomeCad(semCad(k)), q = semQuem(k); let c = S.contratos.find(x => (x.cad || "").trim().toLowerCase() === nome.toLowerCase());
@@ -861,12 +1074,12 @@ a { color: var(--accent); }
     if (ac === "imprime-passo") { imprime(impPasso(S.passos[+d.i])); return; }
     if (ac === "imprime-tudo") { imprime(impTudo()); return; }
     if (ac === "agenda") { agenda(); return; }
-    if (ac === "baixar") { const n = (S.capa.de || "caderno").normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase(); baixa(JSON.stringify(S, null, 1), `copia-${n}-${iso(new Date())}.json`, "application/json"); $("#bk-msg").textContent = "Cópia baixada. Guarda em Arquivos, no iCloud ou no Drive."; return; }
+    if (ac === "baixar") { const n = (S.capa.de || "caderno").normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase(); baixa(JSON.stringify(S, null, 1), `copia-caderno-sem-mim-${n}-${iso(new Date())}.json`, "application/json"); $("#bk-msg").textContent = "Cópia baixada. Guarda em Arquivos, no iCloud ou no Drive."; return; }
     if (ac === "copiar") { const t = $("#bk"); try { navigator.clipboard.writeText(t.value).then(() => { $("#bk-msg").textContent = "Copiado. Guarda nas Notas ou manda pra você mesmo."; }, () => t.select()); } catch (x) { t.select(); } return; }
     if (ac === "restaurar-texto") { try { restaura($("#rest").value); } catch (x) { $("#bk-msg").textContent = "Não reconheci esse texto. Cola a cópia inteira."; } return; }
     if (ac === "apagar") { $("#conf-apagar").innerHTML = `<div class="conf">Apagar tudo o que você escreveu neste celular? Não dá pra desfazer.<div class="nav"><button class="btn" data-acao="nao-apagar">Não</button><button class="btn pri" data-acao="sim-apagar">Apagar</button></div></div>`; return; }
     if (ac === "nao-apagar") { $("#conf-apagar").innerHTML = ""; return; }
-    if (ac === "sim-apagar") { S = vazio(); mostra("capa"); return; }
+    if (ac === "sim-apagar") { const inst = S.inst; S = vazio(); S.inst = inst; mostra("capa"); return; }
   });
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && !$("#indice").hidden) fechaIndice();
@@ -875,7 +1088,10 @@ a { color: var(--accent); }
   window.addEventListener("afterprint", () => { $("#imp").innerHTML = ""; });
 
   if (!guarda) $("#aviso").hidden = false;
-  mostra(S.pag, false);
+  if (S.pag === "instala") S.pag = "capa";
+  mostra(!APP && !S.inst.aqui ? "instala" : S.pag, false);
+  // guarda a página pra abrir sem internet (e o Android aceita instalar)
+  if ("serviceWorker" in navigator && window.isSecureContext && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
 })();
 </script>
 </body>
