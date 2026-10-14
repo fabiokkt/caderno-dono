@@ -1,7 +1,7 @@
 {
   "id": "/nao-anda-sem-mim/",
   "name": "Caderno de Dono(a) · Minha empresa não anda sem mim",
-  "short_name": "Sem mim",
+  "short_name": "Sem Mim",
   "description": "O Caderno de Dono(a) do protocolo Minha empresa não anda sem mim, pra preencher no celular.",
   "lang": "pt-BR",
   "start_url": "./",

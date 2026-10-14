@@ -1,4 +1,4 @@
-// Caderno "Sem mim": guarda a página pra abrir sem internet. Sempre tenta a internet primeiro,
+// Caderno "Sem Mim": guarda a página pra abrir sem internet. Sempre tenta a internet primeiro,
 // então uma versão nova do caderno aparece na próxima vez que a pessoa abrir com sinal.
 // O que a pessoa escreve não passa por aqui: fica no próprio aparelho (localStorage).
 const CACHE = "caderno-sem-mim-v1";
