@@ -1,0 +1,1608 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caderno de Dono(a) · Meu time só faz o que eu mando</title>
+<meta name="description" content="Caderno de Dono(a) · Meu time só faz o que eu mando · Protocolos da Prática">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Eu Vou">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141316" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800&display=swap">
+<style>
+/* Layout: uma coluna estreita, como uma página do caderno no celular; papel pontilhado, tinta azul no que a pessoa escreve. */
+:root {
+  --paper: #FAF8F4; --dot: #DDD6C8; --card: #FFFFFF; --line: #E2DCD0; --ink: #1D1C1A; --ink2: #4A453D; --muted: #776F64;
+  --accent: #7A1F33; --accent-soft: #F6E9EB; --pen: #2F3A8F; --pen-soft: #ECEEF8; --ok: #2E6B4F; --warn: #8A5A00; --warn-soft: #FBF1DC;
+  --red: #B3261E; --well: #F2EEE7; --ok-soft: #E4F1EA; --icon-bg: #7A1F33; --icon-fg: #FFFFFF;
+  --f-display: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141316; --dot: #2A2730; --card: #1D1B20; --line: #36323C; --ink: #F2EFEA; --ink2: #D2CCC3; --muted: #A0988D;
+    --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80; --well: #18161B; --ok-soft: #1B3328;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141316; --dot: #2A2730; --card: #1D1B20; --line: #36323C; --ink: #F2EFEA; --ink2: #D2CCC3; --muted: #A0988D;
+  --accent: #E58BA1; --accent-soft: #3A2029; --pen: #AEB8FF; --pen-soft: #23264A; --ok: #7FC8A4; --warn: #F0C066; --warn-soft: #3A2E14; --red: #FF8A80; --well: #18161B; --ok-soft: #1B3328;
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background-color: var(--paper); color: var(--ink); font: 400 16px/1.5 var(--f-body);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 22px 22px; -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 56px; }
+
+/* topo */
+.top { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line);
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: calc(10px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 3px max(16px, env(safe-area-inset-left, 0px)); }
+.top .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.marca { display: flex; align-items: center; gap: 8px; font: 700 15px/1 var(--f-display); letter-spacing: -.01em; min-width: 0; }
+.marca svg { width: 11px; height: 19px; flex: none; }
+.marca .nm { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.marca .nm span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.marca .nm small { font: 500 11px/1.15 var(--f-body); letter-spacing: 0; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dir-top { display: flex; align-items: center; gap: 10px; }
+.salvo { font: 500 12px/1 var(--f-body); color: var(--muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.salvo i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); display: inline-block; }
+.salvo.erro i { background: var(--warn); }
+.bt-pag { font: 600 13px/1 var(--f-body); color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 999px; padding: 0 14px; min-height: 44px; cursor: pointer; }
+.trilha { display: flex; gap: 3px; margin-top: 3px; }
+.trilha button { flex: 1; height: 19px; border: 0; background: transparent; padding: 7px 0; cursor: pointer; }
+.trilha button::before { content: ""; display: block; height: 5px; border-radius: 3px; background: var(--line); }
+.trilha button.feito::before { background: var(--accent); opacity: .45; }
+.trilha button.agora::before { background: var(--accent); }
+.aviso { background: var(--warn-soft); color: var(--warn); border-radius: 12px; padding: 12px 14px; font-size: 15px; line-height: 1.45; }
+.top .aviso { margin-top: 10px; font-size: 14px; }
+
+/* índice */
+.indice { position: fixed; inset: 0; z-index: 20; background: var(--paper); overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.indice .in { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
+.indice .cab { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.indice h2 { font: 800 26px/1.1 var(--f-display); letter-spacing: -.02em; margin: 0; }
+.indice .grp { font: 600 11.5px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 14px 0 2px; }
+.indice .it { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; text-align: left; background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 12px; padding: 0 14px; min-height: 50px; font: 500 16px/1.25 var(--f-body); color: var(--ink); cursor: pointer; }
+.indice .it.agora { border-color: var(--accent); }
+.indice .it small { color: var(--muted); font-size: 13px; white-space: nowrap; }
+
+/* páginas */
+.pg { padding-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+.eb { font: 600 12px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 800 clamp(30px, 8.6vw, 40px)/1.02 var(--f-display); letter-spacing: -.03em; margin: 4px 0 0; text-wrap: balance; }
+.lead { font-size: 17px; line-height: 1.5; color: var(--ink2); margin: 0; }
+.nota { font-size: 14px; line-height: 1.45; color: var(--muted); margin: 0; }
+.capa h1 { font-size: clamp(46px, 14vw, 64px); line-height: .94; letter-spacing: -.045em; }
+
+/* caixas e campos */
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.box.forte { border: 1.5px solid var(--accent); }
+.box.ink { border: 1.5px solid var(--ink); }
+.campo { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.campo > label, .rot { font: 600 11.5px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.rot.ac { color: var(--accent); }
+input[type="text"], input[type="date"], textarea.t {
+  width: 100%; font: 500 18px/1.35 var(--f-body); color: var(--pen); background: transparent;
+  border: 0; border-bottom: 1.5px solid var(--line); border-radius: 0; padding: 8px 2px 7px; min-height: 44px; -webkit-appearance: none; appearance: none;
+}
+textarea.t { resize: none; overflow: hidden; display: block; }
+input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+input[type="date"] { display: block; }
+.vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: .6; font-weight: 400; }
+input:focus, textarea:focus { outline: none; border-bottom-color: var(--pen); background: var(--pen-soft); }
+textarea.bk { width: 100%; min-height: 90px; font: 400 16px/1.4 ui-monospace, Menlo, monospace; color: var(--ink2); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px; background: transparent; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g2 > * { min-width: 0; }
+.calc { font: 500 18px/1.3 var(--f-body); color: var(--pen); padding: 8px 2px 7px; border-bottom: 1.5px dashed var(--line); min-height: 44px; overflow-wrap: anywhere; }
+.calc.vz { color: var(--muted); font-weight: 400; font-size: 15px; }
+.linha { display: flex; align-items: flex-start; gap: 8px; }
+.linha .q { font-size: 14px; line-height: 21px; color: var(--ink2); white-space: nowrap; padding-top: 11px; }
+.linha .chip { margin-top: 4px; }
+.linha .mini { padding-top: 13px; }
+.linha input, .linha textarea { flex: 1; min-width: 0; }
+.chip { font: 600 14px/1 var(--f-body); border: 1.5px solid var(--pen); color: var(--pen); background: transparent; border-radius: 999px; padding: 0 14px; min-height: 44px; cursor: pointer; white-space: nowrap; }
+.chip.on { background: var(--pen); color: var(--card); }
+.chip.red { border-color: var(--red); color: var(--red); }
+.chip.red.on { background: var(--red); color: var(--card); }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.opts .chip { min-height: 44px; font-size: 14px; padding: 0 12px; }
+.vazia { color: var(--muted); font-size: 14px; padding: 2px 0; }
+.mini { font: 500 14px/1 var(--f-body); color: var(--muted); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; min-height: 44px; display: inline-flex; align-items: center; text-align: left; }
+
+/* caixinha */
+.ck { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 16px; line-height: 1.4; color: var(--ink); padding: 9px 0; min-height: 44px; position: relative; }
+.ck input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.ck .b { width: 26px; height: 26px; flex: none; border: 1.8px solid var(--muted); border-radius: 7px; display: grid; place-items: center; background: var(--card); margin-top: -1px; }
+.ck .b svg { width: 16px; height: 16px; opacity: 0; }
+.ck input:checked + .b { border-color: var(--pen); background: var(--pen-soft); }
+.ck input:checked + .b svg { opacity: 1; }
+.ck input:focus-visible + .b { outline: 3px solid var(--pen); outline-offset: 2px; }
+.ck small { display: block; color: var(--muted); font-size: 13px; }
+
+/* resultado */
+.res { background: var(--card); border: 1.5px solid var(--accent); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.res .big { font: 800 44px/1 var(--f-display); color: var(--pen); letter-spacing: -.03em; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline; font-size: 15px; }
+.kv b { font-weight: 600; white-space: nowrap; }
+.kv span { color: var(--pen); font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+
+/* dias da semana */
+.dia { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.dia.forte { border: 1.5px solid var(--accent); }
+.dia .dh { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.dia .dn { font: 700 17px/1.2 var(--f-body); }
+.dia .dn span { color: var(--accent); }
+.dia .tm { font: 600 11px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.num-l { display: grid; grid-template-columns: 20px 1fr; gap: 6px; align-items: start; }
+.num-l .n { font: 700 14px/21px var(--f-body); color: var(--accent); padding-top: 11px; }
+.chama { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.chama .topo2 { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.stepper { display: inline-flex; align-items: center; gap: 10px; }
+.stepper button { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--card); font: 600 20px/1 var(--f-body); color: var(--ink); cursor: pointer; }
+.stepper output { font: 700 24px/1 var(--f-display); color: var(--pen); min-width: 34px; text-align: center; font-variant-numeric: tabular-nums; }
+.conta { display: flex; flex-direction: column; gap: 10px; }
+.conta .item { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px; }
+.conta .fixo { font: 700 24px/1 var(--f-display); color: var(--pen); min-width: 34px; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* fichas (Anexo C) */
+.ficha { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.ficha > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.ficha > summary::-webkit-details-marker { display: none; }
+.ficha > summary b { font: 700 17px/1.25 var(--f-body); }
+.ficha > summary small { display: block; color: var(--muted); font-size: 13.5px; font-weight: 400; }
+.ficha > summary .seta { color: var(--muted); font-size: 18px; transition: transform .15s; }
+.ficha[open] > summary .seta { transform: rotate(90deg); }
+.ficha .corpo { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+/* navegação no fim da página */
+.nav { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.btn { flex: 1; min-height: 52px; border-radius: 14px; font: 600 16px/1.2 var(--f-body); cursor: pointer; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); padding: 8px 16px; }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: var(--card); }
+.btn.sec { border-color: var(--pen); color: var(--pen); }
+.btn:focus-visible, .chip:focus-visible, .mini:focus-visible, .trilha button:focus-visible, .bt-pag:focus-visible, .indice .it:focus-visible, .stepper button:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
+.ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ol li { display: grid; grid-template-columns: 22px 1fr; gap: 6px; font-size: 15.5px; line-height: 1.45; color: var(--ink2); }
+.ol li > b { color: var(--accent); }
+.conf { background: var(--warn-soft); color: var(--warn); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+.conf .nav { margin: 0; }
+.ok-msg { color: var(--ok); font-size: 14px; }
+a { color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) { .pg { animation: entra .18s ease-out; } @keyframes entra { from { opacity: .4; transform: translateY(4px); } } }
+
+/* instalação: passos numerados com o desenho do botão que a pessoa toca */
+.passos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.passo { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 4px 10px; }
+.pn { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--card); display: grid; place-items: center; font: 700 14px/1 var(--f-body); margin-top: -2px; }
+.pc { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pc h3 { font: 700 17px/1.25 var(--f-body); margin: 0; text-wrap: balance; }
+.pc p { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink2); }
+.pc .dica { font-size: 13.5px; color: var(--muted); }
+.ilu { margin: 2px 0 0; background: var(--well); border-radius: 12px; padding: 8px; }
+.ilu svg { display: block; width: 100%; height: auto; }
+.ilu .k { fill: var(--card); stroke: var(--line); stroke-width: 1.2; }
+.ilu .m { fill: var(--line); }
+.ilu .sep { stroke: var(--line); stroke-width: 1; }
+.ilu .st { fill: none; stroke: var(--ink2); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.ilu .dt { fill: var(--ink); }
+.ilu .t { font: 500 12px var(--f-body); fill: var(--ink2); }
+.ilu .ts { font: 500 11px var(--f-body); fill: var(--muted); }
+.ilu .tb { font: 600 12.5px var(--f-body); fill: var(--ink); }
+.ilu .th { font: 700 14px var(--f-body); fill: var(--ink); }
+.ilu .tm { font: 500 12.5px var(--f-body); fill: var(--muted); }
+.ilu .hl { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.8; }
+.ilu .ring { fill: none; stroke: var(--accent); stroke-width: 2.4; }
+.ilu .tog { fill: var(--ok); }
+.ilu .knob { fill: var(--card); }
+.ilu .bt { fill: var(--well); }
+.ilu .ibg { fill: var(--icon-bg); }
+.ilu .ifg { fill: var(--icon-fg); }
+.ilu .ifs { fill: none; stroke: var(--icon-bg); stroke-width: 1.05; stroke-linecap: round; }
+.ilu .ifc { fill: var(--icon-bg); }
+@media (prefers-reduced-motion: no-preference) { .ilu .ring { animation: pulso 1.8s ease-in-out infinite; } @keyframes pulso { 0%, 100% { opacity: 1; } 50% { opacity: .3; } } }
+.pronto { background: var(--ok-soft); color: var(--ok); border-radius: 12px; padding: 12px 14px; font-size: 15px; line-height: 1.45; }
+.link { display: flex; flex-direction: column; gap: 8px; }
+.link input { width: 100%; font: 500 16px/1.3 var(--f-body); color: var(--pen); background: var(--pen-soft); border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 44px; }
+.link input:focus { outline: 3px solid var(--pen); outline-offset: 1px; }
+.btn.big { width: 100%; flex: none; min-height: 60px; font-size: 17px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn.big svg { width: 18px; height: 18px; }
+.ou { display: flex; align-items: center; gap: 10px; font: 600 12px/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ou::before, .ou::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.qr { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.qr #qr-img { width: 184px; height: 184px; }
+.qr svg { width: 184px; height: 184px; display: block; }
+.qr .qr-bg { fill: var(--card); }
+.qr .qr-fg { fill: var(--ink); }
+.qr p { margin: 0; font-size: 14px; color: var(--ink2); text-align: center; }
+.pg > .mini { align-self: flex-start; }
+
+/* impressão: só o caderno preenchido, em papel A4 */
+#imp { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  :root { --ink: #1D1C1A; --pen: #2F3A8F; --muted: #6F695F; --accent: #7A1F33; --line: #CFC8BA; --red: #B3261E; }
+  body { background: #fff !important; color: #1D1C1A; font-size: 10.5pt; }
+  .wrap, .indice { display: none !important; }
+  #imp { display: block; }
+  #imp h2 { font: 700 15pt/1.2 var(--f-display); margin: 0 0 6pt; break-after: avoid; }
+  #imp h3 { font: 600 8.5pt/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 10pt 0 4pt; break-after: avoid; }
+  #imp .sec { break-before: page; }
+  #imp .sec:first-child { break-before: auto; }
+  #imp .topo-imp { display: flex; justify-content: space-between; font: 600 7.5pt/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border-bottom: .6pt solid var(--line); padding-bottom: 5pt; margin-bottom: 10pt; }
+  #imp table { width: 100%; border-collapse: collapse; margin: 2pt 0 6pt; }
+  #imp th { font: 600 7.5pt/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 4pt 5pt; border-bottom: .6pt solid var(--line); }
+  #imp td { padding: 5pt; border-bottom: .5pt solid var(--line); vertical-align: top; font-size: 10pt; }
+  #imp .v { color: var(--pen); font-weight: 500; }
+  #imp table.aud td { padding: 2.2pt 5pt; font-size: 9pt; }
+  #imp p { margin: 3pt 0; }
+  #imp .ass { display: grid; grid-template-columns: 1fr 1fr; gap: 24pt; margin-top: 46pt; font-size: 8.5pt; color: var(--muted); }
+  #imp .ass div { border-top: .8pt solid var(--ink); padding-top: 4pt; }
+}
+
+/* exemplo carregado */
+.exb { margin-top: 14px; background: var(--pen-soft); color: var(--pen); border-radius: 12px; padding: 2px 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 12px; font-size: 14px; line-height: 1.35; }
+.exb .mini { color: var(--pen); }
+.exb .conf { flex-basis: 100%; margin-bottom: 10px; }
+
+/* o que tem aqui */
+.toc { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.toc button { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; text-align: left; border: 0; border-top: 1px solid var(--line); background: transparent; min-height: 46px; padding: 6px 12px; font: 500 15px/1.3 var(--f-body); color: var(--ink); cursor: pointer; }
+.toc button:first-child { border-top: 0; }
+.toc button span { color: var(--accent); font-size: 18px; }
+.box details > summary.nota { min-height: 44px; display: flex; align-items: center; }
+
+/* as 4 perguntas: Sim ou Não */
+.p4 { display: flex; flex-direction: column; }
+.pq { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 7px 0; border-top: 1px solid var(--line); }
+.pq:first-child { border-top: 0; padding-top: 0; }
+.pq .n { font: 700 14px/1 var(--f-body); color: var(--accent); }
+.pq .t { font-size: 15px; line-height: 1.35; color: var(--ink); min-width: 0; }
+.pq .t small { display: block; font-size: 13px; color: var(--muted); }
+.pq.depois .t, .pq.depois .n { opacity: .5; }
+.p4.fora { opacity: .55; }
+.sn { display: inline-flex; border: 1.5px solid var(--pen); border-radius: 999px; overflow: hidden; flex: none; }
+.sn button { min-width: 56px; min-height: 44px; border: 0; background: transparent; color: var(--pen); font: 600 14.5px/1 var(--f-body); cursor: pointer; padding: 0 10px; }
+.sn button + button { border-left: 1.5px solid var(--pen); }
+.sn button.on { background: var(--pen); color: var(--card); }
+.sn button:focus-visible, .dsem button:focus-visible, .n5 button:focus-visible, .toc button:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
+.causa { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; align-items: center; background: var(--pen-soft); border-radius: 12px; padding: 10px 12px; }
+.causa > b { font: 800 32px/1 var(--f-display); color: var(--pen); text-align: center; letter-spacing: -.02em; }
+.causa > span { font: 600 16px/1.3 var(--f-body); color: var(--ink); min-width: 0; }
+.causa small { display: block; font: 400 13px/1.35 var(--f-body); color: var(--ink2); margin-top: 2px; }
+.causa.vz { background: var(--well); }
+.causa.vz > b, .causa.d > b { color: var(--muted); }
+.frase { font: 800 24px/1.15 var(--f-display); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+
+/* fichas que fecham e abrem (as linhas das tabelas da semana) */
+.ficha.er > summary { padding: 10px 12px 10px 14px; min-height: 60px; }
+.ficha .sm { min-width: 0; flex: 1; }
+.ficha .sm b { display: block; font: 600 15.5px/1.3 var(--f-body); overflow-wrap: anywhere; }
+.ficha .sm small { display: block; font: 500 12.5px/1.3 var(--f-body); color: var(--muted); }
+.tg { display: flex; gap: 4px; flex: none; align-items: center; }
+.cz { min-width: 30px; height: 30px; border-radius: 15px; border: 1.7px solid var(--pen); color: var(--pen); font: 700 14px/1 var(--f-body); display: grid; place-items: center; padding: 0 4px; }
+.cz.d { border-color: var(--muted); color: var(--muted); }
+.cz.vz { border-style: dashed; border-color: var(--muted); color: var(--muted); }
+.pill { height: 28px; border-radius: 14px; padding: 0 10px; font: 700 12.5px/28px var(--f-body); white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.wa { background: var(--warn-soft); color: var(--warn); }
+.pill.vz { border: 1.5px dashed var(--line); color: var(--muted); line-height: 25px; }
+
+/* o ritual de sexta */
+.rt .s { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
+.rt .s .tm2 { font: 700 13px/1.5 var(--f-body); color: var(--accent); }
+.rt .s > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.rt .s .h { font: 700 16px/1.3 var(--f-body); }
+.rt .s .mini { align-self: flex-start; }
+.calc small { font-size: 13.5px; color: var(--muted); font-weight: 400; }
+.kv small { color: var(--muted); font-weight: 400; }
+
+/* a situação: D já decide, M mudando, P ainda pergunta */
+.sb { display: inline-grid; place-items: center; min-width: 28px; height: 28px; border-radius: 14px; padding: 0 6px; font: 700 13.5px/1 var(--f-body); border: 1.6px solid var(--muted); color: var(--muted); }
+.sb.D { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+.sb.M { color: var(--warn); border-color: var(--warn); background: var(--warn-soft); }
+.sb.P { color: var(--red); border-color: var(--red); background: var(--accent-soft); }
+.sb.x { border-style: dashed; border-color: var(--line); }
+.leg3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.leg3 > div { border: 1px solid var(--line); border-radius: 12px; padding: 8px 9px; font-size: 12.5px; line-height: 1.35; color: var(--ink2); background: var(--card); display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.leg3 b { font: 700 13px/1.2 var(--f-body); color: var(--ink); }
+.tp4 { display: flex; flex-direction: column; gap: 6px; }
+.tp4 div { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 6px; font-size: 14.5px; line-height: 1.4; color: var(--ink2); }
+.tp4 b { color: var(--accent); } .tp4 i { font-style: normal; color: var(--ink); font-weight: 600; }
+
+/* o contador: toca em quem mandou e no tipo */
+.pes-g { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.pes { position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; min-height: 62px; padding: 8px 10px 8px 12px; border-radius: 14px;
+  border: 1.5px solid var(--line); background: var(--card); color: var(--ink); text-align: left; cursor: pointer; font: 600 16.5px/1.2 var(--f-body); min-width: 0; touch-action: manipulation; }
+.pes > b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; padding-right: 28px; }
+.pes > small { font: 500 12px/1.2 var(--f-body); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.pes > .ds { font: 700 9.5px/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); padding-right: 28px; }
+.pes > .sb { position: absolute; right: 8px; top: 8px; min-width: 24px; height: 24px; font-size: 12px; padding: 0 4px; }
+.resumo-s { background: var(--well); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 14.5px; line-height: 1.4; color: var(--ink2); }
+.resumo-s b { color: var(--ink); }
+.resumo-s .pds { color: var(--pen); font-weight: 600; }
+#pg.quieto .pg { animation: none; }
+.pes:focus-visible, .tp button:focus-visible, .chip:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
+.pes.on { border-color: var(--pen); background: var(--pen-soft); box-shadow: inset 0 0 0 1.5px var(--pen); }
+.tps { display: flex; flex-direction: column; gap: 8px; scroll-margin-bottom: 12px; }
+.tps-cab { font: 600 16px/1.3 var(--f-body); color: var(--ink); padding: 4px 0 0; }
+.tps-cab b { color: var(--pen); }
+.tps.off .tps-cab { color: var(--muted); }
+.tps .gl { font: 600 11px/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.tps .gl.ac { color: var(--accent); }
+.tp { display: grid; grid-template-columns: minmax(0, 1fr) 54px; gap: 6px; }
+.tp .mais { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 8px; min-height: 64px; padding: 8px 12px; border-radius: 14px;
+  border: 1.5px solid var(--pen); background: var(--card); color: var(--ink); text-align: left; cursor: pointer; font: inherit; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.tp .mais .k { font: 800 22px/1 var(--f-display); color: var(--pen); text-align: center; }
+.tp .mais .t { min-width: 0; }
+.tp .mais .t b { display: block; font: 600 16px/1.2 var(--f-body); }
+.tp .mais .t small { display: block; font: 400 13px/1.3 var(--f-body); color: var(--muted); overflow-wrap: anywhere; }
+.tp .mais .n { font: 800 26px/1 var(--f-display); color: var(--pen); min-width: 30px; text-align: right; font-variant-numeric: tabular-nums; }
+.tp .menos { border-radius: 14px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink2); font: 600 15px/1 var(--f-body); cursor: pointer; touch-action: manipulation; }
+.tp .menos:disabled, .tp .mais:disabled { opacity: .4; cursor: default; }
+.tp.r .mais { border-style: dashed; border-color: var(--accent); }
+.tp.r .mais .k, .tp.r .mais .n { color: var(--accent); }
+.tp .mais:active:not(:disabled) { background: var(--pen-soft); }
+@media (prefers-reduced-motion: no-preference) { .tp .mais.pulso { animation: pulso2 .6s ease-out; } @keyframes pulso2 { from { background: var(--pen-soft); transform: scale(.985); } to { background: var(--card); transform: none; } } }
+.toast { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); width: min(528px, calc(100% - 32px));
+  background: var(--ink); color: var(--paper); border-radius: 14px; padding: 6px 6px 6px 14px; min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font: 500 15px/1.3 var(--f-body); box-shadow: 0 6px 24px rgba(0, 0, 0, .18); }
+.toast span { min-width: 0; overflow-wrap: anywhere; }
+.toast button { min-height: 44px; border: 0; border-radius: 10px; background: transparent; color: var(--paper); font: 700 15px/1 var(--f-body); text-decoration: underline; padding: 0 12px; cursor: pointer; flex: none; }
+
+/* tabelas pequenas (a semana, o Painel) */
+.tb { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; }
+.tb th { font: 600 10px/1.2 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 6px 2px; border-bottom: 1px solid var(--line); text-align: center; vertical-align: bottom; }
+.tb.t7 th { font-size: 11px; letter-spacing: 0; text-transform: none; }
+.tb th small { display: block; font: 400 10.5px/1.2 var(--f-body); letter-spacing: 0; text-transform: none; margin-top: 2px; }
+.tb th.ac { color: var(--accent); }
+.tb th:first-child, .tb td:first-child { text-align: left; }
+.tb td { padding: 8px 2px; border-bottom: 1px solid var(--line); text-align: center; vertical-align: middle; font-variant-numeric: tabular-nums; }
+.tb td.nm { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 6px; }
+.tb td.v { color: var(--pen); font: 700 16px/1.2 var(--f-body); }
+.tb td.vz { color: var(--muted); font-weight: 400; }
+.tb td.sem { font: 600 10.5px/1.3 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.tb tr.tt td { border-top: 1.5px solid var(--ink); font-weight: 700; }
+.tb tr.hj td.sem::after { content: "hoje"; display: block; font-size: 9.5px; color: var(--pen); }
+.tb .sh { background: var(--well); }
+
+/* dia 1 */
+.msg { gap: 10px; }
+.msg .mh { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; align-items: start; }
+.msg .mn { font: 700 15px/1 var(--f-body); color: var(--accent); padding-top: 30px; }
+.msg .g2 { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px; }
+.msg .mb2 { display: flex; flex-wrap: wrap; gap: 10px 14px; padding-left: 28px; }
+.msg .mb2 > div { display: flex; flex-direction: column; gap: 6px; }
+.sn.n4 button { min-width: 46px; padding: 0 6px; }
+.conta2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.conta2 > div { display: flex; flex-direction: column; gap: 4px; }
+.conta2 .big { font: 800 40px/1 var(--f-display); color: var(--pen); letter-spacing: -.03em; }
+.conta2 .big small { font: 500 16px/1 var(--f-body); color: var(--ink2); letter-spacing: 0; }
+.linha.cv { align-items: center; }
+.linha.cv .ck { flex: none; }
+.linha.cv input { max-width: 150px; }
+.linha.ex .ck { flex: none; width: 34px; }
+.pes-ed { display: flex; flex-direction: column; gap: 8px; }
+.pe-l { display: flex; align-items: center; gap: 10px; }
+.pe-l input { flex: 1; min-width: 0; }
+.pe-l.fora > span { flex: 1; color: var(--muted); font-size: 15px; }
+.dg { display: flex; flex-direction: column; }
+.dg .r { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.4; color: var(--ink2); }
+.dg .r:first-child { border-top: 0; padding-top: 0; }
+.dg .r b { color: var(--ink); font-weight: 600; }
+.ate-c { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.ate-c .w { grid-column: 1 / -1; }
+.ate-c .mini { grid-column: 1 / -1; min-height: 36px; }
+
+/* dia 30 */
+.sinal { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 10px; align-items: start; padding: 10px 0; border-top: 1px solid var(--line); }
+.sinal:first-of-type { border-top: 0; padding-top: 0; }
+.sinal .m { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 800 16px/1 var(--f-body); border: 1.5px dashed var(--muted); color: var(--muted); }
+.sinal.sim .m { background: var(--ok); border: 1.5px solid var(--ok); color: var(--card); }
+.sinal.nao .m { background: var(--warn-soft); border: 1.5px solid var(--warn); color: var(--warn); }
+.sinal p { margin: 0; font-size: 15.5px; line-height: 1.4; color: var(--ink); }
+.sinal small { display: block; color: var(--pen); font-weight: 600; font-size: 14px; margin-top: 4px; }
+.ad { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink2); }
+.ad b { font: 800 22px/1 var(--f-display); color: var(--pen); }
+
+/* anexos: o cartão e a placa */
+.fr { display: flex; flex-direction: column; }
+.fr .l { display: flex; flex-direction: column; gap: 3px; padding: 12px 0; border-top: 1px solid var(--line); }
+.fr .l:first-of-type { border-top: 0; padding-top: 2px; }
+.fr .de { color: var(--muted); font-size: 15px; line-height: 1.35; }
+.fr .de small { font-size: 12.5px; }
+.fr .pa { font: 600 17px/1.35 var(--f-body); color: var(--ink); }
+.fr .pa::before { content: "→ "; color: var(--accent); }
+.frase-c { border: 1.5px solid var(--accent); border-radius: 14px; padding: 18px; font: 800 22px/1.2 var(--f-display); text-align: center; letter-spacing: -.01em; background: var(--card); text-wrap: balance; }
+.placa { border: 1.5px solid var(--accent); border-radius: 18px; padding: 18px; background: var(--card); display: flex; flex-direction: column; }
+.placa .lim { display: flex; align-items: flex-end; gap: 10px; font: 800 26px/1.2 var(--f-display); letter-spacing: -.02em; padding-bottom: 6px; }
+.placa .lim span { white-space: nowrap; padding-bottom: 8px; }
+.placa .lim input { flex: 1; min-width: 0; font: 600 24px/1.2 var(--f-body); border-bottom-color: var(--ink); }
+.placa .st { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.placa .k { width: 38px; height: 38px; flex: none; border: 1.5px solid var(--accent); border-radius: 50%; color: var(--accent); font: 800 17px/35px var(--f-display); text-align: center; }
+.placa .t { font: 800 22px/1.15 var(--f-display); letter-spacing: -.015em; }
+.placa .d { font-size: 15px; color: var(--muted); margin-top: 3px; }
+.placa .qc { padding-top: 12px; }
+
+@media print {
+  #imp .reg td, #imp .reg th { font-size: 8.5pt; padding: 3pt 4pt; }
+  #imp .reg td.c, #imp .reg th.c { text-align: center; }
+  #imp .cart td { font-size: 11.5pt; line-height: 1.4; padding: 8pt 6pt; }
+  #imp .cart td.de { color: var(--muted); width: 42%; }
+  #imp .cart td.pa { font-weight: 600; }
+  #imp .frase-i { border: 1.2pt solid var(--accent); border-radius: 8pt; padding: 12pt; font: 700 15pt/1.3 var(--f-display); text-align: center; margin-top: 14pt; }
+  #imp .placa-i { border: 1.4pt solid var(--accent); border-radius: 12pt; padding: 18pt 22pt; margin-top: 10pt; }
+  #imp .placa-i .lim { font: 800 26pt/1.2 var(--f-display); border-bottom: .8pt solid var(--ink); padding-bottom: 6pt; margin-bottom: 6pt; }
+  #imp .placa-i .st { display: flex; gap: 14pt; padding: 13pt 0; border-bottom: .5pt solid var(--line); }
+  #imp .placa-i .st:last-of-type { border-bottom: 0; }
+  #imp .placa-i .k { width: 28pt; height: 28pt; flex: none; border: 1.2pt solid var(--accent); border-radius: 50%; color: var(--accent); font: 800 13pt/26pt var(--f-display); text-align: center; }
+  #imp .placa-i .t { font: 800 19pt/1.15 var(--f-display); }
+  #imp .placa-i .d { font-size: 11pt; color: var(--muted); margin-top: 2pt; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="row">
+      <div class="marca"><svg viewBox="6.2 2.1 11.6 20.4" aria-hidden="true"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" fill="var(--accent)"/><circle cx="12" cy="10.2" r="1.55" fill="var(--paper)"/><path d="M12 11.75 V20" stroke="var(--paper)" stroke-width="1.05" stroke-linecap="round"/></svg><span class="nm"><span>Caderno de Dono(a)</span><small>Meu time só faz o que eu mando</small></span></div>
+      <div class="dir-top"><span class="salvo" id="salvo" role="status"><i></i><span id="salvo-t">Salvo</span></span><button class="bt-pag" data-acao="indice" aria-haspopup="dialog">Páginas</button></div>
+    </div>
+    <nav class="trilha" id="trilha" aria-label="Caminho do caderno"></nav>
+    <div class="aviso" id="aviso" hidden>Este navegador não está guardando o que você escreve (talvez seja uma janela privada). Abre num navegador normal pra não perder nada.</div>
+  </header>
+  <main id="pg"></main>
+</div>
+<div class="indice" id="indice" role="dialog" aria-modal="true" aria-label="Páginas do caderno" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toast-t"></span><button id="toast-d" data-acao="desfaz">Desfazer</button></div>
+<div id="imp" aria-hidden="true"></div>
+<script>
+(() => {
+  "use strict";
+  const CHAVE = "caderno-dono-marquet-v1";
+  const NOME = "Meu time só faz o que eu mando";
+  const PEN = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.8 6.4l2.6 2.7 5.8-6.4" fill="none" stroke="var(--pen)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  // os 4 tipos de mensagem: 1 e 2 "te pediu", 3 e 4 "já pensou". R é a resposta pronta sua, um a mais na linha da pessoa.
+  const TIPOS = [["1", "Pediu permissão", "“Posso dar esse desconto?”"], ["2", "Pediu a resposta", "“O que eu faço?”"],
+    ["3", "Trouxe solução", "“Eu faria X. Pode ser?”"], ["4", "Avisou", "“Vou fazer X.”"], ["R", "Resposta pronta", "Você deu a resposta: vai junto com o 1 ou o 2"]];
+  const SIT = [["D", "Já decide", "“Já pensou” maior que “Te pediu”."], ["M", "Mudando", "No meio."], ["P", "Ainda pergunta", "“Te pediu” passou do dobro de “Já pensou”."]];
+  const REGRA = [["Regras 1 e 2", "Acabou o “posso?” e a resposta pronta."], ["Regra 3", "Checagem de 1 minuto em toda tarefa importante."],
+    ["Regra 4", "Voz alta em todo valor acima do limite."], ["Bônus", "Objetivo, não o método. E na sexta, o sinal de 30 dias."]];
+  const SUB = ["devolve e sexta", "checagem e sexta", "antes de clicar e sexta", "objetivo e sexta"];
+  const INS = ["A regra 2 em 5 perguntas, e o ritual de sexta, só você.", "A regra 3 em toda tarefa importante, e o ritual de sexta, só você.",
+    "A regra 4 em todo valor acima do limite, e o ritual de sexta, só você.", "O bônus em toda tarefa que você passar, e o último ritual antes do dia 30."];
+  const CONTINUA = ["Valor acima de R$", "Contrato", "Demissão", "Preço de tabela"];
+  const CHK = ["O que vai fazer?", "Por quê?", "O que pode dar errado?"];
+  const FR_TIME = [["“Posso dar esse desconto?”", "", "“Vou dar 5% pra fechar hoje.”"], ["“O que eu faço?”", "", "“Eu faria X. Pode ser?”"],
+    ["“O que a gente faz?”", "decisão grande ou nova", "“Opções: 1, 2 e 3. Eu faria a 2.”"], ["“Mando assim?”", "", "“Vou mandar assim às 15h, a não ser que você veja algo.”"],
+    ["“Deu problema.”", "", "“Deu problema. Já fiz X. Agora vou fazer Y.”"]];
+  const FR_DONO = [["dar a resposta", "“E o que você faria?”"], ["explicar a tarefa", "“Me conta em 1 minuto como você vai fazer.”"], ["responder um “posso?”", "“Pode.” E só."]];
+  const FRASE = "Não me pergunta se pode. Me avisa: vou fazer X.";
+  const PASSOS = [["Para.", "Antes de clicar em pagar, enviar ou emitir."], ["Aponta.", "O valor e o destinatário na tela."],
+    ["Fala em voz alta.", "“R$ [valor] pra [quem].”"], ["O colega confere.", "E só aí clica."]];
+
+  // ---------------------------------------------------------------- estado
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  const txt = x => x == null ? "" : String(x);
+  const sn1 = x => x === "S" || x === "N" ? x : "";
+  const pessoa = (o = {}) => Object.assign({ id: uid(), nome: "", fora: false }, o);
+  const msg1 = (o = {}) => Object.assign({ quem: "", sobre: "", tipo: "", decidiu: "" }, o);
+  const ateL = (o = {}) => Object.assign({ id: uid(), quem: "", oque: "", ate: "" }, o);
+  const dvL = (o = {}) => Object.assign({ id: uid(), dia: "", quem: "", perg: "", sol: "", foi: "" }, o);
+  const cgL = (o = {}) => Object.assign({ id: uid(), dia: "", quem: "", tarefa: "", r: ["", "", ""] }, o);
+  const clL = (o = {}) => Object.assign({ id: uid(), dia: "", oque: "", valor: "", voz: "", pegou: "" }, o);
+  const obL = (o = {}) => Object.assign({ id: uid(), tarefa: "", oque: "", ate: "", quem: "", chegou: "" }, o);
+  const rit = () => ({ p: "", pAuto: true, pessoa: "", volta: "", voltaAuto: true, treino: "", quem: "", aviso: false });
+  // n: a contagem da semana, por pessoa (pelo id, então trocar o nome não perde nada): [1, 2, 3, 4, R]
+  const semana = () => ({ de: "", ate: "", auto: false, avisei: false, n: {}, sx: rit() });
+  const vazio = () => ({ v: 1, p: "marquet", pag: "capa", ex: false, capa: { de: "", empresa: "", comecei: "" },
+    d1: { msgs: Array.from({ length: 10 }, () => msg1()), assin: "", assinData: "" },
+    cont: { valor: "", c: [false, false, false, false], extra: ["", ""], extraOk: [false, false], ate: Array.from({ length: 5 }, () => ateL()),
+      hoje: { msg: false, cartao: false, nomes: false, lado: false } },
+    pessoas: [], sem: [semana(), semana(), semana(), semana()],
+    dv: Array.from({ length: 5 }, () => dvL()), cg: [], cl: { lim: "", limAuto: true, confere: "", placa: false, rows: [] }, ob: [], anB: [],
+    d30: { p4: "", p4Auto: true, soltar: "", travou: ["", "", ""] }, inst: { aqui: false, okVisto: false } });
+  const arr = a => Array.isArray(a) ? a.filter(x => x && typeof x === "object") : [];
+  const lista = (a, n, f) => { const x = arr(a).slice(); while (x.length < n) x.push(f()); return x; };
+  const bools = (a, n) => { const x = Array.isArray(a) ? a.slice(0, n).map(Boolean) : []; while (x.length < n) x.push(false); return x; };
+  const strs = (a, n) => { const x = Array.isArray(a) ? a.slice(0, n).map(txt) : []; while (x.length < n) x.push(""); return x; };
+  const nint = x => { const n = Math.floor(Number(x)); return Number.isFinite(n) && n > 0 ? n : 0; };
+  const cinco = a => { const x = Array.isArray(a) ? a.slice(0, 5).map(nint) : []; while (x.length < 5) x.push(0); return x; };
+  const r3 = r => { const x = Array.isArray(r) ? r.slice(0, 3).map(sn1) : []; while (x.length < 3) x.push(""); return x; };
+  const completa = n => {
+    const V = vazio(), S = Object.assign(vazio(), n || {});
+    S.p = "marquet";
+    S.capa = Object.assign(V.capa, S.capa);
+    S.d1 = Object.assign(vazio().d1, S.d1); S.d1.msgs = lista(S.d1.msgs, 10, msg1).slice(0, 10).map(m => msg1(m));
+    S.cont = Object.assign(vazio().cont, S.cont); S.cont.c = bools(S.cont.c, 4); S.cont.extra = strs(S.cont.extra, 2); S.cont.extraOk = bools(S.cont.extraOk, 2);
+    S.cont.ate = arr(S.cont.ate).map(a => ateL(a)); S.cont.hoje = Object.assign(V.cont.hoje, S.cont.hoje);
+    S.pessoas = arr(S.pessoas).map(p => { const x = pessoa(p); x.nome = txt(x.nome); x.fora = !!x.fora; return x; });
+    S.sem = lista(S.sem, 4, semana).slice(0, 4).map(s => { const x = Object.assign(semana(), s); x.sx = Object.assign(rit(), s.sx);
+      const nn = {}; if (s.n && typeof s.n === "object") Object.keys(s.n).forEach(id => { nn[id] = cinco(s.n[id]); }); x.n = nn; return x; });
+    S.dv = lista(S.dv, 5, dvL).slice(0, 5).map(d => dvL(d));
+    S.cg = arr(S.cg).map(c => { const y = cgL(c); y.r = r3(y.r); return y; });
+    S.anB = arr(S.anB).map(c => { const y = cgL(c); y.r = r3(y.r); return y; });
+    S.cl = Object.assign(V.cl, S.cl); S.cl.rows = arr(S.cl.rows).map(c => clL(c));
+    S.ob = arr(S.ob).map(o => obL(o));
+    S.d30 = Object.assign(V.d30, S.d30); S.d30.travou = strs(S.d30.travou, 3);
+    S.inst = Object.assign(V.inst, S.inst);
+    return S;
+  };
+  // o exemplo do protocolo, o mesmo do Exemplo Comentado: dia 1 numa sexta (02/10/2026), semanas de 05/10 a 30/10, dia 30 em 31/10
+  const EXEMPLO = () => {
+    const S = vazio(), d = s => { const [dd, mm] = s.split("/"); return `2026-${mm}-${dd}`; }, T = true, F = false;
+    S.ex = true;
+    S.capa = { de: "O dono do exemplo", empresa: "Exemplo do protocolo", comecei: "2026-10-02" };
+    S.d1.msgs = [["Carla", "Desconto pro cliente da zona norte", "1", "você"], ["Paulo", "Pedido chegou incompleto", "2", "você"],
+      ["Ana", "Boleto do fornecedor venceu", "2", "você"], ["Carla", "Cliente pediu prazo maior", "1", "você"],
+      ["Bruno", "Mando a carga sem a nota?", "1", "você"], ["Juliana", "Cliente quer trocar, o que eu faço?", "2", "você"],
+      ["Ana", "Cliente pediu segunda via", "2", "você"], ["Paulo", "Posso comprar do outro fornecedor?", "1", "você"],
+      ["Carla", "Vou mandar a proposta às 15h", "4", "a pessoa"], ["Bruno", "A van quebrou, o que eu faço?", "2", "você"]]
+      .map(([quem, sobre, tipo, decidiu]) => msg1({ quem, sobre, tipo, decidiu }));
+    S.d1.assin = "(o dono do exemplo)"; S.d1.assinData = d("02/10");
+    S.cont = { valor: "5.000", c: [T, T, T, T], extra: ["Prazo acima de 60 dias", ""], extraOk: [T, F],
+      ate: [["Carla", "Desconto pro cliente", "Até 5%"], ["Paulo", "Compra de reposição", "Até R$ 3.000"], ["Juliana", "Troca de produto", "Até 2 peças"],
+        ["Bruno", "Frete e rota", "Até R$ 800"], ["Ana", "Parcelar cliente atrasado", "Até 3 vezes"]].map(([quem, oque, ate]) => ateL({ quem, oque, ate })),
+      hoje: { msg: T, cartao: T, nomes: T, lado: T } };
+    S.pessoas = ["Carla", "Paulo", "Ana", "Bruno", "Juliana"].map(nome => pessoa({ nome }));
+    // mensagens por semana e por pessoa: [1 permissão, 2 resposta, 3 solução, 4 aviso, R respostas prontas suas]
+    const W = [{ Carla: [2, 1, 1, 2, 1], Paulo: [2, 3, 1, 0, 2], Ana: [1, 5, 0, 0, 2], Bruno: [2, 1, 0, 1, 1], Juliana: [1, 1, 1, 1, 0] },
+      { Carla: [0, 1, 2, 3, 0], Paulo: [1, 2, 2, 1, 1], Ana: [1, 2, 1, 0, 1], Bruno: [1, 1, 1, 1, 0], Juliana: [0, 1, 1, 2, 0] },
+      { Carla: [0, 0, 2, 4, 0], Paulo: [0, 1, 2, 2, 0], Ana: [1, 1, 2, 0, 1], Bruno: [1, 2, 0, 1, 1], Juliana: [0, 1, 1, 2, 0] },
+      { Carla: [0, 0, 1, 4, 0], Paulo: [0, 1, 1, 3, 0], Ana: [0, 1, 2, 1, 0], Bruno: [1, 1, 1, 1, 1], Juliana: [0, 0, 1, 3, 0] }];
+    const P_SEM = ["Paulo, Ana e Bruno", "Ana", "Bruno", "Ninguém"], PROX = ["Ana", "Ana, de novo", "Bruno", "Bruno, que ainda tá mudando"];
+    const VOLTA = [["", ""], ["Ninguém: Paulo e Ana, uma vez cada", "—"], ["Ana, 2 vezes", "Terça 27/10, 20 min com ela no aluguel"], ["Ninguém: Juliana, uma vez", "—"]];
+    const AVISO = ["Carla mandou a proposta às 15h e só avisou", "Juliana trocou 2 peças do cliente e só avisou", "Paulo trocou de transportadora", "Ana negociou os atrasados"];
+    S.sem = [0, 1, 2, 3].map(k => { const s = semana();
+      Object.assign(s, { de: soma("2026-10-05", 7 * k), ate: soma("2026-10-09", 7 * k), auto: true, avisei: T });
+      S.pessoas.forEach(p => { s.n[p.id] = W[k][p.nome].slice(); });
+      s.sx = { p: P_SEM[k], pAuto: true, pessoa: PROX[k], volta: VOLTA[k][0], voltaAuto: true, treino: VOLTA[k][1], quem: AVISO[k], aviso: T };
+      return s; });
+    S.dv = [["05/10", "Paulo", "Nota do fornecedor veio com valor errado, o que eu faço?", "Devolvo a nota e peço outra até amanhã", "S"],
+      ["05/10", "Ana", "Cliente quer desconto pra pagar à vista, o que eu faço?", "Não sabia. Expliquei a regra", "N"],
+      ["06/10", "Bruno", "O cliente não tava pra receber, o que eu faço?", "Reagendo pra amanhã cedo e aviso o cliente", "S"],
+      ["07/10", "Juliana", "Cliente quer trocar 3 peças, pode?", "Eu trocaria as 3 e cobraria o frete", "S"],
+      ["08/10", "Carla", "Cliente pediu 60 dias, o que eu faço?", "45 dias com 30% de entrada. Pode ser?", "S"]]
+      .map(([dia, quem, perg, sol, foi]) => dvL({ dia: d(dia), quem, perg, sol, foi }));
+    const cg = ([dia, quem, tarefa, r]) => cgL({ dia: d(dia), quem, tarefa, r: r.split("") });
+    S.cg = [["13/10", "Paulo", "Pedido grande pro fornecedor novo", "SSN"], ["14/10", "Paulo", "Pedido grande pro fornecedor novo", "SSS"],
+      ["14/10", "Bruno", "Rota nova de sábado", "SSS"], ["15/10", "Ana", "Pagamento dos fornecedores", "SNS"], ["16/10", "Juliana", "Campanha de troca no site", "SSS"]].map(cg);
+    S.anB = [["19/10", "Ana", "Renegociar o aluguel", "SNN"], ["21/10", "Ana", "Renegociar o aluguel", "SSN"], ["27/10", "Bruno", "Entregas de sábado na zona norte", "SSS"],
+      ["28/10", "Ana", "Renegociar o aluguel", "SSS"], ["28/10", "Juliana", "Política de troca no site", "SSN"], ["29/10", "Juliana", "Política de troca no site", "SSS"]].map(cg);
+    S.cl = { lim: "5.000", limAuto: true, confere: "Ana ou Paulo", placa: T,
+      rows: [["20/10", "Pagamento · Transportes Silva", "12.400", "S", "Nada. Pode clicar"], ["21/10", "Proposta · Mercado Rio", "8.900", "S", "Desconto de 15%, era 5%"],
+        ["22/10", "Nota fiscal · Padaria Sol", "6.200", "S", "Nada"], ["23/10", "Pagamento · embalagens", "5.800", "N", "Esqueceu. Lembrei a Ana"]]
+        .map(([dia, oque, valor, voz, pegou]) => clL({ dia: d(dia), oque, valor, voz, pegou })) };
+    S.ob = [["Proposta do Mercado Rio", "O cliente recebe a proposta revisada", "29/10", "Carla", "S"], ["Inventário do estoque", "Contagem fechada e batida com o sistema", "30/10", "Paulo", "S"],
+      ["Cobrança dos atrasados", "5 clientes pagam ou negociam", "30/10", "Ana", "S"], ["Política de troca", "Cliente acha a regra no site, sem perguntar", "30/10", "Juliana", "S"]]
+      .map(([tarefa, oque, ate, quem, chegou]) => obL({ tarefa, oque, ate: d(ate), quem, chegou }));
+    S.d30 = { p4: "Ninguém. O Bruno ainda tá mudando", p4Auto: false, soltar: "Carla: desconto até 8%, sem me perguntar", travou: ["", "", ""] };
+    return S;
+  };
+
+  // ---------------------------------------------------------------- utilidades
+  const $ = (q, r = document) => r.querySelector(q);
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const iso = d => { const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10); };
+  const soma = (s, n) => { const d = new Date(s + "T12:00:00"); d.setDate(d.getDate() + n); return iso(d); };
+  const br = s => s ? s.split("-").reverse().join("/") : "";
+  const brc = s => s ? s.split("-").reverse().slice(0, 2).join("/") : "";
+  const DS = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+  const diaSem = s => s ? DS[new Date(s + "T12:00:00").getDay()] : "";
+  const segundaDepois = s => { const d = new Date(s + "T12:00:00"); const w = d.getDay(); d.setDate(d.getDate() + (w === 1 ? 7 : (8 - w) % 7)); return iso(d); };
+  const hoje = () => iso(new Date());
+  const norm = s => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().replace(/\s+/g, " ").toLowerCase();
+  const junta = a => a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " e " + a[a.length - 1];
+  // número com vírgula, como se escreve à mão: 4,8 · 5 · 18,8
+  const dec = x => (Math.round(x * 10) / 10).toFixed(1).replace(".", ",").replace(/,0$/, "");
+
+  let S, guarda = true;
+  try { const g = localStorage.getItem(CHAVE); S = g ? completa(JSON.parse(g)) : vazio(); } catch (e) { S = vazio(); }
+  try { localStorage.setItem(CHAVE + "-t", "1"); localStorage.removeItem(CHAVE + "-t"); } catch (e) { guarda = false; }
+  const pega = p => p.split(".").reduce((o, k) => (o == null ? o : o[k]), S);
+  const poe = (p, x) => { const ks = p.split("."); let o = S; for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = {}; o = o[ks[i]]; } o[ks[ks.length - 1]] = x; };
+
+  // ---------------------------------------------------------------- as contas que o papel fazia à mão
+  // por pessoa e por semana: Te pediu = 1 + 2, Já pensou = 3 + 4. D se "já pensou" é maior; P se "te pediu" passa do dobro; M no resto; sem mensagem, um traço.
+  const nums = (k, id) => S.sem[k].n[id] || [0, 0, 0, 0, 0];
+  const tpjp = a => ({ tp: a[0] + a[1], jp: a[2] + a[3], r: a[4] });
+  const situ = (tp, jp) => tp + jp === 0 ? "—" : jp > tp ? "D" : tp > 2 * jp ? "P" : "M";
+  const sitDe = (k, id) => { const c = tpjp(nums(k, id)); return situ(c.tp, c.jp); };
+  const temNum = (k, id) => nums(k, id).some(x => x > 0);
+  const temAlgum = id => S.sem.some((_, k) => temNum(k, id));
+  const nomeDe = p => ((p && p.nome) || "").trim() || "Sem nome";
+  // quem aparece no contador da semana: quem tem nome e não saiu, e quem já tem número anotado nela
+  const noContador = k => S.pessoas.filter(p => (!p.fora && (p.nome || "").trim()) || temNum(k, p.id));
+  const noPainel = () => S.pessoas.filter(p => (!p.fora && (p.nome || "").trim()) || temAlgum(p.id));
+  const sbHtml = s => `<span class="sb ${s === "—" ? "x" : s}">${s}</span>`;
+  function tot(k) {
+    const t = [0, 0, 0, 0, 0]; S.pessoas.forEach(p => nums(k, p.id).forEach((x, i) => { t[i] += x; }));
+    const tp = t[0] + t[1], jp = t[2] + t[3], m = tp + jp;
+    return { t, tp, jp, m, r: t[4], lim: m / 5, abaixo: m ? (t[4] * 5 < m ? "S" : "N") : "" };
+  }
+  // a linha "30 dias": a soma das 4 semanas
+  function tot30() {
+    const T = { tp: 0, jp: 0, r: 0 }; [0, 1, 2, 3].forEach(k => { const t = tot(k); T.tp += t.tp; T.jp += t.jp; T.r += t.r; });
+    T.m = T.tp + T.jp; T.lim = T.m / 5; T.abaixo = T.m ? (T.r * 5 < T.m ? "S" : "N") : ""; return T;
+  }
+  // dia 1: das 10 últimas mensagens, quantas pediram (1 e 2) e em quantas quem decidiu foi você
+  const d1Conta = () => { const L = S.d1.msgs; return { pediu: L.filter(m => m.tipo === "1" || m.tipo === "2").length, voce: L.filter(m => m.decidiu === "você").length,
+    falta: L.filter(m => !m.tipo || !m.decidiu).length }; };
+  // checagem: três S, pode ir; um N, volta e prepara
+  const resC = r => r.includes("N") ? "volta" : r.every(x => x === "S") ? "pode ir" : "";
+  // a semana de uma data, de segunda a domingo (-1: fora das 4)
+  const semDe = d => { if (!d) return -1; for (let k = 0; k < 4; k++) { const s = S.sem[k]; if (s.de && d >= s.de && d <= soma(s.de, 6)) return k; } return -1; };
+  // as checagens de uma semana: as da página da semana 2 e as do Anexo B, pela data (sem data, a da página da semana 2 conta na semana 2)
+  const checagens = k => [...S.cg.map(c => ({ c, w: semDe(c.dia) >= 0 ? semDe(c.dia) : 1 })), ...S.anB.map(c => ({ c, w: semDe(c.dia) }))].filter(o => o.w === k).map(o => o.c);
+  function sugereVolta(k) {
+    const L = checagens(k).filter(c => (c.quem || "").trim() || c.r.some(Boolean)); if (!L.length) return "";
+    const n = new Map();
+    L.forEach(c => { const q = (c.quem || "").trim(); if (!q || resC(c.r) !== "volta") return; const o = n.get(norm(q)) || { nome: q, x: 0 }; o.x++; n.set(norm(q), o); });
+    const V = [...n.values()], mais = V.filter(o => o.x > 1);
+    if (mais.length) return mais.map(o => `${o.nome}, ${o.x} vezes`).join(" · ");
+    if (V.length) return `Ninguém: ${junta(V.map(o => o.nome))}, ${V.length > 1 ? "uma vez cada" : "uma vez"}`;
+    return "Ninguém";
+  }
+  function sugereP(k) {
+    if (!tot(k).m) return "";
+    const P = noContador(k).filter(p => sitDe(k, p.id) === "P").map(nomeDe);
+    return P.length ? junta(P) : "Ninguém";
+  }
+  // a pessoa da semana que vem: uma que ainda pergunta (a que mais pediu sem pensar primeiro); sem ninguém em P, quem ainda está mudando
+  function sugerePessoa(k) {
+    const V = noContador(k).map((p, i) => { const c = tpjp(nums(k, p.id)); return { p, i, s: situ(c.tp, c.jp), d: c.tp - c.jp }; });
+    const ord = L => L.sort((a, b) => b.d - a.d || a.i - b.i).map(o => nomeDe(o.p));
+    const P = V.filter(o => o.s === "P"); if (P.length) return { s: "P", nomes: ord(P) };
+    const M = V.filter(o => o.s === "M"); if (M.length) return { s: "M", nomes: ord(M) };
+    return { s: "", nomes: [] };
+  }
+  // a pessoa da semana k (veio da sexta anterior) aparece marcada no contador
+  const daSemana = (k, p) => { if (!k) return false; const f = " " + norm(S.sem[k - 1].sx.pessoa).replace(/[^a-z0-9]+/g, " ") + " ", n = norm(p.nome).replace(/[^a-z0-9]+/g, " ").trim(); return !!n && f.includes(" " + n + " "); };
+
+  // datas das semanas: segunda a sexta, a partir da segunda depois do dia 1. As que o caderno preencheu sozinho (auto) acompanham a capa.
+  function datasSemana(k) {
+    const s = S.sem[k];
+    if (!s.de || s.auto) { const base = k === 0 ? (S.capa.comecei ? segundaDepois(S.capa.comecei) : "") : (S.sem[k - 1].de ? soma(S.sem[k - 1].de, 7) : ""); if (base) { s.de = base; s.ate = soma(base, 4); s.auto = true; } }
+  }
+  const datas = () => S.sem.forEach((_, k) => datasSemana(k));
+  const dia30 = () => S.capa.comecei ? soma(S.capa.comecei, 29) : "";
+  // a semana de hoje (a 1 já vale do dia seguinte ao dia 1), pra abrir direto nela
+  function semanaHoje() {
+    const h = hoje();
+    for (let k = 0; k < 4; k++) { const s = S.sem[k]; if (!s.de) continue; const ini = k === 0 && S.capa.comecei && S.capa.comecei < s.de ? soma(S.capa.comecei, 1) : s.de;
+      if (h >= ini && h <= soma(s.de, 6)) return k; }
+    return -1;
+  }
+  const ehDia30 = () => { const d = dia30(), h = hoje(); return !!d && h >= d && h <= soma(d, 6); };
+  // o que vem preenchido sozinho (enquanto a pessoa não mexe): quem ainda pergunta, quem voltou mais de uma vez, o P da semana 4 no dia 30 e o limite da placa
+  function preenche() {
+    S.sem.forEach((s, k) => { if (s.sx.pAuto) s.sx.p = sugereP(k); if (k && s.sx.voltaAuto) s.sx.volta = sugereVolta(k); });
+    if (S.d30.p4Auto) S.d30.p4 = S.sem[3].sx.p;
+    if (S.cl.limAuto) S.cl.lim = S.cont.valor;
+  }
+
+  // ---------------------------------------------------------------- páginas
+  const PRINCIPAL = ["capa", "antes", "msgs", "continua", "painel", "s0", "f0", "s1", "f1", "s2", "f2", "s3", "f3", "d30"];
+  const ANEXOS = ["anA", "anB", "anC", "guardar"];
+  const TITULO = p => {
+    const fixo = { capa: "Capa", instala: AQUI === "pc" ? "Abrir no celular" : "Pôr o caderno no celular", antes: "Antes de começar",
+      msgs: "Dia 1 · As últimas 10 mensagens", continua: "Dia 1 · O que continua com você", painel: "O Painel dos 30 dias", d30: "Dia 30 · Funcionou?",
+      anA: "Anexo A · Cartão de frases", anB: "Anexo B · Checagem de 1 minuto", anC: "Anexo C · Antes de clicar", guardar: "Guardar, PDF e lembretes" }[p];
+    if (fixo) return fixo;
+    const k = +p.slice(1); return `Semana ${k + 1} · ${p[0] === "s" ? "Anota" : SUB[k][0].toUpperCase() + SUB[k].slice(1)}`;
+  };
+  const seguinte = p => { const L = [...PRINCIPAL, ...ANEXOS]; const i = L.indexOf(p); return [L[i - 1] || "", L[i + 1] || ""]; };
+
+  const um = (id, bind, ph = "", extra = "") => `<textarea class="t um" id="${id}" data-b="${bind}" rows="1" placeholder="${esc(ph)}" autocomplete="off" enterkeyhint="done" ${extra}>${esc(pega(bind))}</textarea>`;
+  const campo = (id, rot, bind, ph = "", extra = "") => `<div class="campo"><label for="${id}">${rot}</label>${um(id, bind, ph, extra)}</div>`;
+  const data = (id, rot, bind) => `<div class="campo"><label for="${id}">${rot}</label><input type="date" id="${id}" data-b="${bind}" value="${esc(pega(bind))}"></div>`;
+  const inp = (id, bind, extra = "") => `<input type="text" id="${id}" data-b="${bind}" value="${esc(pega(bind))}" autocomplete="off" enterkeyhint="done" ${extra}>`;
+  const campoQ = (id, rot, bind, extra = "") => `<div class="campo"><label for="${id}">${rot}</label>${inp(id, bind, `list="nomes" autocapitalize="words" ${extra}`)}</div>`;
+  const campoN = (id, rot, bind, extra = "") => `<div class="campo"><label for="${id}">${rot}</label>${inp(id, bind, `inputmode="decimal" ${extra}`)}</div>`;
+  const caixa = (id, t, bind, sub = "") => `<label class="ck" for="${id}"><input type="checkbox" id="${id}" data-b="${bind}" ${pega(bind) ? "checked" : ""}><span class="b">${PEN}</span><span>${t}${sub ? `<small>${sub}</small>` : ""}</span></label>`;
+  // botões de escolher (o tipo, quem decidiu, S ou N): tocar de novo apaga
+  const seg = (bind, ops, rot, rots = null) => { const x = pega(bind);
+    return `<span class="sn${ops.length > 2 ? " n4" : ""}" role="group" aria-label="${esc(rot)}">${ops.map((o, j) => `<button class="${x === o ? "on" : ""}" data-set="${bind}" data-v="${esc(o)}" aria-pressed="${x === o}">${rots ? rots[j] : esc(o)}</button>`).join("")}</span>`; };
+  const simNao = (bind, rot) => seg(bind, ["S", "N"], rot, ["Sim", "Não"]);
+  const nomesList = () => `<datalist id="nomes">${S.pessoas.filter(p => (p.nome || "").trim() && !p.fora).map(p => `<option value="${esc(p.nome.trim())}"></option>`).join("")}</datalist>`;
+  function nav(p, rotProx) {
+    const [a, b] = seguinte(p);
+    return `<div class="nav">${a ? `<button class="btn" data-ir="${a}">Voltar</button>` : ""}${b ? `<button class="btn pri" data-ir="${b}">${rotProx || "Próximo"}</button>` : ""}</div>`;
+  }
+  const P = {};
+
+  // ---------------------------------------------------------------- instalação (primeira tela, pra quem ainda não abriu pelo ícone)
+  // Descobre onde o caderno foi aberto e mostra só o passo a passo daquele caso.
+  const LINK = "https://caderno.praticabusiness.com/o-que-eu-mando/", HOST = "caderno.praticabusiness.com", ICONE = "Eu Vou";
+  function detecta() {
+    const ua = navigator.userAgent || "";
+    const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const android = /Android/i.test(ua);
+    let app = false;
+    try { app = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches; } catch (e) { /* sem matchMedia */ }
+    if (app) return "app";
+    if (ios) return /Safari\//.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|Instagram|FBAN|FBAV|Line\/|GSA\//.test(ua) ? "ios" : "ios-app";
+    if (android) return /Chrome\//.test(ua) && !/; wv\)|SamsungBrowser|EdgA|OPR\/|Firefox|Instagram|FBAN|FBAV|Line\/|GSA\//.test(ua) ? "and" : "and-app";
+    return "pc";
+  }
+  const AQUI = detecta(), APP = AQUI === "app", DENTRO = AQUI === "ios-app" || AQUI === "and-app";
+  let pedido = null, instConf = false, instMsg = "";
+  // Android: o Chrome avisa quando dá pra instalar com um toque
+  addEventListener("beforeinstallprompt", e => { e.preventDefault(); pedido = e; if (S.pag === "instala") redesenha(); });
+  addEventListener("appinstalled", () => { pedido = null; instMsg = `Pronto. O caderno está na tela inicial: abre pelo ícone ${ICONE}.`; if (S.pag === "instala") redesenha(); });
+
+  // desenhos dos botões do celular (ilustração, não é o botão de verdade)
+  const ilus = (h, corpo) => `<figure class="ilu"><svg viewBox="0 0 300 ${h}" aria-hidden="true">${corpo}</svg></figure>`;
+  const pena = (cx, cy, s) => `<g transform="translate(${cx - 12 * s} ${cy - 12.3 * s}) scale(${s})"><path d="M7.2 2.8 H16.8 C17.2 5.6 17.6 8.2 16.2 11.2 L12.7 20.4 Q12 21.9 11.3 20.4 L7.8 11.2 C6.4 8.2 6.8 5.6 7.2 2.8 Z" class="ifg"/><circle cx="12" cy="10.2" r="1.55" class="ifc"/><path d="M12 11.75 V20" class="ifs"/></g>`;
+  const iconeD = (cx, cy, n) => `<rect x="${cx - n / 2}" y="${cy - n / 2}" width="${n}" height="${n}" rx="${n * .24}" class="ibg"/>${pena(cx, cy, n * .6 / 20.4)}`;
+  const share = (x, y) => `<path d="M${x - 3} ${y - 3} H${x - 6} V${y + 8} H${x + 6} V${y - 3} H${x + 3}" class="st"/><path d="M${x} ${y + 3} V${y - 9} M${x - 3.5} ${y - 5.5} L${x} ${y - 9} L${x + 3.5} ${y - 5.5}" class="st"/>`;
+  const mais = (x, y) => `<rect x="${x - 8}" y="${y - 8}" width="16" height="16" rx="4" class="st"/><path d="M${x} ${y - 4} V${y + 4} M${x - 4} ${y} H${x + 4}" class="st"/>`;
+  const instalaD = (x, y) => `<rect x="${x - 5.5}" y="${y - 8.5}" width="11" height="17" rx="2.5" class="st"/><path d="M${x} ${y - 4} V${y + 2.5} M${x - 2.8} ${y - .3} L${x} ${y + 2.5} L${x + 2.8} ${y - .3}" class="st"/>`;
+  const bussola = (x, y) => `<circle cx="${x}" cy="${y}" r="8" class="st"/><path d="M${x + 3.5} ${y - 3.5} L${x - 1.2} ${y - 1.2} L${x - 3.5} ${y + 3.5} L${x + 1.2} ${y + 1.2} Z" class="dt"/>`;
+  const pontos = (x, y, vert) => [-8, 0, 8].map(d => `<circle cx="${vert ? x : x + d}" cy="${vert ? y + d : y}" r="2.3" class="dt"/>`).join("");
+  const barra = (x, y, w, ic = true) => `${ic ? `<rect x="${x}" y="${y - 10}" width="20" height="20" rx="5" class="m"/>` : ""}<rect x="${x + (ic ? 32 : 0)}" y="${y - 4}" width="${w}" height="8" rx="4" class="m"/>`;
+  const moldura = n => `<rect x="6" y="6" width="288" height="${n - 12}" rx="16" class="k"/>`;
+  const D = {
+    iosBarra: () => ilus(64, `<circle cx="32" cy="32" r="20" class="k"/><path d="M35 24 L27 32 L35 40" class="st"/>
+      <rect x="62" y="12" width="176" height="40" rx="20" class="k"/><text x="150" y="35.5" text-anchor="middle" class="ts">${HOST}</text>
+      <circle cx="268" cy="32" r="20" class="k"/>${pontos(268, 32)}<circle cx="268" cy="32" r="25.5" class="ring"/>`),
+    // menu dos três pontinhos: Compartilhar é a primeira opção, com o ícone à esquerda
+    iosMenu: () => ilus(150, `<rect x="70" y="6" width="224" height="138" rx="16" class="k"/>
+      <rect x="78" y="14" width="208" height="30" rx="9" class="hl"/>${share(97, 29)}<text x="116" y="33.5" class="tb">Compartilhar</text>
+      ${barra(87, 62, 120)}${barra(87, 92, 96)}
+      <path d="M78 110.5 H286" class="sep"/>
+      ${barra(87, 128, 84)}`),
+    // a folha de compartilhar abre fechada: a fileira de botões redondos termina em "Ver Mais"
+    iosVerMais: () => ilus(150, `${moldura(150)}
+      ${iconeD(36, 34, 28)}<rect x="60" y="25" width="150" height="8" rx="4" class="m"/><rect x="60" y="39" width="100" height="6" rx="3" class="m"/>
+      <path d="M6 60.5 H294" class="sep"/>
+      ${[48, 114, 180].map(x => `<circle cx="${x}" cy="92" r="19" class="bt"/><rect x="${x - 18}" y="122" width="36" height="6" rx="3" class="m"/>`).join("")}
+      <rect x="44" y="84" width="8" height="11" rx="2" class="st"/><path d="M47 99 H55 V88" class="st"/>
+      <path d="M109 84 H119 V100 L114 96 L109 100 Z" class="st"/>
+      <circle cx="173.5" cy="92" r="4.5" class="st"/><circle cx="186.5" cy="92" r="4.5" class="st"/><path d="M178 91 Q180 89.5 182 91" class="st"/>
+      <circle cx="248" cy="92" r="19" class="bt"/><path d="M242 89 L248 95 L254 89" class="st"/><text x="248" y="129" text-anchor="middle" class="tb">Ver Mais</text>
+      <circle cx="248" cy="92" r="25.5" class="ring"/>`),
+    // depois de "Ver Mais", a lista abre: "Adicionar à Tela de Início" é a quarta linha
+    iosLista: () => ilus(160, `${moldura(160)}
+      ${barra(22, 30, 120)}<path d="M54 46.5 H294" class="sep"/>${barra(22, 62, 90)}<path d="M54 78.5 H294" class="sep"/>${barra(22, 94, 130)}<path d="M54 110.5 H294" class="sep"/>
+      <rect x="12" y="116" width="276" height="32" rx="9" class="hl"/>${mais(32, 132)}<text x="54" y="136.5" class="tb">Adicionar à Tela de Início</text>`),
+    // a tela de adicionar: X à esquerda, "Adicionar" à direita, o nome já vem preenchido
+    iosAdicionar: () => ilus(160, `${moldura(160)}
+      <circle cx="32" cy="32" r="13" class="bt"/><path d="M27.5 27.5 L36.5 36.5 M36.5 27.5 L27.5 36.5" class="st"/>
+      <text x="52" y="36" class="t">Adicionar à Tela de Início</text>
+      <rect x="218" y="18" width="66" height="28" rx="14" class="hl"/><text x="251" y="36.5" text-anchor="middle" class="tb">Adicionar</text>
+      <rect x="213" y="13" width="76" height="38" rx="19" class="ring"/>
+      <path d="M6 58.5 H294" class="sep"/>
+      ${iconeD(36, 83, 32)}<text x="62" y="80" class="tb">${ICONE}</text><rect x="62" y="89" width="150" height="6" rx="3" class="m"/>
+      <path d="M6 108.5 H294" class="sep"/>
+      <text x="22" y="137" class="t">Abrir como app web</text>
+      <rect x="236" y="121" width="44" height="26" rx="13" class="tog"/><circle cx="267" cy="134" r="10.5" class="knob"/>`),
+    inicio: () => ilus(104, `${moldura(104)}
+      ${[60, 120, 240].map(x => `<rect x="${x - 20}" y="22" width="40" height="40" rx="10" class="m"/><rect x="${x - 14}" y="72" width="28" height="6" rx="3" class="m"/>`).join("")}
+      ${iconeD(180, 42, 40)}<text x="180" y="80" text-anchor="middle" class="ts">${ICONE}</text>
+      <rect x="152" y="14" width="56" height="76" rx="14" class="ring"/>`),
+    andBarra: () => ilus(64, `<rect x="8" y="12" width="240" height="40" rx="20" class="k"/><text x="28" y="36" class="t">${HOST}</text>
+      ${pontos(274, 32, true)}<circle cx="274" cy="32" r="20" class="ring"/>`),
+    andMenu: () => ilus(150, `<rect x="66" y="6" width="228" height="138" rx="10" class="k"/>
+      ${barra(80, 27, 110)}${barra(80, 60, 90)}
+      <rect x="72" y="79" width="216" height="28" rx="8" class="hl"/>${instalaD(90, 93)}<text x="108" y="97.5" class="tb">Instalar e criar atalho</text>
+      ${barra(80, 126, 100)}`),
+    andInstalar: () => ilus(140, `<rect x="26" y="6" width="248" height="128" rx="20" class="k"/>
+      <text x="46" y="38" class="th">Instalar app</text>
+      ${iconeD(62, 72, 32)}<text x="88" y="69" class="tb">${ICONE}</text><text x="88" y="85" class="ts">${HOST}</text>
+      <text x="168" y="117" text-anchor="middle" class="tm">Cancelar</text><text x="232" y="117" text-anchor="middle" class="tb">Instalar</text>
+      <rect x="200" y="99" width="64" height="28" rx="14" class="ring"/>`),
+    dentro: nav => ilus(150, `<rect x="6" y="6" width="288" height="40" rx="12" class="k"/>
+      <path d="M19 21 L29 31 M29 21 L19 31" class="st"/><text x="150" y="30" text-anchor="middle" class="ts">${HOST}</text>
+      ${pontos(268, 26)}<circle cx="268" cy="26" r="17" class="ring"/>
+      <rect x="106" y="54" width="188" height="90" rx="12" class="k"/>
+      <rect x="122" y="66" width="100" height="8" rx="4" class="m"/>
+      <rect x="112" y="84" width="176" height="30" rx="8" class="hl"/>${bussola(129, 99)}<text x="145" y="103.5" class="tb">Abrir no ${nav}</text>
+      <rect x="122" y="126" width="80" height="8" rx="4" class="m"/>`)
+  };
+
+  const passoI = (n, h, p, ilu = "", dica = "") => `<li class="passo"><span class="pn" aria-hidden="true">${n}</span><div class="pc"><h3>${h}</h3>${p ? `<p>${p}</p>` : ""}${ilu}${dica ? `<p class="dica">${dica}</p>` : ""}</div></li>`;
+  const caixaLink = nav => `<div class="link"><input type="text" id="link" value="${LINK}" readonly aria-label="Link do caderno">
+      <button class="btn" data-acao="copiar-link">Copiar o link</button>
+      <span class="ok-msg" id="copiado" hidden>${nav ? `Copiado. Abre o ${nav}, toca na barra de endereço e cola.` : "Copiado. Manda pra você no WhatsApp e abre no celular."}</span></div>`;
+  const COPIA = "Toda sexta, guarda uma cópia de segurança: menu Páginas, em Guardar.";
+  const fica = (pergunta, aviso, rotOk) => instConf
+    ? `<div class="conf">${aviso}<div class="nav"><button class="btn" data-acao="inst-nao">Voltar</button><button class="btn pri" data-acao="inst-aqui">${rotOk}</button></div></div>`
+    : `<button class="mini" data-acao="inst-confirma">${pergunta}</button>`;
+  function dentro(nav, onde) {
+    return `<section class="pg">
+      <div class="eb">Antes de escrever</div><h1>Abre o caderno no ${nav}</h1>
+      <p class="lead">Você abriu o link de dentro de um app, como o da Hotmart. Daqui não dá pra pôr o caderno na ${onde}, e o que você escrever pode se perder.</p>
+      <ol class="passos">
+        ${passoI(1, "Toca no menu desta tela", `Procura “Abrir no ${nav}” ou “Abrir no navegador”.`, D.dentro(nav), "Cada app põe num lugar: nos três pontinhos, no ícone de bússola ou no de compartilhar.")}
+        ${passoI(2, "Não achou? Copia o link", `Depois abre o ${nav}, toca na barra de endereço e cola.`, caixaLink(nav))}
+        ${passoI(3, `No ${nav}, o caderno mostra o resto`, "Leva um minuto, e daí ele vira um ícone no seu celular.")}
+      </ol>
+      ${fica("Preencher aqui mesmo assim", `Pode, mas o que você escrever aqui pode sumir quando o app fechar. ${COPIA}`, "Preencher aqui")}
+    </section>`;
+  }
+  P.instala = () => {
+    if (AQUI === "ios") return `<section class="pg">
+      <div class="eb">Antes de escrever · 1 minuto</div><h1>Põe o caderno na Tela de Início</h1>
+      <p class="lead">Ele vira um ícone, igual app. É por ele que você preenche os 30 dias, e o iPhone guarda tudo.</p>
+      <div class="aviso">Se você preencher aqui no Safari e ficar uma semana sem abrir, o iPhone pode apagar o que escreveu. Pelo ícone, não.</div>
+      <ol class="passos">
+        ${passoI(1, "Toca nos três pontinhos", "Ficam embaixo, à direita do endereço.", D.iosBarra(), "Se na barra já aparecer o quadrado com a seta pra cima, toca nele e pula pro passo 3.")}
+        ${passoI(2, "Toca em Compartilhar", "É a primeira opção do menu.", D.iosMenu())}
+        ${passoI(3, "Toca em Ver Mais", "É o último botão redondo da fileira, com a setinha pra baixo.", D.iosVerMais(), "Se a lista de opções já estiver aberta, pula pro passo 4.")}
+        ${passoI(4, "Toca em “Adicionar à Tela de Início”", "", D.iosLista(), "Não achou? No fim da lista, toca em Editar Ações e acrescenta essa opção.")}
+        ${passoI(5, "Deixa ligado “Abrir como app web” e toca em Adicionar", `O nome já vem como ${ICONE}.`, D.iosAdicionar())}
+        ${passoI(6, `Abre pelo ícone ${ICONE}`, "Fecha o Safari e toca no ícone novo, com a pena. Daqui em diante, abre sempre por ele.", D.inicio())}
+      </ol>
+      ${fica("Prefiro preencher aqui no Safari", `Pode, mas fica o risco: se você ficar uma semana sem abrir, o iPhone pode apagar o que escreveu. ${COPIA}`, "Preencher aqui")}
+    </section>`;
+    if (AQUI === "ios-app") return dentro("Safari", "Tela de Início");
+    if (AQUI === "and-app") return dentro("Chrome", "tela inicial");
+    if (AQUI === "and") return `<section class="pg">
+      <div class="eb">Antes de escrever · 1 minuto</div><h1>Põe o caderno na tela inicial</h1>
+      <p class="lead">Ele vira um ícone, igual app, e abre direto no caderno. É por ele que você preenche os 30 dias.</p>
+      ${instMsg ? `<div class="pronto">${instMsg}</div>` : ""}
+      ${pedido ? `<button class="btn pri big" data-acao="instalar"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5 V11.5 M5.2 7.8 L9 11.6 L12.8 7.8 M3 15.5 H15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Instalar o caderno</button>
+        <div class="ou">Não deu? Pelo menu</div>` : ""}
+      <ol class="passos">
+        ${passoI(1, "Toca nos três pontinhos", "Ficam em cima, à direita do endereço.", D.andBarra())}
+        ${passoI(2, "Toca em “Instalar e criar atalho”", "", D.andMenu(), "Em alguns celulares o nome é “Adicionar à tela inicial”.")}
+        ${passoI(3, "Toca em Instalar", "", D.andInstalar())}
+        ${passoI(4, `Abre pelo ícone ${ICONE}`, "Ele fica na tela inicial, com a pena. Daqui em diante, abre sempre por ele.", D.inicio())}
+      </ol>
+      <button class="mini" data-acao="inst-aqui">Agora não</button>
+    </section>`;
+    if (AQUI === "pc") return `<section class="pg">
+      <div class="eb">O caderno é pra celular</div><h1>Abre no seu celular</h1>
+      <p class="lead">Você vai preencher um pouco por dia, durante 30 dias. No celular ele fica à mão. Aponta a câmera pro código.</p>
+      <div class="qr" id="qr"><div id="qr-img" aria-hidden="true"></div><p>No iPhone, abre no Safari. No Android, no Chrome.</p></div>
+      <div class="ou">Ou manda o link pra você</div>
+      ${caixaLink("")}
+      <button class="mini" data-acao="inst-aqui">Só quero dar uma olhada no computador</button>
+    </section>`;
+    return P.capa();
+  };
+  // código QR do link, desenhado na hora (a biblioteca só carrega no computador)
+  function qr() {
+    const box = $("#qr-img"); if (!box) return;
+    const desenha = () => {
+      try {
+        const q = window.qrcode(0, "M"); q.addData(LINK); q.make();
+        const n = q.getModuleCount(), p = 2; let d = "";
+        for (let r = 0; r < n; r++) { let c = 0; while (c < n) { if (q.isDark(r, c)) { const s = c; while (c < n && q.isDark(r, c)) c++; d += `M${s} ${r}h${c - s}v1h-${c - s}z`; } else c++; } }
+        box.innerHTML = `<svg viewBox="${-p} ${-p} ${n + 2 * p} ${n + 2 * p}" shape-rendering="crispEdges" role="img" aria-label="Código QR com o link do caderno"><rect x="${-p}" y="${-p}" width="${n + 2 * p}" height="${n + 2 * p}" class="qr-bg"/><path d="${d}" class="qr-fg"/></svg>`;
+      } catch (e) { const q = $("#qr"); if (q) q.hidden = true; }
+    };
+    if (typeof window.qrcode === "function") return desenha();
+    const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js";
+    s.onload = desenha; s.onerror = () => { const q = $("#qr"); if (q) q.hidden = true; }; document.head.appendChild(s);
+  }
+
+  // ---------------------------------------------------------------- capa e antes
+  P.capa = () => { const k = semanaHoje();
+    return `<section class="pg capa">
+    ${APP && !S.inst.okVisto ? `<div class="pronto">Pronto, o caderno está no seu celular. Daqui em diante, abre sempre por este ícone.</div>` : ""}
+    ${!APP && S.inst.aqui && AQUI === "ios" ? `<div class="aviso">Você está preenchendo no Safari. ${COPIA}</div>` : ""}
+    ${!APP && S.inst.aqui && DENTRO ? `<div class="aviso">Você está preenchendo dentro de outro app, e o que escrever pode sumir. ${COPIA}</div>` : ""}
+    <div class="eb">Protocolo · ${NOME}</div>
+    <h1>Caderno<br>de Dono(a).</h1>
+    <p class="lead">30 dias pra o seu time parar de perguntar e começar a decidir. Um toque por mensagem, aqui no celular.</p>
+    <div class="box ink">
+      ${campo("capa-de", "Este caderno é de", "capa.de", "Seu nome", 'autocapitalize="words"')}
+      ${campo("capa-empresa", "Empresa", "capa.empresa", "Nome da empresa", 'autocapitalize="words"')}
+      <div class="g2">${data("capa-comecei", "Comecei em", "capa.comecei")}
+        <div class="campo"><span class="rot">O dia 30 cai em</span><div class="calc" data-out="dia30">${S.capa.comecei ? br(dia30()) : "&nbsp;"}</div></div></div>
+      <p class="nota">O dia 1 é o dia em que você começa, não o começo do mês. Os 30 dias contam daqui.</p>
+    </div>
+    <div class="nav">${k >= 0 ? `<button class="btn pri" data-ir="s${k}">Anotar · semana ${k + 1}</button>` : `<button class="btn pri" data-ir="antes">Começar</button>`}</div>
+    ${k >= 0 ? `<button class="mini" data-ir="antes">Antes de começar</button>` : ""}
+    ${APP ? "" : `<button class="mini" data-ir="instala">${AQUI === "pc" ? "Abrir no celular" : AQUI.startsWith("and") ? "Pôr o caderno na tela inicial" : "Pôr o caderno na Tela de Início"}</button>`}
+    <p class="nota">Inspirado em David Marquet · Fabio Takahashi · Prática Business</p>
+  </section>`; };
+
+  const TOC = [["msgs", "Dia 1 · As últimas 10 mensagens"], ["continua", "Dia 1 · O que continua com você"], ["painel", "O Painel dos 30 dias"],
+    ["s0", "Semana 1 · Anota"], ["f0", "Semana 1 · Devolve e sexta"], ["s1", "Semana 2 · Anota, checagem e sexta"], ["s2", "Semana 3 · Anota, antes de clicar e sexta"],
+    ["s3", "Semana 4 · Anota, objetivo e sexta"], ["d30", "Dia 30 · Funcionou?"], ["anA", "Anexo A · Cartão de frases"], ["anB", "Anexo B · Checagem de 1 minuto"], ["anC", "Anexo C · Antes de clicar"]];
+  P.antes = () => `<section class="pg">
+    <div class="eb">Antes do dia 1</div><h1>Antes de começar</h1>
+    <p class="lead">Lê uma vez, antes do dia 1. Depois é uma página por vez.</p>
+    <div class="box"><div class="rot ac">Por que no papel</div>
+      <p class="nota" style="color:var(--ink2);font-size:15.5px">Eu passo horas estudando no meu caderno pra te entregar algo que você faz em 15 minutos. O caderno deste protocolo foi feito pra escrever à mão, de propósito. Esta é a versão pra quem não vai imprimir.</p>
+      <p class="nota" style="color:var(--ink2);font-size:15.5px">Funciona. Mas, se der, imprime a versão em papel: ainda é o ideal.</p>
+      <p class="nota"><b style="color:var(--ink)">Fabio Takahashi</b> · Fundador da Prática Business</p></div>
+    <div class="box"><div class="rot ac">Onde fica o que você escreve</div><ul class="ol">
+      <li><b>1</b><span>Tudo fica salvo neste celular, na hora, sem botão. Nada vai pra internet, nem os nomes do seu time.</span></li>
+      <li><b>2</b><span>${APP ? `<b style="color:var(--ink)">Você já abriu pelo ícone ${ICONE}.</b> É por ele que o celular guarda o caderno: abre sempre por ele.`
+        : `<b style="color:var(--ink)">Põe na tela do celular antes de preencher.</b> No iPhone, no Safari: três pontinhos, Compartilhar, Ver Mais e “Adicionar à Tela de Início”. No Android, no Chrome: menu ⋮ e “Instalar e criar atalho”. Vira o ícone ${ICONE}, como app, e o celular não apaga o que você escreveu. <button class="mini" data-ir="instala">Ver o passo a passo</button>`}</span></li>
+      <li><b>3</b><span>De vez em quando, guarda uma cópia de segurança (no menu Páginas, em “Guardar”). Se trocar de celular, é ela que leva o caderno junto.</span></li></ul></div>
+    <div class="box"><div class="rot ac">Como usar</div><ul class="ol">
+      <li><b>1</b><span>Uma página por vez, na ordem: o dia 1 (as últimas 10 mensagens, o que continua com você e os nomes no Painel), duas páginas por semana e o dia 30. Os anexos ficam no menu Páginas.</span></li>
+      <li><b>2</b><span>Durante a semana, o caderno abre sozinho na semana de hoje. Chegou mensagem do time? Toca em quem mandou e no tipo.</span></li>
+      <li><b>3</b><span>O Exemplo Comentado mostra cada página preenchida e explicada. Lá, cada mensagem é um tracinho à mão: aqui é um toque, e o caderno soma sozinho, acha a situação de cada um (D, M ou P), monta o Painel e o sinal do dia 30.</span></li></ul></div>
+    <div class="box"><div class="rot ac">O que tem aqui</div><div class="toc">${TOC.map(([p, t]) => `<button data-ir="${p}">${t}<span aria-hidden="true">›</span></button>`).join("")}</div></div>
+    <div class="box" id="exemplo-box"><div class="rot">Quer ver funcionando antes?</div>
+      <p class="nota" style="color:var(--ink2)">Preenche tudo com o exemplo do protocolo, o mesmo do Exemplo Comentado: os 30 dias de um dono com o time da Carla, do Paulo, da Ana, do Bruno e da Juliana. Depois é só apagar e começar o seu.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="exemplo">Carregar o exemplo</button></div><div id="conf-ex"></div></div>
+    <p class="nota">© 2026 Fabio Takahashi · Prática Business. Este caderno é parte do protocolo e segue a mesma licença: é de quem comprou. O Anexo A pode ir pro grupo da empresa, e o Anexo C, pro lado do computador de quem paga.</p>
+    ${nav("antes", "Ir pro dia 1")}
+  </section>`;
+
+  // ---------------------------------------------------------------- pedaços que se repetem
+  const tiposLeg = () => `<div class="tp4">${TIPOS.slice(0, 4).map(([k, t, q]) => `<div><b>${k}</b><span><i>${t}</i> · ${q}</span></div>`).join("")}</div>`;
+  const sitLeg = () => `<div class="leg3">${SIT.map(([k, t, d]) => `<div>${sbHtml(k)}<b>${t}</b><span>${d}</span></div>`).join("")}</div>`;
+  const ABERTOS = new Set();
+  const rola = el => { if (!el) return; const t = $(".top"); window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - (t ? t.offsetHeight : 0) - 10)); };
+  const conf = (p, i) => `<div data-conf="${p}.${i}"></div>`;
+  const quando = d => d ? esc(diaSem(d) + " " + brc(d)) : "sem data";
+  const quemT = x => esc((x || "").trim() || "quem?");
+  const snTag = x => x ? `<span class="cz${x === "N" ? " d" : ""}">${x}</span>` : `<span class="cz vz">?</span>`;
+  const resTag = r => { const x = resC(r); return x === "pode ir" ? `<span class="pill ok">pode ir</span>` : x === "volta" ? `<span class="pill wa">volta</span>` : `<span class="pill vz">?</span>`; };
+  // cada linha das tabelas da semana vira uma ficha: fechada mostra o resumo, aberta mostra os campos
+  const FICHA = {
+    dv: { sum: x => `${quando(x.dia)} · ${quemT(x.quem)}`, tit: x => esc(x.perg || "Pergunta sem texto"), tag: x => snTag(x.foi) },
+    cg: { sum: x => `${quando(x.dia)} · ${quemT(x.quem)}`, tit: x => esc(x.tarefa || "Tarefa sem nome"), tag: x => resTag(x.r) },
+    cl: { sum: x => `${quando(x.dia)}${(x.valor || "").trim() ? " · R$ " + esc(x.valor.trim()) : ""}`, tit: x => esc(x.oque || "Sem descrição"), tag: x => snTag(x.voz) },
+    ob: { sum: x => `${x.ate ? "até " + esc(brc(x.ate)) : "sem prazo"} · ${esc((x.quem || "").trim() || "quem faz?")}`, tit: x => esc(x.tarefa || "Tarefa sem nome"), tag: x => snTag(x.chegou) }
+  };
+  function ficha(tipo, path, x, corpo, apaga) {
+    const F = FICHA[tipo], id = tipo + x.id;
+    return `<details class="ficha er" data-id="${id}" ${ABERTOS.has(id) ? "open" : ""}><summary>
+      <span class="sm"><small data-out="fs:${tipo}|${path}">${F.sum(x)}</small><b data-out="ft:${tipo}|${path}">${F.tit(x)}</b></span>
+      <span class="tg" data-out="fg:${tipo}|${path}">${F.tag(x)}</span><span class="seta">›</span></summary>
+      <div class="corpo">${corpo}${apaga ? `<button class="mini" data-acao="apaga" data-p="${apaga[0]}" data-i="${apaga[1]}" style="align-self:flex-start">Apagar esta linha</button>${conf(apaga[0], apaga[1])}` : ""}</div></details>`;
+  }
+  // os nomes de quem manda mensagem: um lugar só (o Painel), e valem pras 4 semanas
+  const nomesD1 = () => { const tem = new Set(S.pessoas.map(p => norm(p.nome)).filter(Boolean)), out = [];
+    S.d1.msgs.forEach(m => { const q = (m.quem || "").trim(), n = norm(q); if (n && !tem.has(n)) { tem.add(n); out.push(q); } }); return out; };
+  function editorPessoas() {
+    const d1 = nomesD1();
+    return `<div class="pes-ed">
+      ${S.pessoas.length ? S.pessoas.map((p, i) => p.fora
+        ? `<div class="pe-l fora"><span>${esc(nomeDe(p))} <small>· fora do contador</small></span><button class="mini" data-acao="volta-pessoa" data-i="${i}">Voltar pro contador</button></div>`
+        : `<div class="pe-l">${inp("pn-" + p.id, `pessoas.${i}.nome`, `placeholder="Nome" aria-label="Nome da pessoa ${i + 1}" autocapitalize="words"`)}<button class="mini" data-acao="tira-pessoa" data-i="${i}">Tirar</button></div>${conf("pessoas", i)}`).join("")
+        : `<p class="vazia">Nenhum nome ainda.</p>`}
+      <div class="nav" style="margin:0"><button class="btn" data-acao="nova-pessoa">+ Pessoa</button></div>
+      ${d1.length ? `<div class="campo"><span class="rot">Do dia 1 · toca pra pôr</span><div class="opts">${d1.map(n => `<button class="chip" data-addnome="${esc(n)}">+ ${esc(n)}</button>`).join("")}${d1.length > 1 ? `<button class="chip on" data-acao="todos-d1">Pôr todos</button>` : ""}</div></div>` : ""}
+    </div>`;
+  }
+
+  // ---------------------------------------------------------------- 2 · dia 1: as últimas 10 mensagens
+  P.msgs = () => { const c = d1Conta();
+    return `<section class="pg">
+    <div class="eb">Dia 1 · 10 min</div><h1>As últimas 10 mensagens</h1>
+    <p class="lead">Abre o WhatsApp e pega as 10 últimas mensagens em que o time te pediu ou te avisou alguma coisa. Pra cada uma, o tipo e quem decidiu.</p>
+    <div class="box"><div class="rot ac">Os 4 tipos</div>${tiposLeg()}</div>
+    ${S.d1.msgs.map((m, i) => { const p = "d1.msgs." + i;
+      return `<div class="dia msg"><div class="mh"><span class="mn">${i + 1}</span><div class="g2">${campoQ(`m${i}-q`, "Quem", p + ".quem")}${campo(`m${i}-s`, "Sobre o quê", p + ".sobre", "", 'autocapitalize="sentences"')}</div></div>
+        <div class="mb2"><div><span class="rot">O tipo</span>${seg(p + ".tipo", ["1", "2", "3", "4"], `Mensagem ${i + 1}: o tipo`)}</div>
+          <div><span class="rot">Quem decidiu?</span>${seg(p + ".decidiu", ["você", "a pessoa"], `Mensagem ${i + 1}: quem decidiu`)}</div></div></div>`; }).join("")}
+    <div class="res"><div class="conta2">
+      <div><span class="rot">Te pediram <span style="text-transform:none;letter-spacing:0">(1 e 2)</span></span><span class="big" id="d1-pediu">${c.pediu} <small>de 10</small></span></div>
+      <div><span class="rot">Quem decidiu foi você</span><span class="big" id="d1-voce">${c.voce} <small>de 10</small></span></div></div>
+      <p class="nota">${c.falta ? `O caderno conta sozinho. ${c.falta === 1 ? "Falta 1 mensagem" : `Faltam ${c.falta} mensagens`} com o tipo ou quem decidiu.` : "O caderno contou sozinho."} É o seu “antes”. No dia 30, você compara com a última semana.</p></div>
+    <div class="box ink"><p class="frase">Eu não sou o Google da minha empresa.</p>
+      <div class="g2">${campo("d1-ass", "Seu nome", "d1.assin", "", 'autocapitalize="words"')}${data("d1-assd", "Data", "d1.assinData")}</div></div>
+    ${nav("msgs", "O que continua com você")}
+  </section>`; };
+
+  // ---------------------------------------------------------------- 3 · dia 1: o que continua com você
+  P.continua = () => { const nn = S.pessoas.filter(p => !p.fora && (p.nome || "").trim()).length;
+    return `<section class="pg">
+    <div class="eb">Dia 1 · 5 min</div><h1>O que continua com você</h1>
+    <p class="lead">Antes de proibir o “posso?”, escreve o que ainda passa por você. O resto, o time decide e te avisa.</p>
+    <div class="box forte"><div class="rot ac">Continua com você</div><div class="grupo">
+      <div class="linha cv">${caixa("cv0", CONTINUA[0], "cont.c.0")}${inp("cv-valor", "cont.valor", 'inputmode="decimal" placeholder="5.000" aria-label="Valor acima de R$"')}</div>
+      ${CONTINUA.slice(1).map((t, j) => caixa("cv" + (j + 1), t, `cont.c.${j + 1}`)).join("")}
+      ${[0, 1].map(j => `<div class="linha ex"><label class="ck" for="cx${j}"><input type="checkbox" id="cx${j}" data-b="cont.extraOk.${j}" ${S.cont.extraOk[j] ? "checked" : ""}><span class="b">${PEN}</span><span class="vh">Marcar a linha ${j + 1}</span></label>${um("cxt" + j, `cont.extra.${j}`, "Mais uma, se tiver", `aria-label="Mais uma coisa que continua com você, linha ${j + 1}" autocapitalize="sentences"`)}</div>`).join("")}
+    </div></div>
+    <div class="box"><div class="dh" style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span class="rot ac">O degrau</span><span class="rot">o que o time traz</span></div>
+      <div class="dg">${[["Dentro do “até onde”", "Só avisa: “Vou fazer X.”"], ["Fora dele, no dia a dia", "“Eu faria X. Pode ser?” E você: “pode”."],
+        ["Grande ou nova", "O que continua com você chega pensado: 3 opções e a que ela escolheria."]].map(([a, b]) => `<div class="r"><b>${a}</b><span>${b}</span></div>`).join("")}</div></div>
+    <div class="dia"><div class="dh"><span class="dn">O time decide e te avisa · <span>até onde vai cada um</span></span></div>
+      ${S.cont.ate.map((a, i) => { const p = "cont.ate." + i;
+        return `<div class="ate-c">${campoQ(`at${a.id}-q`, "Quem", p + ".quem")}${campo(`at${a.id}-a`, "Até onde", p + ".ate", "", 'autocapitalize="sentences"')}
+          <div class="w">${campo(`at${a.id}-o`, "O quê", p + ".oque", "", 'autocapitalize="sentences"')}</div>
+          <button class="mini" data-acao="apaga" data-p="cont.ate" data-i="${i}">Apagar esta linha</button><div class="w">${conf("cont.ate", i)}</div></div>`; }).join("") || `<p class="vazia">Nenhuma linha.</p>`}
+      <div class="nav" style="margin:0"><button class="btn" data-acao="nova-linha" data-l="cont.ate">+ Mais uma linha</button></div>
+      <p class="nota">O resto, o time avisa: “vou fazer X”. Revisa no dia 30: dá pra soltar mais alguma coisa?</p></div>
+    <div class="dia forte"><div class="dh"><span class="dn">Hoje · <span>Dia 1</span></span><span class="tm">antes de dormir</span></div>
+      ${caixa("hj-1", "No grupo da empresa, a mensagem da mudança", "cont.hoje.msg", "protocolo, página 18")}
+      ${caixa("hj-2", "Junto, o cartão de frases", "cont.hoje.cartao", "Anexo A: compartilha o texto ou tira um print")}
+      ${caixa("hj-3", "Os nomes de quem te manda mensagem, no Painel", "cont.hoje.nomes", nn ? `No Painel: ${nn} ${nn === 1 ? "nome" : "nomes"}. Eles vão sozinhos pras 4 semanas.` : "Ainda sem nomes no Painel. Eles vão sozinhos pras 4 semanas.")}
+      ${caixa("hj-4", "O caderno à mão, no celular. A partir de amanhã, cada mensagem é um toque", "cont.hoje.lado")}
+      <div class="nav" style="margin:2px 0 0"><button class="btn sec" data-ir="anA">Abrir o cartão</button><button class="btn sec" data-ir="painel">Escrever os nomes</button></div></div>
+    ${nav("continua", "Ir pro Painel")}
+  </section>`; };
+
+  // ---------------------------------------------------------------- 4 · o Painel dos 30 dias
+  function timeTabela() {
+    const lin = (rot, t, cls = "") => `<tr${cls}><td class="sem">${rot}</td>${t.m ? `<td class="v">${t.tp}</td><td class="v">${t.jp}</td><td class="v sh">${t.m}</td><td class="v sh">${dec(t.lim)}</td><td class="v">${t.r}</td><td class="v">${t.abaixo}</td>`
+      : `<td class="vz">·</td><td class="vz">·</td><td class="vz sh">·</td><td class="vz sh">·</td><td class="vz">·</td><td class="vz">—</td>`}</tr>`;
+    const hj = semanaHoje();
+    return `<table class="tb t7" id="tab-time"><colgroup><col style="width:17%"><col><col><col><col><col><col></colgroup>
+      <thead><tr><th></th><th>Te pediu<small>1 + 2</small></th><th class="ac">Já pensou<small>3 + 4</small></th><th>Msgs<small>a soma</small></th><th>÷ 5<small>o limite</small></th><th>Prontas<small>suas</small></th><th>Abaixo?<small>S ou N</small></th></tr></thead>
+      <tbody>${[0, 1, 2, 3].map(k => lin(`Sem ${k + 1}`, tot(k), k === hj ? ' class="hj"' : "")).join("")}${lin("30 dias", tot30(), ' class="tt"')}</tbody></table>`;
+  }
+  P.painel = () => { const L = noPainel();
+    return `<section class="pg">
+    <div class="eb">Dia 1 · e toda sexta</div><h1>O Painel dos 30 dias</h1>
+    <p class="lead">Quem já decide, quem está mudando e quem ainda pergunta. No dia 1, só os nomes: o resto o caderno preenche sozinho, com as mensagens que você anota na semana.</p>
+    <div class="box forte"><div class="rot ac">Quem te manda mensagem</div>${editorPessoas()}
+      <p class="nota">Um nome por pessoa. Trocou o nome no meio do mês? Os números vão junto.</p></div>
+    <div class="dia"><div class="dh"><span class="dn">A situação, <span>semana a semana</span></span><span class="tm">na sexta</span></div>
+      ${L.length ? `<table class="tb" id="tab-sit"><colgroup><col style="width:32%"><col><col><col><col></colgroup><thead><tr><th>Pessoa</th>${S.sem.map((s, k) => `<th>Sem ${k + 1}${s.de ? `<small>${brc(s.de)}</small>` : ""}</th>`).join("")}</tr></thead>
+        <tbody>${L.map(p => `<tr><td class="nm">${esc(nomeDe(p))}</td>${[0, 1, 2, 3].map(k => `<td>${sbHtml(sitDe(k, p.id))}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+        : `<p class="vazia">Escreve os nomes aí em cima.</p>`}
+      <p class="nota">A situação de cada um vem pronta da página da semana. Sem mensagem na semana? Um traço.</p></div>
+    ${sitLeg()}
+    <div class="dia"><div class="dh"><span class="dn">O time, <span>semana a semana</span></span><span class="tm">na sexta · 2 min</span></div>
+      ${timeTabela()}
+      <p class="nota">Mensagens = Te pediu + Já pensou. Divide por 5: as respostas prontas têm que ficar abaixo. Deu quebrado? Tudo bem: 22 ÷ 5 = 4,4. No dia 30, a última linha soma as quatro semanas. O caderno faz as contas sozinho.</p></div>
+    <p class="nota">O Painel é pra conversa a sós, não pra ranking. Não expõe no grupo quem “mais pede”.</p>
+    ${nav("painel", "Ir pra semana 1")}
+  </section>`; };
+
+  // ---------------------------------------------------------------- semanas: anota (o contador)
+  const SEL = {};
+  let FLASH = "", ULT = [];
+  function contador(k) {
+    const V = noContador(k), sel = SEL[k] && V.some(p => p.id === SEL[k]) ? SEL[k] : "", pe = sel ? S.pessoas.find(p => p.id === sel) : null, a = pe ? nums(k, sel) : [0, 0, 0, 0, 0];
+    const fl = FLASH; FLASH = "";
+    if (!V.length) return `<p class="vazia">Ninguém no contador ainda. Escreve os nomes de quem te manda mensagem: valem pras 4 semanas.</p>${editorPessoas()}`;
+    const pes = p => { const c = tpjp(nums(k, p.id)), on = p.id === sel, ds = daSemana(k, p);
+      return `<button class="pes${on ? " on" : ""}" data-sel="${k}|${p.id}" aria-pressed="${on}">${ds ? `<span class="ds">da semana</span>` : ""}<b data-out="pnome:${p.id}">${esc(nomeDe(p))}</b><small>${c.tp} pediu · ${c.jp} pensou${c.r ? ` · ${c.r} R` : ""}</small>${sbHtml(situ(c.tp, c.jp))}</button>`; };
+    const nm = pe ? esc(nomeDe(pe)) : "";
+    const lin = c => { const [kk, t, q] = TIPOS[c], ch = `${k}|${sel}|${c}`;
+      return `<div class="tp${c === 4 ? " r" : ""}"><button class="mais${fl && fl === ch ? " pulso" : ""}" data-conta="${ch}" ${pe ? "" : "disabled"} aria-label="${pe ? `${nm}: ${t}. Agora ${a[c]}. Toca pra somar 1` : t}"><span class="k">${kk}</span><span class="t"><b>${t}</b><small>${q}</small></span><span class="n">${pe ? a[c] : ""}</span></button><button class="menos" data-desconta="${ch}" ${pe && a[c] ? "" : "disabled"} aria-label="Tirar 1 de ${t}${pe ? ", " + nm : ""}">−1</button></div>`; };
+    return `<div class="pes-g" role="group" aria-label="Quem mandou">${V.map(pes).join("")}</div>
+      <div class="tps${pe ? "" : " off"}" id="tps">
+        <div class="tps-cab">${pe ? `<b>${nm}</b> mandou:` : "Toca primeiro em quem mandou."}</div>
+        <div class="gl">Te pediu</div>${lin(0)}${lin(1)}
+        <div class="gl ac">Já pensou</div>${lin(2)}${lin(3)}
+        <div class="gl">Você</div>${lin(4)}
+        ${pe && a[4] > a[0] + a[1] ? `<p class="nota" style="color:var(--warn)">Mais respostas prontas do que pedidos? A resposta pronta vem junto com um 1 ou um 2: confere.</p>` : ""}
+      </div>`;
+  }
+  function semanaTabela(k) {
+    const V = noContador(k).filter(p => !p.fora || temNum(k, p.id)), t = tot(k);
+    return `<table class="tb" id="tab-s${k}"><colgroup><col style="width:30%"><col style="width:17%"><col style="width:17%"><col style="width:14%"><col style="width:22%"></colgroup><thead><tr><th>Pessoa</th><th>Te pediu<small>1 + 2</small></th><th class="ac">Já pensou<small>3 + 4</small></th><th>R<small>prontas</small></th><th>Situação<small>D, M ou P</small></th></tr></thead>
+      <tbody>${V.map(p => { const c = tpjp(nums(k, p.id)); return `<tr><td class="nm">${esc(nomeDe(p))}</td><td class="v">${c.tp}</td><td class="v">${c.jp}</td><td class="v">${c.r}</td><td>${sbHtml(situ(c.tp, c.jp))}</td></tr>`; }).join("")}
+      <tr class="tt"><td>O time</td><td class="v">${t.tp}</td><td class="v">${t.jp}</td><td class="v">${t.r}</td><td></td></tr></tbody></table>
+      <div class="kv"><b>Por tipo</b><span>${t.t.slice(0, 4).map((x, i) => `${i + 1}: ${x}`).join(" · ")}</span><b>Mensagens</b><span>${t.m} <small>(te pediu + já pensou)</small></span>
+        <b>O limite</b><span>${t.m ? dec(t.lim) : "—"} <small>(mensagens ÷ 5)</small></span><b>Abaixo do limite?</b><span>${t.m ? (t.abaixo === "S" ? "S · as respostas prontas ficaram abaixo" : "N · as respostas prontas passaram") : "—"}</span></div>`;
+  }
+  const pdsTxt = k => k ? esc((S.sem[k - 1].sx.pessoa || "").trim() || "escolhe no ritual da sexta passada") : "todo mundo";
+  function anota(k) {
+    datasSemana(k);
+    const s = S.sem[k], [rg, rd] = REGRA[k], hj = semanaHoje() === k, h = hoje();
+    const estado = !s.de ? `<div class="aviso">Preenche “Comecei em” na capa pra o caderno saber as datas desta semana. <button class="mini" data-ir="capa" style="color:var(--warn)">Ir pra capa</button></div>`
+      : hj ? "" : h < s.de ? `<p class="nota">Esta semana começa ${diaSem(s.de)}, ${brc(s.de)}.</p>` : `<p class="nota">Esta semana já passou. Dá pra corrigir os números, se precisar.</p>`;
+    return `<section class="pg">
+      <div class="eb">Semana ${k + 1}${s.de ? ` · ${brc(s.de)} a ${brc(s.ate)}` : ""}${hj ? " · esta semana" : ""}</div><h1>Semana ${k + 1}: anota</h1>
+      <p class="lead">Um toque por mensagem do time, na hora. Na sexta, a soma já vem pronta pro ritual.</p>
+      ${estado}
+      <div class="resumo-s"><span><b>${rg}.</b> ${rd}</span><span>A pessoa da semana: <span class="pds" data-out="pds:${k}">${pdsTxt(k)}</span></span></div>
+      <div class="dia forte"><div class="dh"><span class="dn">Todo dia · <span>Anota</span></span><span class="tm">um toque por mensagem</span></div>
+        <p class="nota" style="color:var(--ink2)">Chegou mensagem do time? Toca em quem mandou e no tipo. Deu a resposta pronta? Toca também em R.</p>
+        ${contador(k)}</div>
+      <div class="dia"><div class="dh"><span class="dn">A semana · <span>até agora</span></span><span class="tm">vai pro Painel</span></div>${semanaTabela(k)}</div>
+      <div class="box forte"><div class="rot ac">A regra da semana</div><p class="nota" style="color:var(--ink);font-size:16px"><b style="color:var(--accent)">${rg}.</b> ${rd}</p>
+        ${caixa(`av${k}`, "Segunda: avisei o time", `sem.${k}.avisei`)}
+        <div class="rot ac" style="margin-top:2px">A pessoa da semana${k ? " · veio da sexta passada" : ""}</div>
+        ${k ? `${um(`ps${k}`, `sem.${k - 1}.sx.pessoa`, "Escolhe no ritual da sexta passada", `aria-label="A pessoa da semana" autocapitalize="words"`)}<p class="nota">Toda pergunta dela recebe um “e o que você faria?”.</p>`
+          : `<p class="nota" style="color:var(--ink2);font-size:15px">Na semana 1, <b style="color:var(--ink)">todo mundo</b>. Toda pergunta recebe um “e o que você faria?”.</p>`}</div>
+      <div class="box"><div class="rot ac">Os 4 tipos · e a situação na sexta</div>${tiposLeg()}${sitLeg()}</div>
+      <p class="nota">Conta a mensagem como ela chegou. Veio “o que eu faço?” e você devolveu? É 2, sem R. Deu a resposta? É 2 e R.</p>
+      ${noContador(k).length ? `<details class="box"><summary class="nota" style="cursor:pointer">Mudar os nomes</summary><div style="margin-top:10px">${editorPessoas()}</div></details>` : ""}
+      <details class="box"><summary class="nota" style="cursor:pointer">Mudar as datas desta semana${s.de ? ` · ${brc(s.de)} a ${brc(s.ate)}` : ""}</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+        <div class="g2">${data(`s${k}-de`, "De", `sem.${k}.de`)}${data(`s${k}-ate`, "Até", `sem.${k}.ate`)}</div>
+        ${k === 0 ? `<p class="nota">Da segunda depois do dia 1 até a sexta. Muda se a sua semana começar em outro dia.</p>` : ""}</div></details>
+      ${nav("s" + k, "Ir pra sexta")}
+    </section>`;
+  }
+
+  // ---------------------------------------------------------------- semanas: a regra da semana e a sexta
+  function devolve() {
+    const f = S.dv.filter(x => x.foi), s = f.filter(x => x.foi === "S").length;
+    return `<div class="dia"><div class="dh"><span class="dn">Regra 2 · <span>As próximas 5 perguntas</span></span><span class="tm">30 s por linha</span></div>
+      <p class="nota" style="color:var(--ink2)">Você só responde depois que a pessoa der a solução dela. A mensagem pronta é “E o que você faria?” (protocolo, página 18).</p>
+      ${S.dv.map((x, i) => { const p = "dv." + i, id = "dv" + x.id;
+        return ficha("dv", p, x, `<div class="g2">${data(`${id}-d`, "Dia", p + ".dia")}${campoQ(`${id}-q`, "Quem", p + ".quem")}</div>
+          ${campo(`${id}-p`, "A pergunta", p + ".perg", "", 'autocapitalize="sentences"')}${campo(`${id}-s`, "A solução dela", p + ".sol", "", 'autocapitalize="sentences"')}
+          <div class="linha" style="align-items:center;justify-content:space-between"><span class="rot">Foi a dela?</span>${simNao(p + ".foi", "Foi a dela?")}</div>`, null); }).join("")}
+      ${f.length ? `<p class="nota">Foi a solução de quem perguntou: <b style="color:var(--pen)">${s} de ${f.length}</b>.</p>` : ""}
+      <p class="nota">Não trouxe nada? Funcionário novo ainda não tem o que trazer: ensina primeiro.</p></div>`;
+  }
+  const cgCorpo = (p, x, id) => `<div class="g2">${data(`${id}-d`, "Dia", p + ".dia")}${campoQ(`${id}-q`, "Quem", p + ".quem")}</div>
+    ${campo(`${id}-t`, "Tarefa", p + ".tarefa", "", 'autocapitalize="sentences"')}
+    <div class="rot ac">A pessoa explica · você marca</div>
+    <div class="p4">${CHK.map((q, j) => `<div class="pq"><span class="n">${j + 1}</span><span class="t">${q}</span>${simNao(`${p}.r.${j}`, `${j + 1}. ${q}`)}</div>`).join("")}</div>
+    <div data-out="cgres:${p}">${cgRes(x)}</div>`;
+  function cgRes(x) { const r = resC(x.r);
+    return r === "pode ir" ? `<div class="pronto">Três S: pode ir.</div>` : r === "volta" ? `<div class="aviso">Faltou um: volta e prepara.</div>` : `<p class="nota">Três S: pode ir. Faltou um: volta e prepara.</p>`; }
+  function checagem() {
+    return `<div class="dia"><div class="dh"><span class="dn">Regra 3 · <span>Checagem de 1 minuto</span></span><span class="tm">1 min por tarefa</span></div>
+      <p class="nota" style="color:var(--ink2)">Antes de uma tarefa importante, a pessoa te explica. Você só escuta e marca S ou N. Três S: pode ir. Faltou um: volta e prepara.</p>
+      ${S.cg.map((x, i) => { const p = "cg." + i; return ficha("cg", p, x, cgCorpo(p, x, "cg" + x.id), ["cg", i]); }).join("") || `<p class="vazia">Nenhuma checagem ainda.</p>`}
+      <div class="nav" style="margin:0"><button class="btn" data-acao="nova-linha" data-l="cg">+ Checagem</button></div>
+      <p class="nota">Semanas 3 e 4, ou se esta encher: Anexo B.</p><button class="mini" data-ir="anB" style="align-self:flex-start">Abrir o Anexo B</button></div>`;
+  }
+  function clicar() {
+    return `<div class="dia"><div class="dh"><span class="dn">Regra 4 · <span>Antes de clicar</span></span><span class="tm">10 segundos</span></div>
+      <div class="g2">${campoN("cl-lim", "Acima de R$", "cl.lim")}${campoQ("cl-conf", "Quem confere", "cl.confere")}</div>
+      ${caixa("cl-placa", "A placa impressa e colada do lado do computador de quem paga", "cl.placa", "Anexo C")}
+      <button class="mini" data-ir="anC" style="align-self:flex-start">Abrir a placa (Anexo C)</button>
+      <p class="nota" style="color:var(--ink2)">Viu acontecer? Uma linha. Pagamento, proposta ou nota acima do limite: quem vai mandar lê o valor e o destinatário em voz alta pra alguém.</p>
+      ${S.cl.rows.map((x, i) => { const p = "cl.rows." + i, id = "cl" + x.id;
+        return ficha("cl", p, x, `<div class="g2">${data(`${id}-d`, "Dia", p + ".dia")}${campoN(`${id}-v`, "Valor (R$)", p + ".valor")}</div>
+          ${campo(`${id}-o`, "O quê, pra quem", p + ".oque", "", 'autocapitalize="sentences"')}
+          <div class="linha" style="align-items:center;justify-content:space-between"><span class="rot">Voz alta?</span>${simNao(p + ".voz", "Voz alta?")}</div>
+          ${campo(`${id}-p`, "Pegou algo antes do clique?", p + ".pegou", "", 'autocapitalize="sentences"')}`, ["cl.rows", i]); }).join("") || `<p class="vazia">Nenhuma linha ainda.</p>`}
+      <div class="nav" style="margin:0"><button class="btn" data-acao="nova-linha" data-l="cl.rows">+ Linha</button></div></div>`;
+  }
+  function objetivo() {
+    return `<div class="dia"><div class="dh"><span class="dn">Bônus · <span>Objetivo, não o método</span></span><span class="tm">1 min por tarefa</span></div>
+      <p class="nota" style="color:var(--ink2)">Passou uma tarefa? Escreve o resultado e o prazo. O jeito fica com quem vai fazer.</p>
+      ${S.ob.map((x, i) => { const p = "ob." + i, id = "ob" + x.id;
+        return ficha("ob", p, x, `${campo(`${id}-t`, "Tarefa", p + ".tarefa", "", 'autocapitalize="sentences"')}${campo(`${id}-o`, "O que tem que acontecer", p + ".oque", "", 'autocapitalize="sentences"')}
+          <div class="g2">${data(`${id}-a`, "Até", p + ".ate")}${campoQ(`${id}-q`, "Quem faz", p + ".quem")}</div>
+          <div class="linha" style="align-items:center;justify-content:space-between"><span class="rot">Chegou lá?</span>${simNao(p + ".chegou", "Chegou lá?")}</div>`, ["ob", i]); }).join("") || `<p class="vazia">Nenhuma tarefa ainda.</p>`}
+      <div class="nav" style="margin:0"><button class="btn" data-acao="nova-linha" data-l="ob">+ Tarefa</button></div>
+      <p class="nota">Se o caminho dela for diferente do seu e chegar no mesmo lugar, é dela. Nada de “abre o modelo, muda o nome, manda pelo e-mail”.</p></div>`;
+  }
+  function ritual(k) {
+    const s = S.sem[k], t = tot(k), sp = sugerePessoa(k);
+    const avisou = noContador(k).map(p => [nomeDe(p), nums(k, p.id)[3]]).filter(x => x[1] > 0);
+    return `<div class="dia forte rt"><div class="dh"><span class="dn">Sexta · <span>O ritual</span></span><span class="tm">15 min · só você</span></div>
+      <div class="s"><span class="tm2">5 min</span><div><div class="h">Painel</div>
+        <p class="nota" style="color:var(--ink2)">O caderno já somou a semana e passou a situação de cada um e o time pro Painel.</p>
+        <div class="kv" id="rt-kv${k}"><b>Te pediu</b><span>${t.tp}</span><b>Já pensou</b><span>${t.jp}</span><b>Respostas prontas</b><span>${t.r}</span>
+          <b>O limite</b><span>${t.m ? dec(t.lim) : "—"} <small>(mensagens ÷ 5)</small></span><b>Abaixo do limite?</b><span>${t.abaixo || "—"}</span></div>
+        ${campo(`sx${k}-p`, "Quem ainda pergunta (P)", `sem.${k}.sx.p`, "", 'autocapitalize="words"')}
+        <p class="nota">O caderno escreve pelas situações da semana. Dá pra trocar.</p>
+        ${k === 3 ? `<p class="nota">Com a semana 4, a linha “30 dias” do Painel fecha sozinha: é o sinal (dia 30).</p>` : ""}
+        <button class="mini" data-ir="painel">Abrir o Painel</button></div></div>
+      <div class="s"><span class="tm2">5 min</span><div><div class="h">Uma pessoa</div>
+        ${campo(`sx${k}-u`, "A da semana que vem", `sem.${k}.sx.pessoa`, "", 'autocapitalize="words"')}
+        ${sp.nomes.length ? `<div class="campo"><span class="rot">${sp.s === "P" ? "Ainda pergunta (P) · toca pra escolher" : "Ninguém em P. Mudando (M) · toca pra escolher"}</span><div class="opts">${sp.nomes.map((n, i) => `<button class="chip${norm(s.sx.pessoa) === norm(n) ? " on" : ""}" data-pessoa="${k}" data-v="${esc(n)}">${esc(n)}${i === 0 && sp.nomes.length > 1 ? " · mais pediu" : ""}</button>`).join("")}</div></div>` : ""}
+        <p class="nota">Uma que ainda pergunta. Toda pergunta dela recebe um “e o que você faria?”.${k < 3 ? ` Ela vai sozinha pro topo da semana ${k + 2}.` : ""}</p></div></div>
+      <div class="s"><span class="tm2">3 min</span><div><div class="h">Checagem</div>
+        ${k === 0 ? `<p class="nota">Começa na semana 2. Esta semana, sobra tempo pra reler as mensagens.</p>`
+          : `${campo(`sx${k}-v`, "“Volta e prepara” mais de uma vez", `sem.${k}.sx.volta`, "", 'autocapitalize="sentences"')}
+            <p class="nota">O caderno conta pelas checagens desta semana${k === 1 ? " (aqui e no Anexo B)" : " (no Anexo B)"}. Dá pra trocar.</p>
+            ${campo(`sx${k}-t`, "Treino, não bronca. Quando", `sem.${k}.sx.treino`, "", 'autocapitalize="sentences"')}`}</div></div>
+      <div class="s"><span class="tm2">2 min</span><div><div class="h">Aviso</div>
+        ${campo(`sx${k}-q`, "Quem decidiu sozinho", `sem.${k}.sx.quem`, "", 'autocapitalize="sentences"')}
+        ${avisou.length ? `<p class="nota">Esta semana, avisaram (tipo 4): ${avisou.map(([n, x]) => `${esc(n)} ${x}`).join(" · ")}.</p>` : ""}
+        ${caixa(`sx${k}-a`, "Mandei pro time a mensagem de fim do ritual", `sem.${k}.sx.aviso`, "protocolo, página 18")}</div></div></div>`;
+  }
+  function sexta(k) {
+    datasSemana(k);
+    return `<section class="pg">
+      <div class="eb">Semana ${k + 1} · todo dia e sex</div><h1>Semana ${k + 1}: ${SUB[k]}</h1>
+      <p class="lead">${INS[k]}</p>
+      ${[devolve, checagem, clicar, objetivo][k]()}
+      ${ritual(k)}
+      <p class="nota">O Painel é pra conversa a sós, não pra ranking. Não expõe no grupo quem “mais pede”.</p>
+      ${nav("f" + k, k < 3 ? "Ir pra semana " + (k + 2) : "Ir pro dia 30")}
+    </section>`;
+  }
+
+  // ---------------------------------------------------------------- 13 · dia 30
+  function sinais() {
+    const T = tot30(), cedo = T.m < 10, s1 = T.jp > T.tp, s2 = T.r * 5 < T.m;
+    const it = (ok, t, d) => `<div class="sinal ${cedo ? "cedo" : ok ? "sim" : "nao"}"><span class="m" aria-hidden="true">${cedo ? "?" : ok ? "✓" : "✗"}</span><p>${t}<small>${d}</small></p></div>`;
+    return { T, cedo, s1, s2, html: `${it(s1, "Mais da metade das mensagens chegou com solução ou aviso: nos 30 dias, “Já pensou” é maior que “Te pediu”.", `Já pensou ${T.jp} × Te pediu ${T.tp}${cedo ? "" : s1 ? " · apareceu" : " · ainda não"}`)}
+      ${it(s2, "Dei a resposta pronta em menos de 1 de cada 5: as respostas prontas ficaram abaixo das mensagens ÷ 5.", `${T.r} ${T.r === 1 ? "resposta pronta" : "respostas prontas"} · limite ${dec(T.lim)} (${T.m} ÷ 5)${cedo ? "" : s2 ? " · apareceu" : " · ainda não"}`)}` };
+  }
+  P.d30 = () => { const c1 = d1Conta(), t4 = tot(3), x = sinais();
+    return `<section class="pg">
+      <div class="eb">Dia 30 · 10 min</div><h1>Dia 30: funcionou?</h1><p class="lead">Volta no Painel e no dia 1. Compara o antes e o depois.</p>
+      <div class="dia"><div class="dh"><span class="dn">O antes e o depois</span><span class="tm">dia 1 e Painel</span></div>
+        <p class="ad" id="d30-d1">No dia 1, das 10 últimas mensagens, te pediram <b>${c1.pediu}</b> de 10.</p>
+        <p class="ad" id="d30-s4">Na semana 4, te pediram <b>${t4.tp}</b> e já vieram pensadas <b>${t4.jp}</b>.</p>
+        ${campo("d30-p4", "Quem ainda pergunta (P) na semana 4", "d30.p4", "", 'autocapitalize="sentences"')}
+        <div class="nav" style="margin:0"><button class="btn sec" data-ir="painel">Abrir o Painel</button><button class="btn sec" data-ir="msgs">Abrir o dia 1</button></div></div>
+      <div class="dia forte" id="d30-sinal"><div class="dh"><span class="dn"><span>Sinal de que funcionou</span></span><span class="tm">os dois · linha “30 dias”</span></div>
+        ${x.html}
+        <p class="nota"${x.cedo ? ' style="color:var(--warn)"' : ""}>Menos de 10 mensagens nos 30 dias? Ainda não dá pra dizer. Anota mais uma semana.${x.cedo ? ` Até agora: ${x.T.m} ${x.T.m === 1 ? "mensagem" : "mensagens"}.` : ""}</p>
+        ${x.cedo ? "" : `<div class="${x.s1 && x.s2 ? "pronto" : "aviso"}" id="d30-res">${x.s1 && x.s2 ? "Os dois apareceram." : x.s1 || x.s2 ? "Um apareceu, o outro ainda não." : "Ainda não apareceram."}</div>`}</div>
+      <div class="dia"><div class="dh"><span class="dn">Os dois apareceram?</span></div>
+        <p class="nota" style="color:var(--ink2)">Segue com uma pessoa por semana até ninguém mais te perguntar “posso?”. Um Painel novo a cada 30 dias: em Guardar, baixa uma cópia de segurança e toca em “Começar um Painel novo”. Os nomes e o dia 1 ficam.</p>
+        ${campo("d30-so", "Dá pra soltar mais? · volta no “O que continua com você”", "d30.soltar", "", 'autocapitalize="sentences"')}
+        <div class="nav" style="margin:0"><button class="btn sec" data-ir="continua">O que continua com você</button><button class="btn sec" data-ir="guardar">Ir pra Guardar</button></div>
+        <p class="nota">Sinal de pé por 2 meses seguidos? O ritual de sexta cai pra 5 minutos: só o Painel. Se o sinal cair, volta pros 15.</p></div>
+      <div class="dia"><div class="dh"><span class="dn">Ainda não?</span></div>
+        <p class="nota" style="color:var(--ink2)">Escreve o que travou. Você ainda dá resposta pronta? Quem ainda pergunta é novo no trabalho? Ensina primeiro e volta à regra 2.</p>
+        ${[0, 1, 2].map(i => um(`d30-t${i}`, `d30.travou.${i}`, i ? "" : "O que travou", `aria-label="O que travou, linha ${i + 1}" autocapitalize="sentences"`)).join("")}</div>
+      <div class="box"><p class="nota" style="color:var(--ink2)">Quando alguém do time decidir sozinho, me conta no direct: <a href="https://instagram.com/fabio.takahashi" target="_blank" rel="noopener"><b>@fabio.takahashi</b></a>. Eu leio todas.</p></div>
+      ${nav("d30")}
+    </section>`; };
+
+  // ---------------------------------------------------------------- anexos
+  const cartaoTxt = () => ["Cartão de frases · o que muda no WhatsApp da empresa", "",
+    "O time falava → Agora fala", ...FR_TIME.map(([a, s, b]) => `${a}${s ? ` (${s})` : ""} → ${b}`), "",
+    "E o dono, no lugar de… → Fala", ...FR_DONO.map(([a, b]) => `${a} → ${b}`), "", FRASE].join("\n");
+  P.anA = () => `<section class="pg">
+    <div class="eb">Anexo A</div><h1>Cartão de frases</h1>
+    <p class="lead">O que muda no WhatsApp da empresa. Manda no grupo com a mensagem da mudança.</p>
+    <div class="box"><div class="rot">O time falava · <span style="color:var(--accent)">agora fala</span></div><div class="fr">${FR_TIME.map(([a, s, b]) => `<div class="l"><span class="de">${a}${s ? ` <small>· ${s}</small>` : ""}</span><span class="pa">${b}</span></div>`).join("")}</div></div>
+    <div class="box"><div class="rot">E o dono, no lugar de… · <span style="color:var(--accent)">fala</span></div><div class="fr">${FR_DONO.map(([a, b]) => `<div class="l"><span class="de">${a}</span><span class="pa">${b}</span></div>`).join("")}</div></div>
+    <div class="frase-c">${FRASE}</div>
+    <div class="nav" style="margin:0"><button class="btn pri" data-acao="partilha">Compartilhar no grupo</button><button class="btn" data-acao="copia-cartao">Copiar o texto</button></div>
+    <span class="nota" id="cart-msg" role="status"></span>
+    <p class="nota">Ou tira um print desta página e manda no grupo. Pro mural, imprime só o cartão.</p>
+    <button class="mini" data-acao="imprime-cartao">Imprimir o cartão</button>
+    ${nav("anA")}
+  </section>`;
+  P.anB = () => `<section class="pg">
+    <div class="eb">Anexo B</div><h1>Checagem de 1 minuto</h1>
+    <p class="lead">Semanas 3 e 4 (a da semana 2 fica na página da semana 2). Antes de uma tarefa importante, a pessoa explica e você marca. Aqui não enche: é só tocar em “+ Checagem”.</p>
+    ${S.anB.map((x, i) => { const p = "anB." + i; return ficha("cg", p, x, cgCorpo(p, x, "cg" + x.id), ["anB", i]); }).join("") || `<p class="vazia">Nenhuma checagem aqui ainda.${S.cg.length ? " As da semana 2 ficam na página da semana 2." : ""}</p>`}
+    <div class="nav" style="margin:0"><button class="btn" data-acao="nova-linha" data-l="anB">+ Checagem</button></div>
+    <p class="nota">Quem teve “volta” mais de uma vez precisa de treino, não de bronca. Na sexta, é o passo 3 do ritual: o caderno conta sozinho, pela data.</p>
+    ${nav("anB")}
+  </section>`;
+  P.anC = () => `<section class="pg">
+    <div class="eb">Anexo C</div><h1>Antes de clicar</h1>
+    <p class="lead">A placa da regra 4. Escreve o limite e quem confere, imprime só a placa e cola do lado do computador.</p>
+    <div class="placa"><div class="lim"><span>Acima de R$</span>${inp("pl-lim", "cl.lim", 'inputmode="decimal" aria-label="Acima de R$"')}</div>
+      ${PASSOS.map(([t, d], i) => `<div class="st"><span class="k">${i + 1}</span><div><div class="t">${t}</div><div class="d">${d}</div></div></div>`).join("")}
+      <div class="qc">${campoQ("pl-conf", "Quem confere", "cl.confere")}</div></div>
+    <p class="nota">O limite vem do “O que continua com você”, e é o mesmo da semana 3. Mudou aqui, muda lá.</p>
+    <div class="nav" style="margin:0"><button class="btn pri" data-acao="imprime-placa">Imprimir a placa</button></div>
+    <p class="nota">Cola do lado do computador de quem paga, manda proposta ou emite nota.</p>
+    ${nav("anC")}
+  </section>`;
+
+  P.guardar = () => `<section class="pg">
+    <div class="eb">Guardar</div><h1>Guardar, PDF e lembretes</h1>
+    <div class="box forte"><div class="rot ac">Lembretes na agenda</div>
+      <p class="nota" style="color:var(--ink2)">Põe na agenda do celular as segundas (a regra da semana), as sextas (o ritual de 15 minutos) e o dia 30, já nas datas certas. O próprio celular avisa na hora.</p>
+      <div class="nav" style="margin:0"><button class="btn pri" data-acao="agenda">Pôr os lembretes na agenda</button></div><span class="nota" id="agenda-msg"></span></div>
+    <div class="box"><div class="rot ac">PDF do caderno</div>
+      <p class="nota" style="color:var(--ink2)">Abre a impressão do celular com tudo o que você preencheu. No iPhone, “Compartilhar” e depois “Salvar em Arquivos” guarda o PDF.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="imprime-tudo">Gerar PDF do caderno</button></div></div>
+    <div class="box"><div class="rot ac">Cópia de segurança</div>
+      <p class="nota" style="color:var(--ink2)">Guarda um arquivo com o caderno inteiro. No celular novo, abre o caderno e usa “Restaurar”.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="baixar">Baixar cópia</button><label class="btn" for="arq" style="display:grid;place-items:center">Restaurar de arquivo</label></div>
+      <input type="file" id="arq" class="vh" accept=".json,application/json" tabindex="-1">
+      <details><summary class="nota" style="cursor:pointer">Sem arquivo? Copiar e colar o texto</summary>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+          <textarea class="bk" id="bk" readonly aria-label="Cópia de segurança">${esc(JSON.stringify(S))}</textarea>
+          <div class="nav" style="margin:0"><button class="btn" data-acao="copiar">Copiar o texto</button></div>
+          <textarea class="bk" id="rest" aria-label="Colar cópia de segurança" placeholder="Cola aqui o texto da cópia"></textarea>
+          <div class="nav" style="margin:0"><button class="btn" data-acao="restaurar-texto">Restaurar do texto</button></div></div></details>
+      <span class="nota" id="bk-msg"></span></div>
+    <div class="box"><div class="rot">Um Painel novo</div><p class="nota">A cada 30 dias, um Painel novo. Ficam os nomes, o dia 1, o que continua com você e a placa; as 4 semanas, as checagens e o dia 30 voltam em branco, e o ciclo novo começa hoje. Antes, baixa uma cópia.</p>
+      <div class="nav" style="margin:0"><button class="btn" data-acao="ciclo">Começar um Painel novo</button></div><div id="conf-ciclo"></div></div>
+    <div class="box"><div class="rot">Começar do zero</div><p class="nota">Apaga tudo, até os nomes. Primeiro a cópia, depois apagar.</p><div class="nav" style="margin:0"><button class="btn" data-acao="apagar">Apagar tudo</button></div><div id="conf-apagar"></div></div>
+    ${nav("guardar")}
+  </section>`;
+
+  // ---------------------------------------------------------------- render
+  function trilha() {
+    const L = PRINCIPAL, i = L.indexOf(S.pag);
+    $("#trilha").innerHTML = L.map((k, j) => `<button class="${i >= 0 && j < i ? "feito" : j === i ? "agora" : ""}" data-ir="${k}" aria-label="${esc(TITULO(k))}" ${j === i ? 'aria-current="page"' : ""}></button>`).join("");
+  }
+  const exBanner = () => S.ex ? `<div class="exb" role="note"><span>Você está vendo o <b>exemplo do protocolo</b>.</span><button class="mini" data-acao="sai-ex">Apagar e começar o meu</button><div id="conf-sai-ex" style="flex-basis:100%"></div></div>` : "";
+  function render(p) {
+    datas(); preenche();
+    let h;
+    if (/^s\d$/.test(p)) h = anota(+p.slice(1));
+    else if (/^f\d$/.test(p)) h = sexta(+p.slice(1));
+    else h = (P[p] || P.capa)();
+    return h + nomesList();
+  }
+  function mostra(p, rolar = true) {
+    if (!(PRINCIPAL.includes(p) || ANEXOS.includes(p) || (p === "instala" && !APP))) p = "capa";
+    if (p !== "instala") instConf = false;
+    S.pag = p; $("#pg").classList.remove("quieto"); $("#pg").innerHTML = (p === "instala" ? "" : exBanner()) + render(p); trilha(); salva(); cresce();
+    if (p === "instala" && AQUI === "pc") qr();
+    if (p === "capa" && APP && !S.inst.okVisto) { S.inst.okVisto = true; salva(); }
+    if (rolar) window.scrollTo(0, 0);
+  }
+  // redesenhar a mesma página (um toque no contador, Sim ou Não): sem a animação de entrada, pra não piscar
+  // e o botão que estava com o foco (teclado) continua com ele
+  const chaveFoco = () => { const a = document.activeElement; if (!a || a.tagName !== "BUTTON") return "";
+    const x = ["conta", "desconta", "sel", "set", "pessoa"].find(n => a.dataset[n] !== undefined); if (!x) return "";
+    return `[data-${x}="${CSS.escape(a.dataset[x])}"]${a.dataset.v !== undefined ? `[data-v="${CSS.escape(a.dataset.v)}"]` : ""}`; };
+  const redesenha = () => { const y = window.scrollY, f = chaveFoco(); $("#pg").classList.add("quieto"); $("#pg").innerHTML = (S.pag === "instala" ? "" : exBanner()) + render(S.pag); trilha(); cresce(); if (S.pag === "instala" && AQUI === "pc") qr(); window.scrollTo(0, y);
+    if (f) { const n = $("#pg " + f); if (n && !n.disabled) n.focus({ preventScroll: true }); } };
+  function cresce(el) { (el ? [el] : document.querySelectorAll("textarea.t")).forEach(t => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }); }
+  // os campos calculados que mudam enquanto a pessoa escreve (sem redesenhar a página e perder o teclado)
+  const OUT = {
+    dia30: () => S.capa.comecei ? br(dia30()) : "&nbsp;",
+    pnome: id => { const p = S.pessoas.find(x => x.id === id); return p ? esc(nomeDe(p)) : ""; },
+    fs: a => { const [t, p] = a.split("|"); return FICHA[t].sum(pega(p)); },
+    ft: a => { const [t, p] = a.split("|"); return FICHA[t].tit(pega(p)); },
+    fg: a => { const [t, p] = a.split("|"); return FICHA[t].tag(pega(p)); },
+    cgres: p => cgRes(pega(p)),
+    pds: k => pdsTxt(+k)
+  };
+  function saidas() {
+    document.querySelectorAll("[data-out]").forEach(el => { const o = el.dataset.out, i = o.indexOf(":"), f = i < 0 ? o : o.slice(0, i), a = i < 0 ? "" : o.slice(i + 1);
+      if (!OUT[f]) return; let h; try { h = OUT[f](a); } catch (e) { return; } if (h != null && el.innerHTML !== h) el.innerHTML = h; });
+  }
+  // o mesmo dado em dois campos da página (ou uma sugestão que mudou): atualiza os outros, sem mexer no que está com o teclado
+  function sincroniza(t) {
+    document.querySelectorAll('#pg input[data-b]:not([type="checkbox"]):not([type="date"]), #pg textarea[data-b]').forEach(el => {
+      if (el === t || el === document.activeElement) return; const x = txt(pega(el.dataset.b)); if (el.value !== x) { el.value = x; if (el.tagName === "TEXTAREA") cresce(el); } });
+  }
+  let tSalvo;
+  function salva() {
+    if (!guarda) { $("#aviso").hidden = false; $("#salvo").classList.add("erro"); $("#salvo-t").textContent = "Não está salvando"; return; }
+    try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { guarda = false; return salva(); }
+    $("#salvo-t").textContent = "Salvo " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    clearTimeout(tSalvo); tSalvo = setTimeout(() => { $("#salvo-t").textContent = "Salvo"; }, 4000);
+  }
+  // o aviso de baixo depois de cada toque no contador, com o “Desfazer”
+  let tToast;
+  function avisa(t, desfazer) {
+    const el = $("#toast"); $("#toast-t").textContent = t; $("#toast-d").hidden = !desfazer; el.hidden = false;
+    clearTimeout(tToast); tToast = setTimeout(() => { el.hidden = true; }, desfazer ? 5000 : 2500);
+  }
+  function muda(k, id, c, dl, desfaz = false) {
+    const s = S.sem[k], p = S.pessoas.find(x => x.id === id); if (!s || !p || !(c >= 0 && c < 5)) return;
+    const a = s.n[id] = cinco(s.n[id]);
+    if (dl < 0 && !a[c]) return;
+    a[c] += dl;
+    if (!desfaz) { ULT.push({ k, id, c, dl }); if (ULT.length > 50) ULT.shift(); FLASH = dl > 0 ? `${k}|${id}|${c}` : ""; try { if (dl > 0 && navigator.vibrate) navigator.vibrate(12); } catch (e) { /* sem vibração */ } }
+    salva(); redesenha();
+    const tt = `${TIPOS[c][0]} · ${TIPOS[c][1]}`;
+    avisa(desfaz ? `Desfeito: ${nomeDe(p)} · ${tt}` : `${dl > 0 ? "+1" : "−1"} · ${nomeDe(p)} · ${tt}`, !desfaz);
+  }
+
+  function indice() {
+    const hj = semanaHoje(), it = (p, extra = "") => `<button class="it${S.pag === p ? " agora" : ""}" data-ir="${p}" data-fecha="1"><span>${esc(TITULO(p))}</span>${S.pag === p ? "<small>aqui</small>" : extra ? `<small>${extra}</small>` : ""}</button>`;
+    const nMsg = k => { const n = tot(k).m; return n ? `${n} ${n === 1 ? "mensagem" : "mensagens"}` : ""; };
+    $("#indice").innerHTML = `<div class="in"><div class="cab"><h2>Páginas</h2><button class="bt-pag" data-acao="fecha-indice">Fechar</button></div>
+      <div class="grp">Começo</div>${["capa", ...(APP ? [] : ["instala"]), "antes"].map(p => it(p)).join("")}
+      <div class="grp">Dia 1</div>${it("msgs")}${it("continua")}${it("painel")}
+      ${S.sem.map((s, k) => `<div class="grp">Semana ${k + 1}${s.de ? ` · ${brc(s.de)} a ${brc(s.ate)}` : ""}${k === hj ? " · hoje" : ""}</div>${it("s" + k, nMsg(k))}${it("f" + k)}`).join("")}
+      <div class="grp">Dia 30</div>${it("d30")}
+      <div class="grp">Anexos</div>${it("anA")}${it("anB", S.anB.length ? `${S.anB.length} ${S.anB.length === 1 ? "checagem" : "checagens"}` : "")}${it("anC")}
+      <div class="grp">Guardar</div>${it("guardar")}</div>`;
+    $("#indice").hidden = false; document.body.style.overflow = "hidden";
+    const b = $("#indice .it.agora"); if (b) b.focus();
+  }
+  function fechaIndice() { $("#indice").hidden = true; document.body.style.overflow = ""; }
+
+  // ---------------------------------------------------------------- impressão (PDF) e agenda
+  const v = x => `<span class="v">${esc(x ?? "")}</span>`;
+  const ok = b => b ? "✓" : "☐";
+  const topoImp = r => `<div class="topo-imp"><span>Protocolo · ${NOME}</span><span>Caderno de Dono(a) · ${r}</span></div>`;
+  const impCartao = () => `<div class="sec">${topoImp("Anexo A")}<h2>Cartão de frases</h2><p>O que muda no WhatsApp da empresa.</p>
+    <table class="cart"><tr><th>O time falava</th><th>Agora fala</th></tr>${FR_TIME.map(([a, s, b]) => `<tr><td class="de">${a}${s ? `<br><small>${s}</small>` : ""}</td><td class="pa">${b}</td></tr>`).join("")}</table>
+    <table class="cart"><tr><th>E o dono, no lugar de…</th><th>Fala</th></tr>${FR_DONO.map(([a, b]) => `<tr><td class="de">${a}</td><td class="pa">${b}</td></tr>`).join("")}</table>
+    <div class="frase-i">${FRASE}</div></div>`;
+  const impPlaca = () => `<div class="sec">${topoImp("Anexo C")}<div class="placa-i"><div class="lim">Acima de R$ ${v(S.cl.lim)}</div>
+    ${PASSOS.map(([t, d], i) => `<div class="st"><span class="k">${i + 1}</span><div><div class="t">${t}</div><div class="d">${d}</div></div></div>`).join("")}
+    <p style="margin-top:10pt">Quem confere: ${v(S.cl.confere)}</p></div></div>`;
+  const impCg = L => `<table class="reg"><tr><th>Dia</th><th>Quem</th><th>Tarefa</th>${CHK.map((q, j) => `<th class="c">${j + 1}</th>`).join("")}<th class="c">Três S: pode ir</th></tr>
+    ${L.map(c => `<tr><td>${v(brc(c.dia))}</td><td>${v(c.quem)}</td><td>${v(c.tarefa)}</td>${c.r.map(x => `<td class="c">${v(x)}</td>`).join("")}<td class="c">${v(resC(c.r))}</td></tr>`).join("") || "<tr><td colspan='7'>Nenhuma checagem.</td></tr>"}</table>
+    <p style="font-size:8.5pt;color:var(--muted)">1 O que vai fazer? · 2 Por quê? · 3 O que pode dar errado?</p>`;
+  function impSemana(k) {
+    const s = S.sem[k], t = tot(k), V = noContador(k), [rg, rd] = REGRA[k];
+    const topo = [
+      () => `<h3>Regra 2 · As próximas 5 perguntas</h3><table class="reg"><tr><th>Dia</th><th>Quem</th><th>A pergunta</th><th>A solução dela</th><th class="c">Foi a dela?</th></tr>
+        ${S.dv.map(x => `<tr><td>${v(brc(x.dia))}</td><td>${v(x.quem)}</td><td>${v(x.perg)}</td><td>${v(x.sol)}</td><td class="c">${v(x.foi)}</td></tr>`).join("")}</table>`,
+      () => `<h3>Regra 3 · Checagem de 1 minuto</h3>${impCg(S.cg)}`,
+      () => `<h3>Regra 4 · Antes de clicar</h3><p>Acima de R$ ${v(S.cl.lim)} · Quem confere: ${v(S.cl.confere)} · A placa colada do lado do computador de quem paga ${v(ok(S.cl.placa))}</p>
+        <table class="reg"><tr><th>Dia</th><th>O quê, pra quem</th><th>Valor</th><th class="c">Voz alta?</th><th>Pegou algo antes do clique?</th></tr>
+        ${S.cl.rows.map(x => `<tr><td>${v(brc(x.dia))}</td><td>${v(x.oque)}</td><td>${v(x.valor)}</td><td class="c">${v(x.voz)}</td><td>${v(x.pegou)}</td></tr>`).join("") || "<tr><td colspan='5'>Nenhuma linha.</td></tr>"}</table>`,
+      () => `<h3>Bônus · Objetivo, não o método</h3><table class="reg"><tr><th>Tarefa</th><th>O que tem que acontecer</th><th>Até</th><th>Quem faz</th><th class="c">Chegou lá?</th></tr>
+        ${S.ob.map(x => `<tr><td>${v(x.tarefa)}</td><td>${v(x.oque)}</td><td>${v(brc(x.ate))}</td><td>${v(x.quem)}</td><td class="c">${v(x.chegou)}</td></tr>`).join("") || "<tr><td colspan='5'>Nenhuma tarefa.</td></tr>"}</table>`][k];
+    return `<div class="sec">${topoImp("Semana " + (k + 1))}<h2>Semana ${k + 1}: anota</h2><p>De ${v(br(s.de))} a ${v(br(s.ate))}</p>
+      <p>A regra da semana: <b>${rg}.</b> ${rd} · Segunda: avisei o time ${v(ok(s.avisei))}</p><p>A pessoa da semana: ${v(k ? S.sem[k - 1].sx.pessoa : "todo mundo")}</p>
+      <table class="reg"><tr><th>Pessoa</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th><th class="c">R</th><th class="c">Te pediu</th><th class="c">Já pensou</th><th class="c">Situação</th></tr>
+      ${V.map(p => { const a = nums(k, p.id), c = tpjp(a); return `<tr><td>${v(nomeDe(p))}</td>${a.map(x => `<td class="c">${v(x)}</td>`).join("")}<td class="c">${v(c.tp)}</td><td class="c">${v(c.jp)}</td><td class="c">${v(situ(c.tp, c.jp))}</td></tr>`; }).join("")}
+      <tr><td><b>O time</b></td>${t.t.map(x => `<td class="c">${v(x)}</td>`).join("")}<td class="c">${v(t.tp)}</td><td class="c">${v(t.jp)}</td><td></td></tr></table>
+      <p style="font-size:8.5pt;color:var(--muted)">1 Pediu permissão · 2 Pediu a resposta · 3 Trouxe solução · 4 Avisou · R Resposta pronta sua · D já decide, M mudando, P ainda pergunta</p></div>
+      <div class="sec">${topoImp("Semana " + (k + 1))}<h2>Semana ${k + 1}: ${SUB[k]}</h2>${topo()}
+      <h3>Sexta · O ritual</h3><p>Painel: te pediu ${v(t.tp)} · já pensou ${v(t.jp)} · respostas prontas ${v(t.r)} · o limite ${v(t.m ? dec(t.lim) : "")} (mensagens ÷ 5) · abaixo do limite? ${v(t.abaixo)}</p>
+      <p>Quem ainda pergunta (P): ${v(s.sx.p)}</p><p>Uma pessoa, a da semana que vem: ${v(s.sx.pessoa)}</p>
+      ${k ? `<p>Checagem: “volta e prepara” mais de uma vez: ${v(s.sx.volta)} · treino, não bronca, quando: ${v(s.sx.treino)}</p>` : ""}
+      <p>Aviso: quem decidiu sozinho: ${v(s.sx.quem)} · mandei pro time a mensagem de fim do ritual ${v(ok(s.sx.aviso))}</p></div>`;
+  }
+  function impTudo() {
+    datas(); preenche();
+    const c1 = d1Conta(), L = noPainel(), T = tot30(), t4 = tot(3), x = sinais();
+    const tl = (rot, t) => `<tr><td>${rot}</td><td>${v(t.m ? t.tp : "")}</td><td>${v(t.m ? t.jp : "")}</td><td>${v(t.m || "")}</td><td>${v(t.m ? dec(t.lim) : "")}</td><td>${v(t.m ? t.r : "")}</td><td>${v(t.abaixo)}</td></tr>`;
+    let o = `<div class="sec">${topoImp("Capa e dia 1")}<h2>Caderno de Dono(a)</h2><table><tr><th>Este caderno é de</th><th>Empresa</th><th>Comecei em</th><th>O dia 30 cai em</th></tr>
+      <tr><td>${v(S.capa.de)}</td><td>${v(S.capa.empresa)}</td><td>${v(br(S.capa.comecei))}</td><td>${v(br(dia30()))}</td></tr></table>
+      <h3>Dia 1 · As últimas 10 mensagens</h3><table class="reg"><tr><th></th><th>Quem</th><th>Sobre o quê</th><th class="c">O tipo</th><th class="c">Quem decidiu?</th></tr>
+      ${S.d1.msgs.map((m, i) => `<tr><td>${i + 1}</td><td>${v(m.quem)}</td><td>${v(m.sobre)}</td><td class="c">${v(m.tipo)}</td><td class="c">${v(m.decidiu)}</td></tr>`).join("")}</table>
+      <p>Te pediram (1 e 2) ${v(c1.pediu)} de 10 · Quem decidiu foi você ${v(c1.voce)} de 10</p>
+      <p style="font-size:8.5pt;color:var(--muted)">1 Pediu permissão · 2 Pediu a resposta · 3 Trouxe solução · 4 Avisou</p>
+      <p><b>Eu não sou o Google da minha empresa.</b> ${v(S.d1.assin)} · ${v(br(S.d1.assinData))}</p>
+      <h3>Dia 1 · O que continua com você</h3><p>${CONTINUA.map((t, i) => `${ok(S.cont.c[i])} ${t}${i === 0 ? " " + v(S.cont.valor) : ""}`).join(" · ")}${S.cont.extra.map((t, j) => t.trim() ? ` · ${ok(S.cont.extraOk[j])} ${v(t)}` : "").join("")}</p>
+      <table><tr><th>Quem</th><th>O quê</th><th>Até onde</th></tr>${S.cont.ate.map(a => `<tr><td>${v(a.quem)}</td><td>${v(a.oque)}</td><td>${v(a.ate)}</td></tr>`).join("")}</table>
+      <p>Hoje: a mensagem da mudança ${v(ok(S.cont.hoje.msg))} · o cartão de frases ${v(ok(S.cont.hoje.cartao))} · os nomes no Painel ${v(ok(S.cont.hoje.nomes))} · o caderno à mão ${v(ok(S.cont.hoje.lado))}</p></div>
+      <div class="sec">${topoImp("O Painel dos 30 dias")}<h2>O Painel dos 30 dias</h2>
+      <table class="reg"><tr><th>Pessoa</th>${S.sem.map((s, k) => `<th class="c">Semana ${k + 1}</th>`).join("")}</tr>${L.map(p => `<tr><td>${v(nomeDe(p))}</td>${[0, 1, 2, 3].map(k => `<td class="c">${v(sitDe(k, p.id))}</td>`).join("")}</tr>`).join("")}</table>
+      <p style="font-size:8.5pt;color:var(--muted)">D já decide: “já pensou” maior que “te pediu” · M mudando · P ainda pergunta: “te pediu” passou do dobro de “já pensou”</p>
+      <h3>O time, semana a semana</h3><table class="reg"><tr><th></th><th>Te pediu</th><th>Já pensou</th><th>Mensagens</th><th>÷ 5 (o limite)</th><th>Respostas prontas</th><th>Abaixo do limite?</th></tr>
+      ${[0, 1, 2, 3].map(k => tl(`Semana ${k + 1}`, tot(k))).join("")}${tl("<b>30 dias</b>", T)}</table></div>`;
+    [0, 1, 2, 3].forEach(k => { o += impSemana(k); });
+    o += `<div class="sec">${topoImp("Dia 30")}<h2>Dia 30: funcionou?</h2>
+      <p>No dia 1, das 10 últimas mensagens, te pediram ${v(c1.pediu)} de 10. Na semana 4, te pediram ${v(t4.tp)} e já vieram pensadas ${v(t4.jp)}.</p>
+      <p>Quem ainda pergunta (P) na semana 4: ${v(S.d30.p4)}</p>
+      <h3>Sinal de que funcionou</h3><p>${x.cedo ? "?" : ok(x.s1)} Nos 30 dias, “Já pensou” (${v(T.jp)}) é maior que “Te pediu” (${v(T.tp)}).</p>
+      <p>${x.cedo ? "?" : ok(x.s2)} As respostas prontas (${v(T.r)}) ficaram abaixo das mensagens ÷ 5 (${v(dec(T.lim))}).</p>${x.cedo ? "<p>Menos de 10 mensagens nos 30 dias: ainda não dá pra dizer.</p>" : ""}
+      <p>Dá pra soltar mais? ${v(S.d30.soltar)}</p>${S.d30.travou.some(t => t.trim()) ? `<h3>O que travou</h3>${S.d30.travou.filter(t => t.trim()).map(t => `<p>${v(t)}</p>`).join("")}` : ""}</div>`;
+    o += impCartao();
+    if (S.anB.length) o += `<div class="sec">${topoImp("Anexo B")}<h2>Checagem de 1 minuto</h2>${impCg(S.anB)}</div>`;
+    o += impPlaca();
+    return o;
+  }
+  function imprime(html) { $("#imp").innerHTML = html; setTimeout(() => { try { window.print(); } catch (e) { /* sem impressão neste navegador */ } }, 60); }
+
+  function dobra(l) {   // linhas do .ics com no máximo 75 bytes (RFC 5545)
+    const enc = new TextEncoder(); let out = "", n = 0;
+    for (const ch of l) { const b = enc.encode(ch).length; if (n + b > 73) { out += "\r\n "; n = 1; } out += ch; n += b; }
+    return out;
+  }
+  const icsT = s => String(s || "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  function agendaIcs() {
+    datas();
+    const ev = [], fmt = (d, h) => d.replace(/-/g, "") + "T" + h + "00", stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    const add = (d, hi, hf, t, desc) => ev.push(["BEGIN:VEVENT", `UID:euvou-${ev.length + 1}-${d}-${hi}@caderno-dono`, `DTSTAMP:${stamp}`, `DTSTART:${fmt(d, hi)}`, `DTEND:${fmt(d, hf)}`,
+      `SUMMARY:${icsT(t)}`, `DESCRIPTION:${icsT(desc)}`, "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${icsT(t)}`, "TRIGGER:-PT0M", "END:VALARM", "END:VEVENT"].map(dobra).join("\r\n"));
+    S.sem.forEach((s, k) => { if (!s.de) return; const [rg, rd] = REGRA[k];
+      add(s.de, "0800", "0805", `Caderno · Segunda: a regra da semana ${k + 1}`, `${rg}. ${rd} Avisa o time no grupo. Chegou mensagem? Um toque no caderno.`);
+      add(soma(s.de, 4), "1700", "1715", `Caderno · Sexta: o ritual de 15 min (semana ${k + 1})`, "Só você: o Painel, uma pessoa, a checagem e o aviso pro time (protocolo, página 18)."); });
+    if (S.capa.comecei) add(dia30(), "0900", "0910", "Caderno · Dia 30: funcionou?", "Volta no Painel e no dia 1. Compara o antes e o depois.");
+    return ev.length ? `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Pratica Business//Caderno de Dono(a) Eu Vou//PT\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n${ev.join("\r\n")}\r\nEND:VCALENDAR\r\n` : "";
+  }
+  function agenda() {
+    const ics = agendaIcs(); salva();
+    if (!ics) { $("#agenda-msg").textContent = "Preenche “Comecei em” na capa pra eu saber as datas."; return; }
+    baixa(ics, "lembretes-caderno-eu-vou.ics", "text/calendar");
+    const n = (ics.match(/BEGIN:VEVENT/g) || []).length;
+    $("#agenda-msg").textContent = `${n} lembretes. No iPhone, abre o arquivo e toca em “Adicionar tudo”. Mudou as datas? Toca de novo.`;
+  }
+  function baixa(conteudo, nome, tipo) {
+    const url = URL.createObjectURL(new Blob([conteudo], { type: tipo }));
+    const a = document.createElement("a"); a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+  function copia(t, onde, msg) {
+    const okc = () => { const el = $(onde); if (el) el.textContent = msg; };
+    const velho = () => { const ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); okc(); } catch (e) { /* sem cópia */ } ta.remove(); };
+    try { navigator.clipboard.writeText(t).then(okc, velho); } catch (e) { velho(); }
+  }
+  function restaura(t) { const n = JSON.parse(t); if (!n || n.p !== "marquet" || !n.capa || !Array.isArray(n.sem)) throw new Error("formato"); const inst = S.inst; S = completa(n); S.inst = inst; ULT = []; salva(); mostra("guardar", false); $("#bk-msg").textContent = "Restaurado."; }
+  // um Painel novo: ficam os nomes, o dia 1, o que continua com você e a placa; o ciclo novo começa hoje
+  function novoCiclo() {
+    const V = vazio();
+    S = Object.assign(V, { ex: S.ex, capa: Object.assign({}, S.capa, { comecei: hoje() }), d1: S.d1, cont: S.cont, pessoas: S.pessoas.filter(p => !p.fora),
+      cl: { lim: S.cl.lim, limAuto: S.cl.limAuto, confere: S.cl.confere, placa: S.cl.placa, rows: [] }, inst: S.inst });
+    ULT = []; ABERTOS.clear(); mostra("painel");
+  }
+
+  // ---------------------------------------------------------------- eventos
+  document.addEventListener("input", e => {
+    const t = e.target, b = t.dataset.b; if (!b || t.type === "checkbox") return;
+    if (t.classList.contains("um") && /\n/.test(t.value)) t.value = t.value.replace(/\s*\n+\s*/g, " ");
+    poe(b, t.value);
+    if (t.tagName === "TEXTAREA") cresce(t);
+    let m;
+    if ((m = /^sem\.(\d)\.de$/.exec(b)) && t.value) { const k = +m[1]; S.sem[k].auto = false; S.sem[k].ate = soma(t.value, 4); const at = $(`#s${k}-ate`); if (at) at.value = S.sem[k].ate; datas(); }
+    if ((m = /^sem\.(\d)\.ate$/.exec(b))) S.sem[+m[1]].auto = false;
+    if (b === "capa.comecei") datas();
+    if ((m = /^sem\.(\d)\.sx\.p$/.exec(b))) S.sem[+m[1]].sx.pAuto = !t.value.trim();
+    if ((m = /^sem\.(\d)\.sx\.volta$/.exec(b))) S.sem[+m[1]].sx.voltaAuto = !t.value.trim();
+    if (b === "d30.p4") S.d30.p4Auto = !t.value.trim();
+    if (b === "cl.lim") S.cl.limAuto = !t.value.trim();
+    if ((m = /^cont\.extra\.(\d)$/.exec(b)) && t.value.trim() && !S.cont.extraOk[+m[1]]) { S.cont.extraOk[+m[1]] = true; const c = $("#cx" + m[1]); if (c) c.checked = true; }
+    preenche(); sincroniza(t); saidas(); salva();
+  });
+  document.addEventListener("change", e => {
+    const t = e.target;
+    if (t.id === "arq" && t.files && t.files[0]) { const r = new FileReader(); r.onload = () => { try { restaura(r.result); } catch (x) { $("#bk-msg").textContent = "Esse arquivo não é uma cópia deste caderno."; } }; r.readAsText(t.files[0]); return; }
+    if (t.type !== "checkbox" || !t.dataset.b) return;
+    poe(t.dataset.b, t.checked); saidas(); salva();
+  });
+  document.addEventListener("toggle", e => { const d = e.target; if (d.classList && d.classList.contains("ficha")) { d.open ? ABERTOS.add(d.dataset.id) : ABERTOS.delete(d.dataset.id); if (d.open) cresce(); } }, true);
+  const abre = (id, foco) => { ABERTOS.add(id); salva(); redesenha(); const el = document.querySelector(`[data-id="${id}"]`); rola(el); const f = foco && $("#" + foco); if (f) f.focus({ preventScroll: true }); };
+  const NOVA = { cg: [cgL, "cg", "q"], anB: [cgL, "cg", "q"], "cl.rows": [clL, "cl", "o"], ob: [obL, "ob", "t"] };
+  document.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const d = b.dataset;
+    if (d.ir) { if (d.fecha) fechaIndice(); mostra(d.ir); return; }
+    if (d.set) { poe(d.set, pega(d.set) === d.v ? "" : d.v); salva(); redesenha(); return; }
+    // o contador: quem mandou, depois o tipo
+    if (d.sel) { const [k, id] = d.sel.split("|"); SEL[+k] = id; redesenha(); const el = $("#tps"); if (el) { const r = el.getBoundingClientRect(); if (r.bottom > window.innerHeight - 8) el.scrollIntoView({ block: "end", behavior: "smooth" }); } return; }
+    if (d.conta) { const [k, id, c] = d.conta.split("|"); muda(+k, id, +c, 1); return; }
+    if (d.desconta) { const [k, id, c] = d.desconta.split("|"); muda(+k, id, +c, -1); return; }
+    if (d.pessoa !== undefined) { const s = S.sem[+d.pessoa]; if (s) { s.sx.pessoa = d.v || ""; salva(); redesenha(); } return; }
+    if (d.addnome !== undefined) { S.pessoas.push(pessoa({ nome: d.addnome })); salva(); redesenha(); return; }
+    const ac = d.acao;
+    if (ac === "desfaz") { const u = ULT.pop(); if (u) muda(u.k, u.id, u.c, -u.dl, true); else $("#toast").hidden = true; return; }
+    if (ac === "inst-confirma") { instConf = true; redesenha(); const c = $(".pg .conf"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    if (ac === "inst-nao") { instConf = false; redesenha(); return; }
+    if (ac === "inst-aqui") { S.inst.aqui = true; instConf = false; mostra("capa"); return; }
+    if (ac === "instalar") { if (pedido) { pedido.prompt(); pedido.userChoice.then(r => { pedido = null; if (r && r.outcome === "accepted") instMsg = `Pronto. O caderno está na tela inicial: abre pelo ícone ${ICONE}.`; redesenha(); }, () => {}); } return; }
+    if (ac === "copiar-link") { const inp2 = $("#link"), okc = () => { $("#copiado").hidden = false; }, marcaL = () => { inp2.focus(); inp2.select(); };
+      try { navigator.clipboard.writeText(LINK).then(okc, marcaL); } catch (x) { marcaL(); } return; }
+    if (ac === "indice") { indice(); return; }
+    if (ac === "fecha-indice") { fechaIndice(); return; }
+    if (ac === "exemplo") { $("#conf-ex").innerHTML = `<div class="conf">Isso troca o que você já escreveu pelo exemplo. Trocar?<div class="nav"><button class="btn" data-acao="nao-ex">Não</button><button class="btn pri" data-acao="sim-ex">Trocar</button></div></div>`; return; }
+    if (ac === "nao-ex") { $("#conf-ex").innerHTML = ""; return; }
+    if (ac === "sim-ex") { const inst = S.inst; S = EXEMPLO(); S.inst = inst; ULT = []; ABERTOS.clear(); mostra("msgs"); return; }
+    if (ac === "sai-ex") { $("#conf-sai-ex").innerHTML = `<div class="conf">Apagar o exemplo e começar o seu caderno em branco?<div class="nav"><button class="btn" data-acao="nao-sai-ex">Não</button><button class="btn pri" data-acao="sim-apagar">Apagar</button></div></div>`; return; }
+    if (ac === "nao-sai-ex") { $("#conf-sai-ex").innerHTML = ""; return; }
+    // os nomes
+    if (ac === "nova-pessoa") { const x = pessoa(); S.pessoas.push(x); salva(); redesenha(); const el = $("#pn-" + x.id); if (el) el.focus(); return; }
+    if (ac === "todos-d1") { nomesD1().forEach(n => S.pessoas.push(pessoa({ nome: n }))); salva(); redesenha(); return; }
+    if (ac === "tira-pessoa") { const i = +d.i, p = S.pessoas[i], box = document.querySelector(`[data-conf="pessoas.${i}"]`); if (!p || !box) return;
+      box.innerHTML = temAlgum(p.id)
+        ? `<div class="conf">${esc(nomeDe(p))} tem mensagens anotadas. Sai do contador, e os números que já estão continuam no Painel.<div class="nav"><button class="btn" data-acao="nao-apaga" data-p="pessoas" data-i="${i}">Não</button><button class="btn pri" data-acao="pessoa-fora" data-i="${i}">Tirar do contador</button></div><button class="mini" data-acao="pessoa-apaga" data-i="${i}">Apagar junto com os números</button></div>`
+        : `<div class="conf">Tirar ${esc(nomeDe(p))} da lista?<div class="nav"><button class="btn" data-acao="nao-apaga" data-p="pessoas" data-i="${i}">Não</button><button class="btn pri" data-acao="pessoa-apaga" data-i="${i}">Tirar</button></div></div>`;
+      return; }
+    if (ac === "pessoa-fora") { const p = S.pessoas[+d.i]; if (p) p.fora = true; salva(); redesenha(); return; }
+    if (ac === "pessoa-apaga") { const p = S.pessoas[+d.i]; if (p) { S.sem.forEach(s => { delete s.n[p.id]; }); S.pessoas.splice(+d.i, 1); ULT = ULT.filter(u => u.id !== p.id); } salva(); redesenha(); return; }
+    if (ac === "volta-pessoa") { const p = S.pessoas[+d.i]; if (p) p.fora = false; salva(); redesenha(); return; }
+    // listas: até onde vai cada um, checagens, antes de clicar, objetivo
+    if (ac === "nova-linha") {
+      if (d.l === "cont.ate") { const x = ateL(); S.cont.ate.push(x); salva(); redesenha(); const el = $(`#at${x.id}-q`); if (el) { rola(el.closest(".ate-c")); el.focus({ preventScroll: true }); } return; }
+      const n = NOVA[d.l], L = pega(d.l); if (!n || !Array.isArray(L)) return;
+      const x = n[0](d.l === "ob" ? {} : { dia: hoje() }); L.push(x); abre(n[1] + x.id, `${n[1]}${x.id}-${n[2]}`); return; }
+    if (ac === "apaga") { const box = document.querySelector(`[data-conf="${d.p}.${d.i}"]`); if (box) box.innerHTML = `<div class="conf">Apagar de vez?<div class="nav"><button class="btn" data-acao="nao-apaga" data-p="${d.p}" data-i="${d.i}">Não</button><button class="btn pri" data-acao="sim-apaga" data-p="${d.p}" data-i="${d.i}">Apagar</button></div></div>`; return; }
+    if (ac === "nao-apaga") { const box = document.querySelector(`[data-conf="${d.p}.${d.i}"]`); if (box) box.innerHTML = ""; return; }
+    if (ac === "sim-apaga") { const L = pega(d.p); if (Array.isArray(L)) L.splice(+d.i, 1); salva(); redesenha(); return; }
+    // anexos
+    if (ac === "partilha") { const t = cartaoTxt(); if (navigator.share) { navigator.share({ text: t }).catch(() => {}); return; } copia(t, "#cart-msg", "Copiado. Cola no grupo da empresa."); return; }
+    if (ac === "copia-cartao") { copia(cartaoTxt(), "#cart-msg", "Copiado. Cola no grupo da empresa."); return; }
+    if (ac === "imprime-cartao") { imprime(impCartao()); return; }
+    if (ac === "imprime-placa") { imprime(impPlaca()); return; }
+    if (ac === "imprime-tudo") { imprime(impTudo()); return; }
+    if (ac === "agenda") { agenda(); return; }
+    if (ac === "baixar") { const n = (S.capa.de || "caderno").normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase(); baixa(JSON.stringify(S, null, 1), `copia-caderno-eu-vou-${n}-${hoje()}.json`, "application/json"); $("#bk-msg").textContent = "Cópia baixada. Guarda em Arquivos, no iCloud ou no Drive."; return; }
+    if (ac === "copiar") { const t = $("#bk"); try { navigator.clipboard.writeText(t.value).then(() => { $("#bk-msg").textContent = "Copiado. Guarda nas Notas ou manda pra você mesmo."; }, () => t.select()); } catch (x) { t.select(); } return; }
+    if (ac === "restaurar-texto") { try { restaura($("#rest").value); } catch (x) { $("#bk-msg").textContent = "Não reconheci esse texto. Cola a cópia inteira."; } return; }
+    if (ac === "ciclo") { $("#conf-ciclo").innerHTML = `<div class="conf">Começar um Painel novo hoje? As 4 semanas, as checagens e o dia 30 voltam em branco. Baixou a cópia?<div class="nav"><button class="btn" data-acao="nao-ciclo">Não</button><button class="btn pri" data-acao="sim-ciclo">Começar</button></div></div>`; return; }
+    if (ac === "nao-ciclo") { $("#conf-ciclo").innerHTML = ""; return; }
+    if (ac === "sim-ciclo") { novoCiclo(); return; }
+    if (ac === "apagar") { $("#conf-apagar").innerHTML = `<div class="conf">Apagar tudo o que você escreveu neste celular? Não dá pra desfazer.<div class="nav"><button class="btn" data-acao="nao-apagar">Não</button><button class="btn pri" data-acao="sim-apagar">Apagar</button></div></div>`; return; }
+    if (ac === "nao-apagar") { $("#conf-apagar").innerHTML = ""; return; }
+    if (ac === "sim-apagar") { const inst = S.inst; S = vazio(); S.inst = inst; ULT = []; ABERTOS.clear(); mostra("capa"); return; }
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !$("#indice").hidden) fechaIndice();
+    if (e.key === "Enter" && e.target.classList && (e.target.classList.contains("um") || (e.target.tagName === "INPUT" && e.target.type === "text" && e.target.dataset.b))) { e.preventDefault(); e.target.blur(); }
+  });
+  window.addEventListener("afterprint", () => { $("#imp").innerHTML = ""; });
+
+  if (!guarda) $("#aviso").hidden = false;
+  if (S.pag === "instala") S.pag = "capa";
+  try { history.scrollRestoration = "manual"; } catch (e) { /* navegador antigo */ }
+  datas();
+  // ao abrir o app (não no recarregar): durante as 4 semanas, abre direto na semana de hoje; perto do dia 30, no dia 30
+  let ini = S.pag, frio = true;
+  try { frio = !sessionStorage.getItem(CHAVE + "-aberto"); sessionStorage.setItem(CHAVE + "-aberto", "1"); } catch (e) { /* sem sessionStorage */ }
+  if (frio) { const k = semanaHoje();
+    if (ehDia30() && !["d30", "f3"].includes(S.pag)) ini = "d30";
+    else if (!ehDia30() && k >= 0 && S.pag !== "s" + k && S.pag !== "f" + k) ini = "s" + k; }
+  mostra(!APP && !S.inst.aqui ? "instala" : ini, false);
+  // guarda a página pra abrir sem internet (e o Android aceita instalar)
+  if ("serviceWorker" in navigator && window.isSecureContext && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+</script>
+</body>
+</html>
