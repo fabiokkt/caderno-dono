@@ -273,8 +273,8 @@ a { color: var(--accent); }
 .tar.feita { border: 1.5px solid var(--ok); }
 .tar .nome { font: 700 15.5px/1.25 var(--f-body); display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
 .tar .nome small { font: 500 13px/1 var(--f-body); color: var(--muted); white-space: nowrap; }
-.bol { display: flex; gap: 6px; flex-wrap: wrap; }
-.bol button { width: 32px; height: 32px; border-radius: 50%; border: 1.8px solid var(--pen); background: transparent; padding: 0; cursor: pointer; }
+.bol { display: flex; gap: 4px; flex-wrap: wrap; }
+.bol button { width: 35px; height: 35px; border-radius: 50%; border: 1.8px solid var(--pen); background: transparent; padding: 0; cursor: pointer; }
 .bol button.on { background: var(--pen); }
 .bol button:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
 .passou { display: grid; grid-template-columns: 1fr 9.2em; gap: 10px; align-items: end; }
@@ -336,7 +336,7 @@ a { color: var(--accent); }
 .dias button small { display: block; font: 500 13px/1.3 var(--f-body); color: var(--muted); }
 .dias button .ok { color: var(--ok); font: 600 13px/1 var(--f-body); white-space: nowrap; }
 .dias button .seta { color: var(--accent); font-size: 20px; }
-.opts .chip { white-space: normal; text-align: left; line-height: 1.25; padding-top: 7px; padding-bottom: 7px; }
+.opts .chip { white-space: normal; text-align: left; line-height: 1.25; padding-top: 7px; padding-bottom: 7px; min-height: 40px; }
 .chip small { font-weight: 500; opacity: .75; margin-left: 4px; }
 .chip.ass { border-style: dashed; }
 .ordem3 { display: flex; flex-direction: column; gap: 4px; }
@@ -415,7 +415,7 @@ a { color: var(--accent); }
         cham: [{ dia: "Ter", quem: "Lucas", oque: "Cliente pediu 4 parcelas", op: "Sim. Escolhi a 2" }] }),
       Object.assign(semana(), tudo, { de: "2026-10-19", ate: "2026-10-23", todo: true, pquem: "Marina, a assistente", ordem: ["Agenda e e-mail", "", ""],
         cham: [{ dia: "Ter", quem: "Lucas", oque: "Nota com o CNPJ errado do cliente", op: "Sim" }, { dia: "Qui", quem: "Carlos", oque: "Faltou embalagem pra entrega", op: "Sim" }] }),
-      Object.assign(semana(), tudo, { de: "2026-10-26", ate: "2026-10-30", seg: { grava: false, video: false, anexo: false }, todo: true, assist: true, pquem: "Bruna", ordem: ["Atendimento de rotina", "", ""],
+      Object.assign(semana(), tudo, { de: "2026-10-26", ate: "2026-10-30", seg: { grava: false, video: false, anexo: false }, todo: true, assist: true, pquem: "Bruna", ordem: ["Atendimento de rotina ao cliente", "", ""],
         cham: [{ dia: "Ter", quem: "Marina", oque: "Duas reuniões no mesmo horário", op: "Sim" }, { dia: "Qui", quem: "Marina", oque: "Cliente quer falar só com você", op: "Não. Pedi as 3" }] })];
     const A = [
       ["10-05", "bRbRcRcRlVlVlVlVlVlVaRdRdRdRnRnR................mVmVfVfVbRbRbRbRgRgRlVlVlVlViRiR....", { 0: "e-mails", 4: "cliente novo", 11: "3 atrasados", 24: "proposta grande", 26: "embalagem" }],
@@ -430,7 +430,7 @@ a { color: var(--accent); }
       ["10-16", "bRbRbRcRlVlVlVlVnRnR................oVoVoVgRgRmVmVmVmVbRbRlVlVlVfVfVnVnVnVnVnVjR....", {}]];
     S.aud = A.map(([d, g, n]) => { const x = dia(); x.data = "2026-" + d; x.n = Object.fromEntries(Object.entries(n).map(([k, v]) => [k, v]));
       for (let i = 0; i < NR + NX; i++) { const c = g[2 * i]; if (c !== ".") x.m[i] = { c: COLS[c.charCodeAt(0) - 97], l: g[2 * i + 1] }; } return x; });
-    S.d30 = { s1: true, s2: true, prox: "Atendimento de rotina", pquem: "Bruna", travou: "" };
+    S.d30 = { s1: true, s2: true, prox: "Atendimento de rotina ao cliente", pquem: "Bruna", travou: "" };
     S.anA = { nome: "Marina", comecou: "2026-10-26", antes: [true, true, true, true],
       regras: ["Nada antes das 9h nem depois das 17h.", "Terça e quinta à tarde: só cliente grande.", "15 minutos entre uma reunião e outra.", "Fornecedor: só na sexta.", "Cliente grande passa na frente de tudo."],
       dias: ["26", "27", "28", "29", "30"].map(d => ({ ok: true, data: "2026-10-" + d })) };
@@ -459,16 +459,23 @@ a { color: var(--accent); }
   const pega = p => p.split(".").reduce((o, k) => (o == null ? o : o[k]), S);
   const poe = (p, v) => { const ks = p.split("."); let o = S; for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = {}; o = o[ks[i]]; } o[ks[ks.length - 1]] = v; };
   const rs = n => n == null || n === "" || isNaN(n) ? "" : Number(n).toLocaleString("pt-BR", { minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
-  const num = s => { const t = String(s ?? "").replace(/[^\d,.]/g, ""); if (!t) return NaN; return parseFloat(t.includes(",") ? t.replace(/\./g, "").replace(",", ".") : t.replace(/\.(?=\d{3}(\D|$))/g, "")); };
+  const num = s => { const x = String(s ?? "").toLowerCase(), mil = /\d\s*(mil|k)\b/.test(x), t = x.replace(/[^\d,.]/g, ""); if (!t) return NaN;
+    const n = parseFloat(t.includes(",") ? t.replace(/\./g, "").replace(",", ".") : t.replace(/\.(?=\d{3}(\D|$))/g, "")); return mil ? n * 1000 : n; };
+  const cent = n => Math.round(n * 100) / 100;
   const horas = r => rs(r / 4);
 
   // valores do dia 1
   const tar = k => (S.tar[k] = Object.assign({ h: 0, quem: "", pra: "", desde: "" }, S.tar[k] || {}));
   const nomeT = k => k === "outra" ? ((S.outraNome || "").trim() || "Outra") : (TAR.find(t => t[0] === k) || [k, k])[1];
   const curto = k => k === "outra" ? ((S.outraNome || "").trim() || "Outra") : k === "outraB" ? "Outra" : ([...TAR, ...SUAS.map(s => [s[0], s[1], s[1]])].find(t => t[0] === k) || [k, k, k])[2];
-  const keyDe = nome => { const n = (nome || "").trim().toLowerCase(); if (!n) return ""; const t = TAR.find(([k, l, c]) => l.toLowerCase() === n || c.toLowerCase() === n || (k === "outra" && (S.outraNome || "").trim().toLowerCase() === n)); return t ? t[0] : ""; };
-  const minhaHora = () => { if (S.hora.linha != null) return HORA[S.hora.linha][1]; const m = num(S.hora.mensal); return m > 0 ? m * 12 / 2000 : null; };
-  const minhaTaxa = () => { if (S.hora.linha != null) return HORA[S.hora.linha][2]; const h = minhaHora(); return h ? h / 4 : null; };
+  // a tarefa escrita na semana pode ser o nome inteiro, o curto, o começo do nome ou "Agenda e e-mail" (as duas do assistente)
+  const keysDe = nome => { const n = (nome || "").trim().toLowerCase(); if (!n) return []; if (/^agenda e e-?mail/.test(n)) return ["agenda", "email"];
+    const t = TAR.find(([k, l, c]) => l.toLowerCase() === n || c.toLowerCase() === n || (k === "outra" && (S.outraNome || "").trim().toLowerCase() === n))
+      || TAR.find(([k, l]) => k !== "outra" && n.length >= 6 && l.toLowerCase().startsWith(n)); return t ? [t[0]] : []; };
+  const keyDe = nome => keysDe(nome)[0] || "";
+  const mesma = (a, b) => { const x = (a || "").trim().toLowerCase(), y = (b || "").trim().toLowerCase(); if (!x || !y) return false; if (x === y) return true; const ka = keysDe(x).join(), kb = keysDe(y).join(); return !!ka && ka === kb; };
+  const minhaHora = () => { if (S.hora.linha != null) return HORA[S.hora.linha][1]; const m = num(S.hora.mensal); return m > 0 ? cent(m * 12 / 2000) : null; };
+  const minhaTaxa = () => { if (S.hora.linha != null) return HORA[S.hora.linha][2]; const m = num(S.hora.mensal); return m > 0 ? cent(m * 12 / 2000 / 4) : null; };
   const bolinhas = () => TAR.reduce((a, [k]) => a + (+tar(k).h || 0), 0);
   const saiu = (k, lim) => !!(tar(k).pra || "").trim() && (!lim || !tar(k).desde || tar(k).desde <= lim);
   const foraDaMao = lim => TAR.reduce((a, [k]) => a + (saiu(k, lim) ? (+tar(k).h || 0) : 0), 0);
@@ -477,19 +484,21 @@ a { color: var(--accent); }
   // semanas: a tarefa da semana k vem da sexta anterior
   const tarefaSem = k => k <= 0 ? "" : (S.sem[k - 1].ordem[0] || "");
   const quemSem = k => k <= 0 ? "" : (S.sem[k - 1].pquem || "");
+  // datas: as que o caderno preencheu sozinho (auto) acompanham a capa e a semana anterior; as que a pessoa mudou ficam
   function datasSemana(k) {
     const s = S.sem[k];
-    if (!s.de) { const base = k === 0 ? (S.capa.comecei ? segundaDepois(S.capa.comecei) : "") : (S.sem[k - 1].de ? soma(S.sem[k - 1].de, 7) : ""); if (base) { s.de = base; s.ate = soma(base, 4); } }
+    if (!s.de || s.auto) { const base = k === 0 ? (S.capa.comecei ? segundaDepois(S.capa.comecei) : "") : (S.sem[k - 1].de ? soma(S.sem[k - 1].de, 7) : ""); if (base) { s.de = base; s.ate = soma(base, 4); s.auto = true; } }
   }
   const semDia = d => d < 5 ? 0 : 1;
-  function dataDia(d) { const x = S.aud[d]; if (!x.data) { const k = semDia(d); datasSemana(k); if (S.sem[k].de) x.data = soma(S.sem[k].de, d % 5); } return x.data; }
+  function dataDia(d) { const x = S.aud[d]; if (!x.data || x.auto) { const k = semDia(d); if (S.sem[k].de) { x.data = soma(S.sem[k].de, d % 5); x.auto = true; } } return x.data; }
+  function datas() { S.sem.forEach((_, k) => datasSemana(k)); for (let d = 0; d < 10; d++) dataDia(d); }
   const contaR = d => { const c = {}; Object.values(S.aud[d].m).forEach(x => { if (x.l === "R" && TAR.some(t => t[0] === x.c)) c[x.c] = (c[x.c] || 0) + 1; }); return c; };
   const somaSem = k => { const c = {}; [0, 1, 2, 3, 4].forEach(j => { const r = contaR(5 * k + j); Object.keys(r).forEach(x => { c[x] = (c[x] || 0) + r[x]; }); }); return c; };
   const total = c => Object.values(c).reduce((a, b) => a + b, 0);
   const anotadas = d => Object.keys(S.aud[d].m).length;
   const pior = c => { const mx = Math.max(0, ...Object.values(c)); return mx ? TAR.filter(([k]) => c[k] === mx).map(([k]) => k) : []; };
   const doAssist = k => S.sem[0].vaga === "abri" && (k === "agenda" || k === "email");
-  const saiuNaSem2 = () => keyDe(tarefaSem(1));
+  const saiuNaSem2 = () => keysDe(tarefaSem(1));
 
   // ---------------------------------------------------------------- páginas
   const AUD = Array.from({ length: 10 }, (_, d) => "a" + d);
@@ -710,7 +719,7 @@ a { color: var(--accent); }
     <div class="box"><div class="rot ac">Onde fica o que você escreve</div><ul class="ol">
       <li><b>1</b><span>Tudo fica salvo neste celular, na hora, sem botão. Nada vai pra internet, nem os nomes do seu time.</span></li>
       <li><b>2</b><span>${APP ? `<b style="color:var(--ink)">Você já abriu pelo ícone ${ICONE}.</b> É por ele que o celular guarda o caderno: abre sempre por ele.`
-        : `<b style="color:var(--ink)">Põe na tela do celular antes de preencher.</b> No iPhone, no Safari: três pontinhos, Compartilhar, Ver Mais e “Adicionar à Tela de Início”. No Android, no Chrome: menu ⋮ e “Instalar e criar atalho”. Vira o ícone ${ICONE}, como app, e o celular não apaga o que você escreveu. <button class="mini" data-ir="instala" style="padding:4px 0">Ver o passo a passo</button>`}</span></li>
+        : `<b style="color:var(--ink)">Põe na tela do celular antes de preencher.</b> No iPhone, no Safari: três pontinhos, Compartilhar, Ver Mais e “Adicionar à Tela de Início”. No Android, no Chrome: menu ⋮ e “Instalar e criar atalho”. Vira o ícone ${ICONE}, como app, e o celular não apaga o que você escreveu. <button class="mini" data-ir="instala" style="padding:10px 0">Ver o passo a passo</button>`}</span></li>
       <li><b>3</b><span>De vez em quando, guarda uma cópia de segurança (no menu Páginas, em “Guardar”). Se trocar de celular, é ela que leva o caderno junto.</span></li></ul></div>
     <div class="box"><div class="rot ac">Como usar</div><ul class="ol">
       <li><b>1</b><span>Uma página por vez: o dia 1, as semanas (com uma auditoria por dia nas duas primeiras) e o dia 30. Os anexos (a primeira semana do assistente, as 4 perguntas e a tarefa que saiu da sua mão) ficam no menu Páginas.</span></li>
@@ -724,8 +733,8 @@ a { color: var(--accent); }
 
   // ---------------------------------------------------------------- dia 1
   function horaRes() {
-    const h = minhaHora(), t = minhaTaxa();
-    return `<div class="rs"><span class="q">Minha hora vale</span><span class="calc${h ? "" : " vz"}" style="flex:1">${h ? "R$ " + rs(h) : "toca na sua linha"}</span><span class="nota">volta no dia 30</span></div>
+    const h = minhaHora(), t = minhaTaxa(), m = num(S.hora.mensal);
+    return `${S.hora.linha == null && S.hora.mensal && m < 1000 ? `<div class="aviso">Escreve o valor inteiro do mês, tipo 25.000.</div>` : ""}<div class="rs"><span class="q">Minha hora vale</span><span class="calc${h ? "" : " vz"}" style="flex:1">${h ? "R$ " + rs(h) : "toca na sua linha"}</span><span class="nota">volta no dia 30</span></div>
       <div class="postit"><div class="rot ac">Minha taxa de recompra</div><div class="big"><small>R$</small>${t ? rs(t) : "—"}</div>
         <p>Tarefa que alguém faria por menos que isso não é mais minha.</p></div>
       <p class="nota">Escreve a taxa num post-it e cola na tela do notebook.</p>`;
@@ -745,7 +754,7 @@ a { color: var(--accent); }
 
   function bolRes() {
     const b = bolinhas();
-    return `<div class="rot">Marquei</div><div><span class="big">${b}</span> <span class="nota" style="display:inline">bolinhas: são ${b} horas por semana com tarefa de assistente.</span></div>
+    return `<div class="rot">Marquei</div><div><span class="big">${b}</span> <span class="nota" style="display:inline">${b === 1 ? "bolinha: é 1 hora" : `bolinhas: são ${b} horas`} por semana com tarefa de assistente.</span></div>
       ${b > 5 ? `<div class="pronto">Passou de 5: abre a vaga do assistente (protocolo, página 9).</div>` : b ? `<div class="aviso">Não passou de 5: elimina ou automatiza primeiro (protocolo, página 16).</div>` : `<p class="nota">Passou de 5? Abre a vaga do assistente (protocolo, página 9). Não passou? Elimina ou automatiza primeiro (protocolo, página 16).</p>`}`;
   }
   P.d1b = () => `<section class="pg">
@@ -777,26 +786,26 @@ a { color: var(--accent); }
         <button class="mini" data-del="${p}.cham" data-i="${i}">Apagar</button></div>
       ${linha(`ch${k}-q${i}`, "Quem te chamou:", `${p}.cham.${i}.quem`)}
       ${linha(`ch${k}-o${i}`, "Pra quê:", `${p}.cham.${i}.oque`)}
-      <div class="rot" style="margin-top:4px">Veio com 3 opções?</div>
-      <div class="opts">${OPS.map(v => `<button class="chip${x.op === v ? " on" : ""}" data-set="${p}.cham.${i}.op" data-v="${v}">${v}</button>`).join("")}</div>
-      ${OPS.includes(x.op) || !x.op ? "" : `<p class="nota" style="color:var(--pen)">${esc(x.op)}</p>`}</div>`).join("")}
+      ${linha(`ch${k}-v${i}`, "Veio com 3 opções?", `${p}.cham.${i}.op`)}
+      <div class="opts">${OPS.map(v => `<button class="chip${x.op === v ? " on" : ""}" data-set="${p}.cham.${i}.op" data-v="${v}">${v}</button>`).join("")}</div></div>`).join("")}
       <div class="nav" style="margin:0"><button class="btn" data-add="${p}.cham">+ Anotar</button></div>
       ${solta ? caixa(`cf${k}`, "Conferi todo dia o que foi feito na tarefa da semana", p + ".conferi") : ""}`;
   }
   function diasHtml(k) {
     return `<div class="dias">${[0, 1, 2, 3, 4].map(j => { const d = 5 * k + j, dt = dataDia(d), n = anotadas(d), r = total(contaR(d));
-      return `<button data-ir="a${d}"><span>${ORD[d]} dia${dt ? ` · ${diaSem(dt)}, ${brc(dt)}` : ""}<small>${n ? `${n} anotações · ${r} R` : "Em branco"}</small></span>${n ? `<span class="ok">✓</span>` : `<span class="seta" aria-hidden="true">›</span>`}</button>`; }).join("")}</div>`;
+      return `<button data-ir="a${d}"><span>${ORD[d]} dia${dt ? ` · ${diaSem(dt)}, ${brc(dt)}` : ""}<small>${n ? `${n} ${n === 1 ? "anotação" : "anotações"} · ${r} R` : "Em branco"}</small></span>${n ? `<span class="ok">✓</span>` : `<span class="seta" aria-hidden="true">›</span>`}</button>`; }).join("")}</div>`;
   }
   // chips pra escolher a próxima tarefa: as da esquerda, da que tem mais R pra que tem menos
   function escolhas(k, c) {
     const lim = sextaDe(k), usadas = S.sem.slice(0, k + 1).map((_, j) => tarefaSem(j)).filter(Boolean).map(t => t.toLowerCase());
-    let L = TAR.map(([kk]) => kk).filter(kk => (k === 0 || !saiu(kk, lim)) && !usadas.includes(nomeT(kk).toLowerCase()) && (kk !== "outra" || c[kk] || (S.outraNome || "").trim()));
+    const usadasK = usadas.flatMap(keysDe);
+    let L = TAR.map(([kk]) => kk).filter(kk => (k === 0 || !saiu(kk, lim)) && !usadasK.includes(kk) && (kk !== "outra" || c[kk] || (S.outraNome || "").trim()));
     if (k >= 2) { const lista = S.sem[1].ordem.map(keyDe).filter(Boolean); L.sort((a, b) => (lista.includes(a) ? lista.indexOf(a) : 99) - (lista.includes(b) ? lista.indexOf(b) : 99) || (c[b] || 0) - (c[a] || 0)); }
     else L.sort((a, b) => (doAssist(a) - doAssist(b)) || (c[b] || 0) - (c[a] || 0));
     const chips = L.map(kk => ({ nome: nomeT(kk), sub: k < 2 ? `${c[kk] || 0} R` : "", ass: doAssist(kk) }));
-    if (k >= 2 && S.sem[0].vaga === "abri" && !usadas.includes("agenda e e-mail") && !(saiu("agenda", lim) && saiu("email", lim))) chips.unshift({ nome: "Agenda e e-mail", sub: "assistente", ass: true });
+    if (k >= 2 && S.sem[0].vaga === "abri" && !(usadasK.includes("agenda") && usadasK.includes("email")) && !(saiu("agenda", lim) && saiu("email", lim))) chips.unshift({ nome: "Agenda e e-mail", sub: "assistente", ass: true });
     // o que já foi escolhido aparece sempre, mesmo que tenha saído da lista depois
-    S.sem[k].ordem.filter(x => (x || "").trim()).reverse().forEach(x => { if (!chips.some(ch => ch.nome.toLowerCase() === x.trim().toLowerCase())) chips.unshift({ nome: x.trim(), sub: "", ass: false }); });
+    S.sem[k].ordem.filter(x => (x || "").trim()).reverse().forEach(x => { if (!chips.some(ch => mesma(ch.nome, x))) chips.unshift({ nome: x.trim(), sub: "", ass: false }); });
     return chips;
   }
   function escolhaHtml(k, n, rots) {
@@ -804,8 +813,8 @@ a { color: var(--accent); }
     return `<div class="ordem3">${rots.map((r, i) => i === 0 ? linha(`or${k}-${i}`, r, `sem.${k}.ordem.${i}`) : "").join("")}
       ${linha(`pq${k}`, "Quem vai fazer:", `sem.${k}.pquem`)}
       ${n > 1 ? rots.slice(1).map((r, i) => linha(`or${k}-${i + 1}`, r, `sem.${k}.ordem.${i + 1}`)).join("") : ""}</div>
-      <div class="opts">${ch.length ? ch.map(x => { const at = s.ordem.slice(0, n).findIndex(v => (v || "").trim().toLowerCase() === x.nome.toLowerCase());
-        return `<button class="chip${at >= 0 ? " on" : ""}${x.ass ? " ass" : ""}" data-pick="${k}" data-n="${n}" data-v="${esc(x.nome)}" aria-pressed="${at >= 0}">${at >= 0 && n > 1 ? (at + 1) + "ª · " : ""}${esc(x.nome)}${x.sub ? `<small>${esc(x.sub)}</small>` : ""}${x.ass && k < 2 ? "<small>do assistente</small>" : ""}</button>`; }).join("") : '<span class="vazia">Nenhuma tarefa ainda: as somas vêm das auditorias.</span>'}</div>`;
+      <div class="opts">${ch.length ? ch.map(x => { const at = s.ordem.slice(0, n).findIndex(v => mesma(v, x.nome));
+        return `<button class="chip${at >= 0 ? " on" : ""}${x.ass ? " ass" : ""}" data-pick="${k}" data-n="${n}" data-v="${esc(x.nome)}" aria-pressed="${at >= 0}">${at >= 0 && n > 1 ? (at + (k === 1 ? 2 : 1)) + "ª · " : ""}${esc(x.nome)}${x.sub ? `<small>${esc(x.sub)}</small>` : ""}${x.ass && k < 2 ? "<small>do assistente</small>" : ""}</button>`; }).join("") : '<span class="vazia">Nenhuma tarefa ainda: as somas vêm das auditorias.</span>'}</div>`;
   }
   function somasHtml(c, k) {
     const mx = Math.max(0, ...TAR.map(([kk]) => c[kk] || 0)), t = total(c);
@@ -815,8 +824,8 @@ a { color: var(--accent); }
       <p class="nota">As somas vêm sozinhas das 5 auditorias da semana ${k + 1}.</p>`;
   }
   function p3Html(k) {
-    const t = tarefaSem(k), kk = keyDe(t), q = quemSem(k), de = S.sem[k].de;
-    return caixa(`p3-${k}`, "No dia 1 (página 3), escrevi quem faz agora e a data", `sem.${k}.p3`, kk && q ? `Marcando, o caderno escreve: ${esc(nomeT(kk))} → ${esc(q)}${de ? ", desde " + brc(de) : ""}.` : "");
+    const t = tarefaSem(k), ks = keysDe(t), q = quemSem(k), de = S.sem[k].de;
+    return caixa(`p3-${k}`, "No dia 1, escrevi em “Passou pra” quem faz agora e a data", `sem.${k}.p3`, ks.length && q ? `Marcando, o caderno escreve: ${ks.map(nomeT).map(esc).join(" e ")} → ${esc(q)}${de ? ", desde " + brc(de) : ""}.` : "");
   }
   const fimRitual = k => caixa(`fim${k}`, "Mandei pro time a mensagem de fim do ritual", `sem.${k}.fim`, "protocolo, página 18");
   function cabSemana(k) {
@@ -908,25 +917,29 @@ a { color: var(--accent); }
   }
 
   // ---------------------------------------------------------------- auditoria de um dia
-  const SEL = {};
+  const SEL = {}, SELM = {};   // SELM: a pessoa escolheu o horário na mão (aí ele não acompanha o relógio)
   let PEND = { c: null, l: null }, MSG = "";
   const hh = i => { const h = 8 + Math.floor(i / 4), m = (i % 4) * 15; return m ? `${h}h${m}` : `${h}h`; };
   const rotulo = (d, i) => i < NR ? hh(i) : (S.aud[d].extra[i - NR] || "Depois");
   const faixa = (d, i) => i < NR ? `das ${hh(i)} às ${hh(i + 1)}` : "depois das 18h";
   const ehHoje = d => S.aud[d].data === iso(new Date());
-  const slotAgora = () => { const n = new Date(), t = n.getHours() * 60 + n.getMinutes(); return Math.min(NR + NX - 1, Math.max(0, Math.floor((t - 480) / 15) - 1)); };
+  const minAgora = () => { const n = new Date(); return n.getHours() * 60 + n.getMinutes(); };
+  const slotAgora = () => Math.min(NR + NX - 1, Math.max(0, Math.floor((minAgora() - 480) / 15) - 1));
+  const noHorario = () => minAgora() >= 495 && minAgora() < 1125;   // das 8h15 às 18h45
   function selDefault(d) {
     if (ehHoje(d)) return slotAgora();
-    const ks = Object.keys(S.aud[d].m).map(Number); if (!ks.length) return 0;
-    return Math.min(NR - 1, Math.max(...ks.filter(k => k < NR), -1) + 1);
+    for (let i = 0; i < NR + NX; i++) if (!S.aud[d].m[i]) return i;
+    return 0;
   }
+  const hojeAud = () => { for (let d = 0; d < 10; d++) if (S.aud[d].data && ehHoje(d)) return d; return -1; };
   function agoraHtml(d) {
-    const D = S.aud[d], i = SEL[d], cur = D.m[i], c = cur ? cur.c : PEND.c, l = cur ? cur.l : PEND.l, foi = d >= 5 ? saiuNaSem2() : "";
-    const bt = (k, n) => `<button class="${c === k ? "on" : ""}${k === foi ? " saiu" : ""}" data-tc="${k}" aria-pressed="${c === k}">${esc(n)}${k === foi ? "<span>saiu da sua mão</span>" : ""}</button>`;
+    if (SEL[d] == null) SEL[d] = selDefault(d);
+    const D = S.aud[d], i = SEL[d], cur = D.m[i], troca = !!(PEND.c || PEND.l), c = troca ? PEND.c : cur ? cur.c : null, l = troca ? PEND.l : cur ? cur.l : null, foi = d >= 5 ? saiuNaSem2() : [];
+    const bt = (k, n) => `<button class="${c === k ? "on" : ""}${foi.includes(k) ? " saiu" : ""}" data-tc="${k}" aria-pressed="${c === k}">${esc(n)}${foi.includes(k) ? "<span>saiu da sua mão</span>" : ""}</button>`;
     return `<div class="slotnav"><button data-mv="-1" aria-label="Horário anterior" ${i <= 0 ? "disabled" : ""}>‹</button>
-        <div class="q"><small>${ehHoje(d) && i === slotAgora() ? "Os últimos 15 minutos" : "Horário"}</small><b>${esc(rotulo(d, i))}</b><span>${faixa(d, i)}</span></div>
+        <div class="q"><small>${ehHoje(d) && noHorario() && i === slotAgora() ? "Os últimos 15 minutos" : "Horário"}</small><b>${esc(rotulo(d, i))}</b><span>${faixa(d, i)}</span></div>
         <button data-mv="1" aria-label="Próximo horário" ${i >= NR + NX - 1 ? "disabled" : ""}>›</button></div>
-      ${MSG ? `<div class="feito-msg" role="status">${MSG}</div>` : ""}
+      ${MSG ? `<div class="feito-msg" role="status">${MSG}</div>` : cur && !troca ? `<p class="nota">Já anotado: <b style="color:var(--pen)">${esc(curto(cur.c))} · ${cur.l}</b>. Pra trocar, toca na tarefa e na letra.</p>` : ""}
       <div class="rot ac">Alguém faria por menos</div><div class="tk">${TAR.map(([k]) => bt(k, curto(k))).join("")}</div>
       <div class="rot">Só você faz</div><div class="tk">${SUAS.map(([k, n]) => bt(k, n)).join("")}</div>
       <div class="vr"><button class="v${l === "V" ? " on" : ""}" data-vr="V" aria-pressed="${l === "V"}"><b>V</b>me deu energia</button><button class="r${l === "R" ? " on" : ""}" data-vr="R" aria-pressed="${l === "R"}"><b>R</b>me sugou</button></div>
@@ -950,7 +963,7 @@ a { color: var(--accent); }
     return `<div class="rot">R hoje · coluna da esquerda</div>
       ${t ? `<div class="somas">${TAR.filter(([k]) => c[k]).sort((a, b) => c[b[0]] - c[a[0]]).map(([k]) => `<span${pi.includes(k) ? ' class="mx"' : ""}>${esc(curto(k))}</span><span class="n${pi.includes(k) ? " mx" : ""}">${c[k]} R</span>`).join("")}
         <span class="tot">Total</span><span class="n tot">${t} R</span></div>` : `<p class="nota">Nenhum R à esquerda ainda.</p>`}
-      <div class="campo"><span class="rot">A vermelha e barata que mais comeu tempo hoje</span><div class="calc${pi.length ? "" : " vz"}">${pi.length ? pi.map(curto).map(esc).join(" e ") : "a coluna da esquerda com mais R"}</div></div>`;
+      <div class="campo"><span class="rot">A vermelha e barata que mais comeu tempo hoje</span><div class="calc${pi.length ? "" : " vz"}">${pi.length ? pi.map(curto).map(esc).join(" · ") : "a coluna da esquerda com mais R"}</div></div>`;
   }
   function auditoria(d) {
     const k = semDia(d); dataDia(d);
@@ -968,16 +981,20 @@ a { color: var(--accent); }
     </section>`;
   }
   function redesenhaAud(d) { const a = $("#agora"), l = $("#lista"), h = $("#hoje"); if (a) a.innerHTML = agoraHtml(d); if (l) l.innerHTML = listaHtml(d); if (h) h.innerHTML = hojeHtml(d); cresce(); trilha(); }
+  // um horário só é gravado (ou trocado) quando a tarefa e a letra estão escolhidas: um toque solto nunca apaga o que já estava lá
   function marca(d, tipo, v) {
-    const D = S.aud[d], i = SEL[d], cur = D.m[i];
+    if (SEL[d] == null) SEL[d] = selDefault(d);
+    const D = S.aud[d], i = SEL[d], era = D.m[i];
     MSG = "";
-    if (cur) { if (tipo === "c") cur.c = v; else cur.l = v; salva(); redesenhaAud(d); return; }
     if (tipo === "c") PEND.c = PEND.c === v ? null : v; else PEND.l = PEND.l === v ? null : v;
     if (PEND.c && PEND.l) {
-      D.m[i] = { c: PEND.c, l: PEND.l }; MSG = `Anotado: ${esc(rotulo(d, i))} · ${esc(curto(PEND.c))} · ${PEND.l}.`; PEND = { c: null, l: null };
+      D.m[i] = { c: PEND.c, l: PEND.l }; MSG = `${era ? "Trocado" : "Anotado"}: ${esc(rotulo(d, i))} · ${esc(curto(PEND.c))} · ${PEND.l}.`; PEND = { c: null, l: null };
       const prox = i + 1;
-      if (prox < NR + NX && (!ehHoje(d) || prox <= slotAgora())) SEL[d] = prox;
-      else if (ehHoje(d) && i < NR) MSG += ` Próximo alarme às ${hh(i + 2)}.`;
+      if (era) { /* troca: fica no mesmo horário */ }
+      else if (prox < NR + NX && (!ehHoje(d) || prox <= slotAgora())) SEL[d] = prox;
+      else if (ehHoje(d) && i < NR - 1) MSG += ` Próximo alarme às ${hh(i + 2)}.`;
+      else if (ehHoje(d) && i === NR - 1) MSG += " Era o último alarme do dia.";
+      if (ehHoje(d) && SEL[d] === slotAgora()) SELM[d] = false;   // alcançou o relógio: volta a acompanhar a hora
       try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) { /* sem vibração */ }
       salva();
     }
@@ -987,14 +1004,14 @@ a { color: var(--accent); }
   // ---------------------------------------------------------------- dia 30
   P.d30 = () => {
     const ult = S.sem[S.sem.length - 1];
-    if (!S.d30.prox && ult.ordem[0]) S.d30.prox = ult.ordem[0];
-    if (!S.d30.pquem && ult.pquem) S.d30.pquem = ult.pquem;
-    const b = bolinhas(), f = foraDaMao(), h = minhaHora(), sairam = TAR.filter(([k]) => (tar(k).pra || "").trim());
+    if (!S.d30.prox || S.d30.proxAuto) { S.d30.prox = ult.ordem[0] || ""; S.d30.proxAuto = true; }
+    if (!S.d30.pquem || S.d30.pquemAuto) { S.d30.pquem = ult.pquem || ""; S.d30.pquemAuto = true; }
+    const b = bolinhas(), f = foraDaMao(), h = minhaHora(), sairam = TAR.filter(([k]) => (tar(k).pra || "").trim()).sort((a, b) => (tar(a[0]).desde || "9") < (tar(b[0]).desde || "9") ? -1 : 1);
     return `<section class="pg">
       <div class="eb">Dia 30 · 10 min</div><h1>Funcionou?</h1><p class="lead">Volta no dia 1 e compara.</p>
       <div class="dia"><div class="dh"><span class="dn">O antes e o depois</span></div>
         <div class="conta"><div class="item"><span>No dia 1, você marcou</span><span class="fixo">${b}</span></div>
-          <div class="item"><span>Hoje, têm outro nome</span><span class="fixo">${f}</span></div></div>
+          <div class="item"><span>Quantas delas já têm outro nome</span><span class="fixo">${f}</span></div></div>
         ${sairam.length ? `<div class="rot" style="margin-top:6px">Saíram da sua mão</div><div class="kv">${sairam.map(([k]) => `<b>${esc(nomeT(k))}</b><span>${esc(tar(k).pra)}${tar(k).desde ? " · desde " + brc(tar(k).desde) : ""} · ${tar(k).h || 0} h/semana</span>`).join("")}</div>`
           : `<p class="nota">Aqui aparecem as tarefas do dia 1 com nome em “Passou pra”.</p>`}
         <button class="mini" data-ir="d1b" style="align-self:flex-start">Abrir o dia 1</button></div>
@@ -1116,6 +1133,7 @@ a { color: var(--accent); }
     $("#trilha").innerHTML = L.map((k, j) => `<button class="${i >= 0 && j < i ? "feito" : j === i ? "agora" : ""}" data-ir="${k}" aria-label="${esc(TITULO(k))}" ${j === i ? 'aria-current="page"' : ""}></button>`).join("");
   }
   function render(p) {
+    datas();
     if (/^a\d$/.test(p)) return auditoria(+p.slice(1));
     if (/^s\d+$/.test(p)) { const k = +p.slice(1); return k === 0 ? semana1() : k === 1 ? semana2() : semanaN(k); }
     return (P[p] || P.capa)();
@@ -1123,12 +1141,12 @@ a { color: var(--accent); }
   function mostra(p, rola = true) {
     if (!(PRINCIPAL().includes(p) || ANEXOS.includes(p) || (p === "instala" && !APP))) p = "capa";
     if (p !== "instala") instConf = false;
-    if (/^a\d$/.test(p)) { delete SEL[+p.slice(1)]; PEND = { c: null, l: null }; MSG = ""; }
+    if (/^a\d$/.test(p)) { const d = +p.slice(1); delete SEL[d]; SELM[d] = false; PEND = { c: null, l: null }; MSG = ""; }
     S.pag = p; $("#pg").innerHTML = render(p); trilha(); salva(); cresce();
     if (p === "instala" && AQUI === "pc") qr();
     if (p === "capa" && APP && !S.inst.okVisto) { S.inst.okVisto = true; salva(); }
     if (rola) window.scrollTo(0, 0);
-    if (/^a\d$/.test(p) && ehHoje(+p.slice(1))) praAgora();
+    if (/^a\d$/.test(p) && ehHoje(+p.slice(1))) { praAgora(); setTimeout(praAgora, 80); }
   }
   // na auditoria de hoje, o quadro do horário fica inteiro na tela, logo abaixo do topo
   function praAgora() { const a = $("#agora"), t = $(".top"); if (!a) return; window.scrollTo(0, Math.max(0, a.getBoundingClientRect().top + window.scrollY - (t ? t.offsetHeight : 0) - 10)); }
@@ -1183,13 +1201,14 @@ a { color: var(--accent); }
       <h3>Dia 1 · Quanto vale a sua hora</h3><p>Minha hora vale ${v(h ? "R$ " + rs(h) : "")} · minha taxa de recompra: ${v(t ? "R$ " + rs(t) : "")}</p>
       <h3>Dia 1 · O que um assistente tiraria da sua semana</h3><table><tr><th>Tarefa</th><th>Horas por semana</th><th>Quem faz hoje</th><th>Passou pra · desde</th></tr>
       ${TAR.map(([k]) => `<tr><td>${esc(nomeT(k))}</td><td>${v(tar(k).h || "")}</td><td>${v(tar(k).quem)}</td><td>${v([tar(k).pra, brc(tar(k).desde)].filter(Boolean).join(" · "))}</td></tr>`).join("")}</table>
-      <p>Marquei ${v(bolinhas())} bolinhas: são ${v(bolinhas())} horas por semana com tarefa de assistente.</p></div>`;
+      <p>Marquei ${v(bolinhas())} bolinhas: são ${v(bolinhas())} horas por semana com tarefa de assistente.</p>
+      <p>Antes de dormir: taxa no post-it ${v(S.dormir.taxa ? "✓" : "☐")} · alarme de 15 em 15 ligado ${v(S.dormir.alarme ? "✓" : "☐")} · mensagem das 3 opções ${v(S.dormir.msg ? "✓" : "☐")}</p></div>`;
     const chamT = s => `<table><tr><th>Dia</th><th>Quem te chamou</th><th>Pra quê</th><th>Veio com 3 opções?</th></tr>${s.cham.map(c => `<tr><td>${v(c.dia)}</td><td>${v(c.quem)}</td><td>${v(c.oque)}</td><td>${v(c.op)}</td></tr>`).join("") || "<tr><td colspan='4'></td></tr>"}</table>`;
     const somT = c => `<table>${TAR.map(([k]) => `<tr><td>${esc(nomeT(k))}</td><td style="width:50pt">${v((c[k] || 0) + " R")}</td></tr>`).join("")}</table><p>Total: ${v(total(c) + " R")} = ${v(horas(total(c)))} horas na semana abaixo da sua taxa.</p>`;
     const audT = d => { const D = S.aud[d], ks = Object.keys(D.m).map(Number).sort((a, b) => a - b), c = contaR(d);
       return `<div class="sec">${topoImp("Auditoria · " + ORD[d] + " dia")}<h2>Auditoria de um dia · ${ORD[d]} dia de 10</h2><p>Data: ${v(br(D.data))}</p>
         <table class="aud"><tr><th>Horário</th><th>O que fez</th><th>V ou R</th><th>Anota</th></tr>${ks.map(i => `<tr><td>${esc(rotulo(d, i))}</td><td>${v(curto(D.m[i].c))}</td><td>${v(D.m[i].l)}</td><td>${v(D.n[i])}</td></tr>`).join("") || "<tr><td colspan='4'></td></tr>"}</table>
-        <p>R hoje: ${v(TAR.filter(([k]) => c[k]).map(([k]) => curto(k) + " " + c[k]).join(" · "))} · A vermelha e barata que mais comeu tempo: ${v(pior(c).map(curto).join(" e "))}</p></div>`; };
+        <p>R hoje: ${v(TAR.filter(([k]) => c[k]).map(([k]) => curto(k) + " " + c[k]).join(" · "))} · A vermelha e barata que mais comeu tempo: ${v(pior(c).map(curto).join(" · "))}</p></div>`; };
     S.sem.forEach((s, k) => {
       o += `<div class="sec">${topoImp("Semana " + (k + 1))}<h2>Semana ${k + 1}${tarefaSem(k) ? ": " + esc(tarefaSem(k)) : ": só anota"}</h2><p>De ${v(br(s.de))} a ${v(br(s.ate))}${k ? " · quem vai fazer: " + v(quemSem(k)) : ""}</p>
         ${k === 0 ? `<p>A vaga do assistente: ${v(s.vaga === "abri" ? "passou de 5, abri a vaga" : s.vaga === "nao" ? "não passou, vou eliminar ou automatizar" : "")}</p>`
@@ -1197,16 +1216,18 @@ a { color: var(--accent); }
         ${k >= 2 ? `<p>Conferi a anterior (${v(tarefaSem(k - 1))}): ${v(s.todo ? "sim" : "")}${k === 3 && s.assist ? " · a semana foi do assistente" : ""}</p>` : ""}
         <h3>Terça a quinta · ${k === 0 ? "As 3 opções" : "Solta"}</h3>${chamT(s)}
         <h3>Sexta · Confere</h3>${k < 2 ? somT(somaSem(k)) : `<p>Horas por semana que já saíram da sua mão: ${v(foraDaMao(sextaDe(k)))}</p>`}
-        <p>${k === 0 ? "A primeira a sair" : "Próxima tarefa"}: ${v(s.ordem[0])} · quem vai fazer: ${v(s.pquem)}${k < 2 ? ` · depois: ${v(s.ordem.slice(1).filter(Boolean).join(", "))}` : ""}</p></div>`;
+        <p>${k === 0 ? "A primeira a sair" : "Próxima tarefa"}: ${v(s.ordem[0])} · quem vai fazer: ${v(s.pquem)}${k < 2 ? ` · depois: ${v(s.ordem.slice(1).filter(Boolean).join(", "))}` : ""}</p>
+        <p>${k ? `Conferi todo dia a tarefa da semana ${v(s.conferi ? "✓" : "☐")} · Escrevi no dia 1 quem faz agora ${v(s.p3 ? "✓" : "☐")} · ` : ""}Mandei a mensagem de fim do ritual ${v(s.fim ? "✓" : "☐")}</p></div>`;
       if (k < 2) for (let j = 0; j < 5; j++) if (anotadas(5 * k + j)) o += audT(5 * k + j);
     });
     const f = foraDaMao();
     o += `<div class="sec">${topoImp("Dia 30")}<h2>Dia 30: funcionou?</h2><p>No dia 1, você marcou ${v(bolinhas())} bolinhas. Hoje, ${v(f)} delas têm outro nome.</p>
-      <table><tr><th>Tarefa que saiu da sua mão</th><th>Quem faz agora</th><th>Desde</th><th>Horas por semana</th></tr>${TAR.filter(([k]) => (tar(k).pra || "").trim()).map(([k]) => `<tr><td>${v(nomeT(k))}</td><td>${v(tar(k).pra)}</td><td>${v(brc(tar(k).desde))}</td><td>${v(tar(k).h)}</td></tr>`).join("") || "<tr><td colspan='4'></td></tr>"}</table>
+      <table><tr><th>Tarefa que saiu da sua mão</th><th>Quem faz agora</th><th>Desde</th><th>Horas por semana</th></tr>${TAR.filter(([k]) => (tar(k).pra || "").trim()).sort((a, b) => (tar(a[0]).desde || "9") < (tar(b[0]).desde || "9") ? -1 : 1).map(([k]) => `<tr><td>${v(nomeT(k))}</td><td>${v(tar(k).pra)}</td><td>${v(brc(tar(k).desde))}</td><td>${v(tar(k).h)}</td></tr>`).join("") || "<tr><td colspan='4'></td></tr>"}</table>
       <p>5 horas por semana fora da sua mão: ${v(S.d30.s1 ? "sim" : "")} · Cada uma com um nome e a data: ${v(S.d30.s2 ? "sim" : "")}</p>
       <p>O que voltou: ${v(f)} horas × R$ ${v(h ? rs(h) : "")} = R$ ${v(h ? rs(f * h) : "")} por semana.</p>
       <p>Próxima tarefa: ${v(S.d30.prox)} · quem vai fazer: ${v(S.d30.pquem)}</p>${S.d30.travou ? `<h3>O que travou</h3><p>${v(S.d30.travou)}</p>` : ""}</div>`;
     if (S.anA.nome || S.anA.dias.some(x => x.ok)) o += `<div class="sec">${topoImp("Anexo A")}<h2>A primeira semana do assistente</h2><p>${v(S.anA.nome)} · começou em ${v(br(S.anA.comecou))}</p>
+      <p>Antes do primeiro dia: ${["Acesso delegado no Gmail", "Agenda compartilhada", "Termo de confidencialidade", "Mensagem pra clientes e fornecedores"].map((x, i) => x + " " + (S.anA.antes[i] ? "✓" : "☐")).join(" · ")}</p>
       <h3>As regras da sua agenda</h3><table>${S.anA.regras.map((r, i) => `<tr><td style="width:18pt">${i + 1}</td><td>${v(r)}</td></tr>`).join("")}</table>
       <h3>A semana</h3><table>${DIAS_A.map(([t], i) => `<tr><td>Dia ${i + 1} · ${esc(t)}</td><td>${v(S.anA.dias[i].ok ? "feito em " + brc(S.anA.dias[i].data) : "")}</td></tr>`).join("")}</table></div>`;
     S.anC.forEach(x => { o += impFicha(x); });
@@ -1221,7 +1242,7 @@ a { color: var(--accent); }
   }
   function agenda() {
     const ev = [], fmt = (d, h) => d.replace(/-/g, "") + "T" + h + "00", stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
-    const add = (d, hi, hf, t, desc) => ev.push(["BEGIN:VEVENT", `UID:meudia-${d}-${hi}@caderno-dono`, `DTSTAMP:${stamp}`, `DTSTART:${fmt(d, hi)}`, `DTEND:${fmt(d, hf)}`,
+    const add = (d, hi, hf, t, desc) => ev.push(["BEGIN:VEVENT", `UID:meudia-${ev.length + 1}-${d}-${hi}@caderno-dono`, `DTSTAMP:${stamp}`, `DTSTART:${fmt(d, hi)}`, `DTEND:${fmt(d, hf)}`,
       `SUMMARY:${t}`, `DESCRIPTION:${desc}`, "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${t}`, "TRIGGER:-PT0M", "END:VALARM", "END:VEVENT"].map(dobra).join("\r\n"));
     for (let d = 0; d < 10; d++) { const dt = dataDia(d); if (dt) add(dt, "0745", "0750", `Caderno · Auditoria, ${ORD[d]} dia`, "Liga o alarme de 15 em 15 minutos\\, das 8h às 18h. A cada alarme\\, uma letra no caderno: V ou R."); }
     S.sem.forEach((s, k) => { datasSemana(k); if (!s.de) return; const t = tarefaSem(k);
@@ -1249,11 +1270,15 @@ a { color: var(--accent); }
     if (t.tagName === "TEXTAREA") cresce(t);
     if (/^tar\.\w+\.quem$/.test(b)) { const k = b.split(".")[1], ch = document.querySelector(`[data-eu="${k}"]`), eu = (t.value || "").trim().toUpperCase() === "EU"; if (ch) { ch.classList.toggle("on", eu); ch.setAttribute("aria-pressed", eu); } }
     if (b === "hora.mensal") { if (S.hora.linha != null && t.value.trim()) { S.hora.linha = null; document.querySelectorAll("#th button.on").forEach(x => { x.classList.remove("on"); x.setAttribute("aria-pressed", "false"); }); } $("#hora-res").innerHTML = horaRes(); }
-    if (/^sem\.\d+\.de$/.test(b) && t.value) { const k = +b.split(".")[1]; S.sem[k].ate = soma(t.value, 4); const at = $(`#s${k}-ate`); if (at) at.value = S.sem[k].ate;
-      if (k < 2) for (let j = 0; j < 5; j++) S.aud[5 * k + j].data = soma(t.value, j); }
+    if (/^sem\.\d+\.de$/.test(b) && t.value) { const k = +b.split(".")[1]; S.sem[k].auto = false; S.sem[k].ate = soma(t.value, 4); const at = $(`#s${k}-ate`); if (at) at.value = S.sem[k].ate; datas(); }
+    if (/^sem\.\d+\.ate$/.test(b)) S.sem[+b.split(".")[1]].auto = false;
+    if (b === "capa.comecei") datas();
+    if (b === "d30.prox") S.d30.proxAuto = false;
+    if (b === "d30.pquem") S.d30.pquemAuto = false;
     if (/^aud\.\d+\.extra\.\d$/.test(b)) { const d = +b.split(".")[1]; const a = $("#agora"); if (a && SEL[d] >= NR) a.innerHTML = agoraHtml(d); }
     if (/^aud\.\d+\.n\.\d+$/.test(b)) { const d = +b.split(".")[1], l = $("#lista"); if (l) l.innerHTML = listaHtml(d); }
-    if (/^aud\.\d+\.data$/.test(b)) { const d = +b.split(".")[1]; delete SEL[d]; }
+    if (/^aud\.\d+\.data$/.test(b)) { const d = +b.split(".")[1]; S.aud[d].auto = false; SEL[d] = selDefault(d); SELM[d] = false; PEND = { c: null, l: null }; MSG = "";
+      if (S.pag === "a" + d) { redesenhaAud(d); const dc = $(".pg .g2 .calc"); if (dc) dc.textContent = `${ORD[d]} de 10${ehHoje(d) ? " · hoje" : ""}`; } }
     saidas_out(); salva();
   });
   document.addEventListener("change", e => {
@@ -1262,7 +1287,7 @@ a { color: var(--accent); }
     if (t.type !== "checkbox" || !t.dataset.b) return;
     poe(t.dataset.b, t.checked);
     const m = /^sem\.(\d+)\.p3$/.exec(t.dataset.b);
-    if (m && t.checked) { const k = +m[1], kk = keyDe(tarefaSem(k)), q = quemSem(k); if (kk && q) { const x = tar(kk); if (!(x.pra || "").trim()) x.pra = q; if (!x.desde && S.sem[k].de) x.desde = S.sem[k].de; } }
+    if (m && t.checked) { const k = +m[1], q = quemSem(k); if (q) keysDe(tarefaSem(k)).forEach(kk => { const x = tar(kk); if (!(x.pra || "").trim()) x.pra = q; if (!x.desde && S.sem[k].de) x.desde = S.sem[k].de; }); }
     const md = /^anA\.dias\.(\d)\.ok$/.exec(t.dataset.b);
     if (md && t.checked && !S.anA.dias[+md[1]].data) { S.anA.dias[+md[1]].data = iso(new Date()); const el = $("#adt-" + md[1]); if (el) el.value = S.anA.dias[+md[1]].data; }
     salva();
@@ -1281,16 +1306,16 @@ a { color: var(--accent); }
     if (d.eu) { const t = tar(d.eu), eu = (t.quem || "").trim().toUpperCase() === "EU"; t.quem = eu ? "" : "EU"; const q = $("#q-" + d.eu); q.value = t.quem; cresce(q); b.classList.toggle("on", !eu); b.setAttribute("aria-pressed", !eu); salva(); return; }
     if (d.tc && aud >= 0) { marca(aud, "c", d.tc); return; }
     if (d.vr && aud >= 0) { marca(aud, "l", d.vr); return; }
-    if (d.mv && aud >= 0) { SEL[aud] = Math.min(NR + NX - 1, Math.max(0, SEL[aud] + +d.mv)); PEND = { c: null, l: null }; MSG = ""; redesenhaAud(aud); return; }
-    if (d.slot != null && aud >= 0) { SEL[aud] = +d.slot; PEND = { c: null, l: null }; MSG = ""; redesenhaAud(aud); const a = $("#agora"); if (a) a.scrollIntoView({ block: "start", behavior: "smooth" }); return; }
-    if (d.pick != null) { const k = +d.pick, n = +d.n, s = S.sem[k], val = d.v, i = s.ordem.slice(0, n).findIndex(x => (x || "").trim().toLowerCase() === val.toLowerCase());
+    if (d.mv && aud >= 0) { SEL[aud] = Math.min(NR + NX - 1, Math.max(0, (SEL[aud] ?? selDefault(aud)) + +d.mv)); SELM[aud] = true; PEND = { c: null, l: null }; MSG = ""; redesenhaAud(aud); return; }
+    if (d.slot != null && aud >= 0) { SEL[aud] = +d.slot; SELM[aud] = true; PEND = { c: null, l: null }; MSG = ""; redesenhaAud(aud); const a = $("#agora"); if (a) a.scrollIntoView({ block: "start", behavior: "smooth" }); return; }
+    if (d.pick != null) { const k = +d.pick, n = +d.n, s = S.sem[k], val = d.v, i = s.ordem.slice(0, n).findIndex(x => mesma(x, val));
       if (i >= 0) s.ordem[i] = ""; else { let j = s.ordem.slice(0, n).findIndex(x => !(x || "").trim()); if (j < 0) j = n - 1; s.ordem[j] = val; }
       salva(); redesenha(); return; }
     if (d.set) { poe(d.set, pega(d.set) === d.v ? (d.set.startsWith("anB") ? null : "") : d.v); salva(); redesenha(); return; }
     if (d.add) { const L = pega(d.add) || []; L.push({ dia: "", quem: "", oque: "", op: "" }); poe(d.add, L); salva(); redesenha(); return; }
     if (d.del) { const L = pega(d.del); L.splice(+d.i, 1); salva(); redesenha(); return; }
     const ac = d.acao;
-    if (ac === "limpa-slot" && aud >= 0) { delete S.aud[aud].m[SEL[aud]]; PEND = { c: null, l: null }; MSG = ""; salva(); redesenhaAud(aud); return; }
+    if (ac === "limpa-slot" && aud >= 0) { delete S.aud[aud].m[SEL[aud]]; delete S.aud[aud].n[SEL[aud]]; PEND = { c: null, l: null }; MSG = ""; salva(); redesenhaAud(aud); return; }
     if (ac === "inst-confirma") { instConf = true; redesenha(); const c = $(".pg .conf"); if (c) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
     if (ac === "inst-nao") { instConf = false; redesenha(); return; }
     if (ac === "inst-aqui") { S.inst.aqui = true; instConf = false; mostra("capa"); return; }
@@ -1305,9 +1330,9 @@ a { color: var(--accent); }
     if (ac === "mais-semana") { S.sem.push(semana()); salva(); mostra("s" + (S.sem.length - 1)); return; }
     if (ac === "limpa-anB") { S.anB.r = [null, null, null, null]; salva(); redesenha(); return; }
     if (ac === "nova-ficha") { const x = novaFicha(); S.anC.push(x); ABERTOS.add("c" + x.id); salva(); redesenha(); const el = document.querySelector(`[data-id="c${x.id}"]`); if (el) el.scrollIntoView({ block: "start" }); return; }
-    if (ac === "abre-anexoC") { const k = +d.k, t = tarefaSem(k), kk = keyDe(t);
+    if (ac === "abre-anexoC") { const k = +d.k, t = tarefaSem(k), hs = keysDe(t).reduce((a, kk) => a + (+tar(kk).h || 0), 0);
       let x = t ? S.anC.find(f => (f.tarefa || "").trim().toLowerCase() === t.trim().toLowerCase()) : null;
-      if (!x) { const de = S.sem[k].de; x = novaFicha({ tarefa: t, quem: quemSem(k), desde: de, horas: kk && tar(kk).h ? String(tar(kk).h) : "", rev: de ? umMes(de) : "" }); S.anC.push(x); }
+      if (!x) { const de = S.sem[k].de; x = novaFicha({ tarefa: t, quem: quemSem(k), desde: de, horas: hs ? String(hs) : "", rev: de ? umMes(de) : "" }); S.anC.push(x); }
       ABERTOS.add("c" + x.id); salva(); mostra("anC"); const el = document.querySelector(`[data-id="c${x.id}"]`); if (el) el.scrollIntoView({ block: "start" }); return; }
     if (ac === "apaga-ficha") { const box = document.querySelector(`[data-conf="anC-${d.i}"]`); box.innerHTML = `<div class="conf">Apagar de vez?<div class="nav"><button class="btn" data-acao="nao-apaga-ficha" data-i="${d.i}">Não</button><button class="btn pri" data-acao="sim-apaga-ficha" data-i="${d.i}">Apagar</button></div></div>`; return; }
     if (ac === "nao-apaga-ficha") { document.querySelector(`[data-conf="anC-${d.i}"]`).innerHTML = ""; return; }
@@ -1328,11 +1353,23 @@ a { color: var(--accent); }
   });
   window.addEventListener("afterprint", () => { $("#imp").innerHTML = ""; });
   // volta pro caderno depois de um tempo: a auditoria de hoje mostra o horário certo
-  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && /^a\d$/.test(S.pag)) { const d = +S.pag.slice(1); if (ehHoje(d) && !PEND.c && !PEND.l) { SEL[d] = slotAgora(); MSG = ""; redesenhaAud(d); praAgora(); } } });
+  function segueRelogio(forca) {
+    if (!/^a\d$/.test(S.pag)) return;
+    const d = +S.pag.slice(1), h = hojeAud();
+    if (h >= 0 && h !== d && forca) { mostra("a" + h); return; }
+    const el = document.activeElement;
+    if (!ehHoje(d) || PEND.c || PEND.l || (SELM[d] && !forca) || (el && el.closest && el.closest("#agora") && el.matches("textarea, input"))) return;
+    if (SEL[d] !== slotAgora()) { SEL[d] = slotAgora(); SELM[d] = false; MSG = ""; redesenhaAud(d); if (forca) praAgora(); }
+  }
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") { datas(); segueRelogio(true); } });
+  setInterval(() => segueRelogio(false), 30000);
 
   if (!guarda) $("#aviso").hidden = false;
   if (S.pag === "instala") S.pag = "capa";
-  mostra(!APP && !S.inst.aqui ? "instala" : S.pag, false);
+  try { history.scrollRestoration = "manual"; } catch (e) { /* navegador antigo */ }
+  datas();
+  const hoje = hojeAud();
+  mostra(!APP && !S.inst.aqui ? "instala" : hoje >= 0 ? "a" + hoje : S.pag, false);
   // guarda a página pra abrir sem internet (e o Android aceita instalar)
   if ("serviceWorker" in navigator && window.isSecureContext && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
 })();
